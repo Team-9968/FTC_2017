@@ -33,5 +33,6 @@ public class CF_RevRoboticsTest extends OpMode {
     public void loop() {
         // Sets the motor to full power.
         robot.motorOne.setPower(1);
+        robot.motorTwo.setPower(2);
     }
 }

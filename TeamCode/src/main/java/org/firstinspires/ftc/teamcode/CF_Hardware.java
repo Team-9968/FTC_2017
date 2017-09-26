@@ -37,8 +37,8 @@ public class CF_Hardware {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         Clamp = hwMap.get(Servo.class, "Clamp");
-
-        Pincher = hwMap.get(DcMotor.class, "Pincher");
+//
+//        Pincher = hwMap.get(DcMotor.class, "Pincher");
 
     }
 }

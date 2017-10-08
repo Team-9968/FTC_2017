@@ -15,8 +15,12 @@ public class CF_Hardware {
     public DcMotor rightRear = null;
     public DcMotor leftFront = null;
     public DcMotor leftRear = null;
-    public DcMotor Pincher = null;
+
+    public DcMotor Winch = null;
+
     public Servo Clamp = null;
+    public Servo Spinner = null;
+
     HardwareMap hwMap = null;
 
     public CF_Hardware() {}
@@ -36,9 +40,10 @@ public class CF_Hardware {
         leftFront = hwMap.get(DcMotor.class, "motorFour");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        Clamp = hwMap.get(Servo.class, "Clamp");
-//
-//        Pincher = hwMap.get(DcMotor.class, "Pincher");
+        Winch = hwMap.get(DcMotor.class, "Winch");
 
+        Clamp = hwMap.get(Servo.class, "Clamp");
+
+        Spinner = hwMap.get(Servo.class, "Spinner");
     }
 }

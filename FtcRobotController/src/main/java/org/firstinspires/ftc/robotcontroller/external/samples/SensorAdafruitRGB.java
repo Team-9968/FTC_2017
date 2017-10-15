@@ -36,6 +36,7 @@ import android.view.View;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -67,8 +68,8 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@Autonomous(name = "Sensor: AdafruitRGB", group = "Sensor")
-@Disabled                            // Comment this out to add to the opmode list
+@Autonomous(name = "sdfgh", group = "Sensor")
+//@Disabled                            // Comment this out to add to the opmode list
 public class SensorAdafruitRGB extends LinearOpMode {
 
   ColorSensor sensorRGB;
@@ -76,7 +77,7 @@ public class SensorAdafruitRGB extends LinearOpMode {
 
   // we assume that the LED pin of the RGB sensor is connected to
   // digital port 5 (zero indexed).
-  static final int LED_CHANNEL = 5;
+  static final int LED_CHANNEL = 3;
 
   @Override
   public void runOpMode() {

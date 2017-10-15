@@ -17,9 +17,11 @@ public class CF_Hardware {
     public DcMotor leftRear = null;
 
     public DcMotor Winch = null;
+    public DcMotor otherWinch = null;
 
     public Servo Clamp = null;
     public Servo Spinner = null;
+    public Servo otherClamp = null;
 
     HardwareMap hwMap = null;
 
@@ -45,5 +47,10 @@ public class CF_Hardware {
         Clamp = hwMap.get(Servo.class, "Clamp");
 
         Spinner = hwMap.get(Servo.class, "Spinner");
+
+        otherWinch = hwMap.get(DcMotor.class, "otherWinch");
+
+        otherClamp = hwMap.get(Servo.class, "otherClamp");
+
     }
 }

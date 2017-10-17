@@ -6,16 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Func;
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -72,7 +62,6 @@ public class CF_Manual extends OpMode {
         }
         // Mode for tank mode
         if (mode == 1) {
-            driveMan.changeDirectonAndPower(-1);
             driveMan.tankMode(robot, gamepad1.left_stick_y, gamepad1.right_stick_y);
         }
         // Mode for half power forward mechanum

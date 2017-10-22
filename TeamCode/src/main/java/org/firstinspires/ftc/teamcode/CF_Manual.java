@@ -17,6 +17,7 @@ public class CF_Manual extends OpMode {
     // Instance of Robot
     CF_Hardware robot = new CF_Hardware();
     CF_Manual_Motor_Library driveMan = new CF_Manual_Motor_Library();
+    CF_Accessory_Motor_Library accessory = new CF_Accessory_Motor_Library();
 
     // Instantiates variables
     int mode = 0;
@@ -32,6 +33,7 @@ public class CF_Manual extends OpMode {
         // Calls appropriate methods to run the robot.  These 2 methods do everything that the robot does
         updateMode();
         drive();
+        lift();
 
         telemetry.clearAll();
         telemetry.addData("Mode", mode);
@@ -74,5 +76,11 @@ public class CF_Manual extends OpMode {
             driveMan.changeDirectonAndPower(-1);
             driveMan.runMechWheels(robot, gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
+    }
+
+    // Implements the lifter motors
+    public void lift() {
+        accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
+        accessory.setPowerToPower(robot.mastMotor, gamepad2.left_stick_y, 3);
     }
 }

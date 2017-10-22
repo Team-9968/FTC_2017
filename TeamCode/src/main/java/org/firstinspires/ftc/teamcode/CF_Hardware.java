@@ -19,6 +19,9 @@ public class CF_Hardware {
     public DcMotor leftFront = null;
     public DcMotor leftRear = null;
 
+    public DcMotor mastMotor = null;
+    public DcMotor clawMotor = null;
+
     HardwareMap hwMap = null;
 
     public CF_Hardware() {}
@@ -37,6 +40,12 @@ public class CF_Hardware {
 
         leftFront = hwMap.get(DcMotor.class, "motorFour");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        mastMotor = hwMap.get(DcMotor.class, "mastMotor");
+        mastMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        clawMotor = hwMap.get(DcMotor.class, "clawMotor");
+        clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
 }

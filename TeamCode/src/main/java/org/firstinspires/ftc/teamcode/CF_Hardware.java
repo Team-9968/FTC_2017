@@ -13,54 +13,54 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 
-public class CF_Hardware {
-    public DcMotor rightFront = null;
-    public DcMotor rightRear = null;
-    public DcMotor leftFront = null;
-    public DcMotor leftRear = null;
+public class CF_Hardware
+{
+   public DcMotor rightFront = null;
+   public DcMotor rightRear = null;
+   public DcMotor leftFront = null;
+   public DcMotor leftRear = null;
 
-    public DcMotor Winch = null;
-    public DcMotor otherWinch = null;
+   public DcMotor Winch = null;
+   public DcMotor otherWinch = null;
 
-    public Servo Clamp = null;
-    public Servo Spinner = null;
-    public Servo otherClamp = null;
+   public Servo Clamp = null;
+   public Servo Spinner = null;
+   public Servo otherClamp = null;
 
-    CF_Color_Sensor sensor = new CF_Color_Sensor();
+   CF_Color_Sensor sensor = new CF_Color_Sensor();
 
-    HardwareMap hwMap = null;
+   HardwareMap hwMap = null;
 
-    public CF_Hardware() {}
+   public CF_Hardware()
+   {
+   }
 
-    public void init(HardwareMap ahwMap) {
-        hwMap = ahwMap;
+   public void init(HardwareMap ahwMap)
+   {
+      hwMap = ahwMap;
 
-        rightFront = hwMap.get(DcMotor.class, "motorOne");
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+      rightFront = hwMap.get(DcMotor.class, "motorOne");
+      rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        rightRear = hwMap.get(DcMotor.class, "motorTwo");
-        rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
+      rightRear = hwMap.get(DcMotor.class, "motorTwo");
+      rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        leftRear = hwMap.get(DcMotor.class, "motorThree");
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+      leftRear = hwMap.get(DcMotor.class, "motorThree");
+      leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        leftFront = hwMap.get(DcMotor.class, "motorFour");
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+      leftFront = hwMap.get(DcMotor.class, "motorFour");
+      leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        Winch = hwMap.get(DcMotor.class, "Winch");
+      Winch = hwMap.get(DcMotor.class, "Winch");
 
-        Clamp = hwMap.get(Servo.class, "Clamp");
+      Clamp = hwMap.get(Servo.class, "Clamp");
 
-        Spinner = hwMap.get(Servo.class, "Spinner");
+      Spinner = hwMap.get(Servo.class, "Spinner");
 
-        otherWinch = hwMap.get(DcMotor.class, "otherWinch");
+      otherWinch = hwMap.get(DcMotor.class, "otherWinch");
 
-        otherClamp = hwMap.get(Servo.class, "otherClamp");
-
-        sensor.adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
-
-    }
-
+      otherClamp = hwMap.get(Servo.class, "otherClamp");
+   }
 
 
    /***
@@ -110,10 +110,5 @@ public class CF_Hardware {
       rightFront.setTargetPosition(Math.abs(rFcount));
       leftRear.setTargetPosition(Math.abs(lRcount));
       rightRear.setTargetPosition(Math.abs(rRcount));
-   }
-
-   public void SetPosition()
-   {
-
    }
 }

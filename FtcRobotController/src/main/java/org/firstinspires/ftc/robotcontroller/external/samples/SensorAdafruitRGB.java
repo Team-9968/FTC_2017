@@ -76,6 +76,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannelController;
 public class SensorAdafruitRGB extends LinearOpMode
 {
    ColorSensor sensorRGB;
+
    //DeviceInterfaceModule cdim;
 
    // we assume that the LED pin of the RGB sensor is connected to

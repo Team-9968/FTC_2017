@@ -73,7 +73,7 @@ public class CF_MecanumWheels extends OpMode {
             }
         }
 
-        robot.Clamp.setPosition(clawPos);
+//        robot.Clamp.setPosition(clawPos);
         telemetry.clearAll();
         telemetry.addData("Mode", mode);
 

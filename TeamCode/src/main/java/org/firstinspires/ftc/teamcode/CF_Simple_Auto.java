@@ -22,7 +22,7 @@ public class CF_Simple_Auto extends LinearOpMode
 
    private enum states
    {
-      BACKUP, JEWELPUSHER
+      BACKUP, JEWELPUSHER, ENDOPMODE
    }
 
    @Override
@@ -30,41 +30,57 @@ public class CF_Simple_Auto extends LinearOpMode
    {
       sensor.init();
 
-//      states State = states.BACKUP;
-//
+      states State = states.BACKUP;
+
       float hsvValues[] = {0F, 0F, 0F};
       final float values[] = hsvValues;
 
       waitForStart();
-//
+
       while (opModeIsActive())
       {
-//         switch (State)
-//         {
-//            case BACKUP:
-//
-//               //Set direction, distance, and motor powers of mecanum wheels
-//               robot.setMecanumEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//               //Tell encoders to run to a set position
-//               robot.setMecanumEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
-//               robot.setMecanumPowers(0.5, 0.5, 0.5, 0.5);
-//               robot.setMecanumEncoderTargetPosition(-850, -850, -850, -850);
-//               telemetry.addData("1", " and done");
-//
-//               telemetry.update();
-//               break;
-////            case JEWELPUSHER:
-//         if (sensor.hueVal = true)
-//         {
-//            //robot.SetJewelPusherPositoin()
-//         }
-//
-//         else if (sensor.hueVal = false)
-//         {
-//            //robot.SetJewelPusherPosition(0.70);
-//         }
+         switch (State)
+         {
+            case BACKUP:
+
+               //Set direction, distance, and motor powers of mecanum wheels
+               robot.setMecanumEncoderMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               //Tell encoders to run to a set position
+               robot.setMecanumEncoderMode(DcMotor.RunMode.RUN_TO_POSITION);
+               robot.setMecanumPowers(0.5, 0.5, 0.5, 0.5);
+               robot.setMecanumEncoderTargetPosition(-850, -850, -850, -850);
+               telemetry.addData("1", " and done");
+               telemetry.update();
+               break;
+            case JEWELPUSHER:
+               if (sensor.hueVal = true)
+               {
+                  //robot.SetJewelPusherPositoin()
+                  telemetry.addData("Blue" , "");
+               }
+
+               else if (sensor.hueVal = false)
+               {
+                  //robot.SetJewelPusherPosition(0.70);
+                  telemetry.addData("Red" , "");
+                  telemetry.update();
+               }
+
+               else
+               {
+                  telemetry.addData("Neither", "");
+               }
+
+               telemetry.update();
+
+                break;
+
+            case ENDOPMODE:
+               telemetry.addData("Done", "");
+               telemetry.update();
+               break;
+         }
 
       }
-
    }
 }

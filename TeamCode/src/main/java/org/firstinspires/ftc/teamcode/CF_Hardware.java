@@ -20,15 +20,6 @@ public class CF_Hardware
    public DcMotor leftFront = null;
    public DcMotor leftRear = null;
 
-   public DcMotor Winch = null;
-   public DcMotor otherWinch = null;
-
-   public Servo Clamp = null;
-   public Servo Spinner = null;
-   public Servo otherClamp = null;
-
-   CF_Color_Sensor sensor = new CF_Color_Sensor();
-
    HardwareMap hwMap = null;
 
    public CF_Hardware()
@@ -50,16 +41,6 @@ public class CF_Hardware
 
       leftFront = hwMap.get(DcMotor.class, "motorFour");
       leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-
-      Winch = hwMap.get(DcMotor.class, "Winch");
-
-      Clamp = hwMap.get(Servo.class, "Clamp");
-
-      Spinner = hwMap.get(Servo.class, "Spinner");
-
-      otherWinch = hwMap.get(DcMotor.class, "otherWinch");
-
-      otherClamp = hwMap.get(Servo.class, "otherClamp");
    }
 
 

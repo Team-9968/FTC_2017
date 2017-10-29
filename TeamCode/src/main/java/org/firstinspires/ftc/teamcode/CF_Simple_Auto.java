@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //@Disabled                            // Comment this out to add to the opmode list
 public class CF_Simple_Auto extends LinearOpMode
 {
-   CF_Hardware robot = new CF_Hardware();
+   CF_Hardware bot = new CF_Hardware();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
    CF_Master_Motor_Library mech = new CF_Master_Motor_Library();
 
@@ -44,13 +44,13 @@ public class CF_Simple_Auto extends LinearOpMode
          {
             case BACKUP:
 
-               mech.setMode(robot, DcMotor.RunMode.RUN_USING_ENCODER);
+               mech.setMode(bot, DcMotor.RunMode.RUN_USING_ENCODER);
                //Set direction, distance, and motor powers of mecanum wheels
-               mech.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               mech.setMode(bot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                //Tell encoders to run to a set position
-               mech.setMode(robot, DcMotor.RunMode.RUN_TO_POSITION);
-               mech.setMechPowers(robot, 1, -0.5, -0.5, -0.5, -0.5, 0);
-               mech.setEncoderTargetPosition(robot, 850, 850, 850, 850);
+               mech.setMode(bot, DcMotor.RunMode.RUN_TO_POSITION);
+               mech.setMechPowers(bot, 1, -0.5, -0.5, -0.5, -0.5, 0);
+               mech.setEncoderTargetPosition(bot, 850, 850, 850, 850);
                telemetry.addData("1", " and done");
                telemetry.update();
                break;

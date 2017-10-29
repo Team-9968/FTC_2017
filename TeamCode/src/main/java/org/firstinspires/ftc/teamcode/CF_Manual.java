@@ -45,9 +45,7 @@ public class CF_Manual extends OpMode {
         telemetry.clearAll();
         imu.updateNumbers(robot);
         telemetry.addData("Mode", mode);
-        telemetry.addData("X", imu.getxAccel());
-        telemetry.addData("Y", imu.getyAccel());
-        telemetry.addData("Z", imu.getzAccel());
+        telemetry.addData("X", imu.getRotation(3));
         telemetry.update();
 
     }

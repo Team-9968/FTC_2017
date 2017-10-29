@@ -1,11 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
@@ -17,9 +14,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //@Disabled                            // Comment this out to add to the opmode list
 public class CF_Simple_Auto extends LinearOpMode
 {
-   CF_Hardware bot = new CF_Hardware();
+   CF_Hardware robot = new CF_Hardware();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
-   CF_Master_Motor_Library mech = new CF_Master_Motor_Library();
+   CF_Master_Motor_Library motors = new CF_Master_Motor_Library();
 
    private enum states
    {
@@ -29,12 +26,11 @@ public class CF_Simple_Auto extends LinearOpMode
    @Override
    public void runOpMode() throws InterruptedException
    {
-      sensor.init();
-
       states State = states.BACKUP;
 
       float hsvValues[] = {0F, 0F, 0F};
       final float values[] = hsvValues;
+      robot.init(hardwareMap);
 
       waitForStart();
 
@@ -44,13 +40,13 @@ public class CF_Simple_Auto extends LinearOpMode
          {
             case BACKUP:
 
-               mech.setMode(bot, DcMotor.RunMode.RUN_USING_ENCODER);
+               motors.setMode(robot, DcMotor.RunMode.RUN_USING_ENCODER);
                //Set direction, distance, and motor powers of mecanum wheels
-               mech.setMode(bot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                //Tell encoders to run to a set position
-               mech.setMode(bot, DcMotor.RunMode.RUN_TO_POSITION);
-               mech.setMechPowers(bot, 1, -0.5, -0.5, -0.5, -0.5, 0);
-               mech.setEncoderTargetPosition(bot, 850, 850, 850, 850);
+               motors.setMode(robot, DcMotor.RunMode.RUN_TO_POSITION);
+               motors.setMechPowers(robot, -1, 0.5, 0.5, 0.5, 0.5, 0);
+               motors.setEncoderTargetPosition(robot, 850, 850, 850, 850);
                telemetry.addData("1", " and done");
                telemetry.update();
                break;

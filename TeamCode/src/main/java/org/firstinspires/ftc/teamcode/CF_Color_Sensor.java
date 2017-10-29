@@ -43,7 +43,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 //@Disabled                            // Comment this out to add to the opmode list
 public class CF_Color_Sensor extends LinearOpMode {
 
-   ColorSensor adafruitRGB;
+   CF_Hardware robot = new CF_Hardware();
 
    int BlueLowerLimit = 185;
    int BlueUpperLimit = 330;
@@ -70,7 +70,6 @@ public class CF_Color_Sensor extends LinearOpMode {
       int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
       final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 
-      adafruitRGB = hardwareMap.get(ColorSensor.class, "adafruitRGB");
 
       // bPrevState and bCurrState represent the previous and current state of the button.
       boolean bPrevState = false;
@@ -80,7 +79,7 @@ public class CF_Color_Sensor extends LinearOpMode {
       boolean bLedOn = true;
 
       // get a reference to our ColorSensor object.
-      adafruitRGB = hardwareMap.colorSensor.get("adafruitRGB");
+      robot.adafruitRGB = hardwareMap.colorSensor.get("adafruitRGB");
 
       // wait for the start button to be pressed.
       waitForStart();
@@ -96,7 +95,7 @@ public class CF_Color_Sensor extends LinearOpMode {
          bPrevState = bCurrState;
 
          // convert the RGB values to HSV values.
-         Color.RGBToHSV((adafruitRGB.red() * 255) / 800, (adafruitRGB.green() * 255) / 800, (adafruitRGB.blue() * 255) / 800, hsvValues);
+         Color.RGBToHSV((robot.adafruitRGB.red() * 255) / 800, (robot.adafruitRGB.green() * 255) / 800, (robot.adafruitRGB.blue() * 255) / 800, hsvValues);
 
 //         // send the info back to driver station using telemetry function.
          telemetry.addData("Hue", hsvValues[0]);

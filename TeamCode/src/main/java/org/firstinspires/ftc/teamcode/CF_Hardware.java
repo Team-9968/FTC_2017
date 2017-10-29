@@ -15,11 +15,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 
-public class CF_Hardware {
-    public DcMotor rightFront = null;
-    public DcMotor rightRear = null;
-    public DcMotor leftFront = null;
-    public DcMotor leftRear = null;
+public class CF_Hardware
+{
+   public DcMotor rightFront = null;
+   public DcMotor rightRear = null;
+   public DcMotor leftFront = null;
+   public DcMotor leftRear = null;
 
     public DcMotor mastMotor = null;
     public DcMotor clawMotor = null;

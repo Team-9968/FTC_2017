@@ -25,7 +25,8 @@ public class CF_Master_Motor_Library {
     }
 
     double getEncoderCounts(CF_Hardware bot, int x) {
-        if(x == 1) {
+        if(x == 1)
+        {
             return bot.rightFront.getCurrentPosition();
         } else if ( x == 2) {
             return bot.rightRear.getCurrentPosition();
@@ -36,6 +37,15 @@ public class CF_Master_Motor_Library {
         } else {
             return 0;
         }
+    }
+
+    void setEncoderTargetPosition(CF_Hardware bot, int LFcount, int RFcount, int LRcount, int RRcount)
+    {
+       // Only want to use absolute values.  Take abs of inputs in case user sent negative value.
+       bot.leftFront.setTargetPosition(Math.abs(LFcount));
+       bot.rightFront.setTargetPosition(Math.abs(RFcount));
+       bot.leftRear.setTargetPosition(Math.abs(LRcount));
+       bot.rightRear.setTargetPosition(Math.abs(RRcount));
     }
 }
 

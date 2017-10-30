@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
@@ -22,7 +23,6 @@ public class CF_Manual extends OpMode {
     CF_Manual_Motor_Library driveMan = new CF_Manual_Motor_Library();
     CF_Accessory_Motor_Library accessory = new CF_Accessory_Motor_Library();
     CF_IMU_Library imu = new CF_IMU_Library();
-
     // Instantiates variables
     int mode = 0;
     double position = 0.44;
@@ -32,7 +32,6 @@ public class CF_Manual extends OpMode {
         robot.init(hardwareMap);
         robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 200);
         telemetry.addData("", "init");
-
     }
 
     public void loop(){
@@ -45,9 +44,7 @@ public class CF_Manual extends OpMode {
         telemetry.clearAll();
         imu.updateNumbers(robot);
         telemetry.addData("Mode", mode);
-        telemetry.addData("X", imu.getxAccel());
-        telemetry.addData("Y", imu.getyAccel());
-        telemetry.addData("Z", imu.getzAccel());
+        telemetry.addData("X", imu.getRotation(3));
         telemetry.update();
 
     }

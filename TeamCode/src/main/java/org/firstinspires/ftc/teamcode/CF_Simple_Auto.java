@@ -46,7 +46,7 @@ public class CF_Simple_Auto extends LinearOpMode
                //Tell encoders to run to a set position
                motors.setMode(robot, DcMotor.RunMode.RUN_TO_POSITION);
                motors.setMechPowers(robot, -1, 0.5, 0.5, 0.5, 0.5, 0);
-               motors.setEncoderTargetPosition(robot, 850, 850, 850, 850);
+               motors.setEncoderTargetPosition(robot, 850, 850, 850, 850); //Doesn't even reach telemetry
                telemetry.addData("1", " and done");
                telemetry.update();
                break;

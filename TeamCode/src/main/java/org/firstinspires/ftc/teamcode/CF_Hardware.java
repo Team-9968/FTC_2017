@@ -39,7 +39,7 @@ public class CF_Hardware
         hwMap = ahwMap;
 
         rightFront = hwMap.get(DcMotor.class, "motorOne");
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);  //Check motor directions
 
         rightRear = hwMap.get(DcMotor.class, "motorTwo");
         rightRear.setDirection(DcMotorSimple.Direction.FORWARD);

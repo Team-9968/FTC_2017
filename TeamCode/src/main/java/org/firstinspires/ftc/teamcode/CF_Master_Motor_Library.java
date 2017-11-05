@@ -38,14 +38,5 @@ public class CF_Master_Motor_Library {
             return 0;
         }
     }
-
-    void setEncoderTargetPosition(CF_Hardware bot, int LFcount, int RFcount, int LRcount, int RRcount)
-    {
-       // Only want to use absolute values.  Take abs of inputs in case user sent negative value.
-       bot.leftFront.setTargetPosition(Math.abs(LFcount));
-       bot.rightFront.setTargetPosition(Math.abs(RFcount));
-       bot.leftRear.setTargetPosition(Math.abs(LRcount));
-       bot.rightRear.setTargetPosition(Math.abs(RRcount));
-    }
 }
 

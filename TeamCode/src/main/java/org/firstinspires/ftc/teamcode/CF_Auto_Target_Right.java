@@ -3,20 +3,22 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by dawso on 10/1/2017.
  */
 
 
-@Autonomous(name = "Simple Auto", group = "Sensor")
+@Autonomous(name = "Target is Right", group = "Sensor")
 //@Disabled                            // Comment this out to add to the opmode list
-public class CF_Simple_Auto extends LinearOpMode
+public class CF_Auto_Target_Right extends LinearOpMode
 {
    CF_Hardware robot = new CF_Hardware();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
    CF_Master_Motor_Library motors = new CF_Master_Motor_Library();
+   CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
 
    private enum states
    {
@@ -39,40 +41,19 @@ public class CF_Simple_Auto extends LinearOpMode
          switch (State)
          {
             case BACKUP:
-
-               motors.setMode(robot, DcMotor.RunMode.RUN_USING_ENCODER);
-               //Set direction, distance, and motor powers of mecanum wheels
-               motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-               //Tell encoders to run to a set position
-               motors.setMode(robot, DcMotor.RunMode.RUN_TO_POSITION);
-               motors.setMechPowers(robot, -1, 0.5, 0.5, 0.5, 0.5, 0);
-               motors.setEncoderTargetPosition(robot, 850, 850, 850, 850); //Doesn't even reach telemetry
+               auto.driveIMU(this, robot, 0.25, 500);
                telemetry.addData("1", " and done");
                telemetry.update();
+               TimeUnit.MILLISECONDS.sleep(500);
+               State = states.JEWELPUSHER;
                break;
             case JEWELPUSHER:
-               if (sensor.hueVal = true)
-               {
-                  //robot.SetJewelPusherPositoin()
-                  telemetry.addData("Blue" , "");
-               }
-
-               else if (sensor.hueVal = false)
-               {
-                  //robot.SetJewelPusherPosition(0.70);
-                  telemetry.addData("Red" , "");
-                  telemetry.update();
-               }
-
-               else
-               {
-                  telemetry.addData("Neither", "");
-               }
-
+               TimeUnit.MILLISECONDS.sleep(500);
+               auto.driveIMUStrafe(this, robot, -0.5, 600);
+               telemetry.addData("2" , "");
                telemetry.update();
-
+               State = states.ENDOPMODE;
                 break;
-
             case ENDOPMODE:
                telemetry.addData("Done", "");
                telemetry.update();

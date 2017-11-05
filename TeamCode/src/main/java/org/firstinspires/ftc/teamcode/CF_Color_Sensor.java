@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @Autonomous(name = "CF_Color_Sensor", group = "Sensor")
-//@Disabled                            // Comment this out to add to the opmode list
+@Disabled                            // Comment this out to add to the opmode list
 public class CF_Color_Sensor extends LinearOpMode {
 
    CF_Hardware robot = new CF_Hardware();

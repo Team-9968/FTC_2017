@@ -2,12 +2,18 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class RobotHardware
 {
    DcMotor MotorThingy1;
    DcMotor MotorThingy2;
    HardwareMap hwMap;
+   public final static double FOOT_HOME = 0.2;
+   public final static double FOOT_MIN_RANGE = 0.1;
+   public final static double FOOT_MAX_RANGE = 0.9;
+
+   Servo Foot;
 
    public void init(HardwareMap ahwMap)
    {
@@ -24,6 +30,9 @@ public class RobotHardware
       MotorThingy2.setDirection(DcMotor.Direction.FORWARD);
       MotorThingy2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       MotorThingy2.setPower(0.0);
+
+      Foot = hwMap.get(Servo.class, "FootServo");
+      Foot.setPosition(FOOT_HOME);
 
    }
 }

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.Range;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class MotorTest extends OpMode
 {
    RobotHardware robot = new RobotHardware();
+   double footPosition = robot.FOOT_HOME;
+   public final double FOOT_SPEED = 0.01;
 
    //@Override
    public void init()
@@ -30,6 +33,19 @@ public class MotorTest extends OpMode
 
       robot.MotorThingy1.setPower(yAxis1);//yAxis);
       robot.MotorThingy2.setPower(yAxis2);
+
+      if (gamepad1.a)
+      {
+         footPosition += FOOT_SPEED;
+      }
+      else if (gamepad1.y)
+      {
+         footPosition -= FOOT_SPEED;
+      }
+
+      footPosition  = Range.clip(footPosition, robot.FOOT_MIN_RANGE, robot.FOOT_MAX_RANGE);
+
+      robot.Foot.setPosition(footPosition);
 
 //      robot.MotorThingy.setPower(0.6);
 //
@@ -48,8 +64,9 @@ public class MotorTest extends OpMode
 //
 //      robot.MotorThingy.setPower(-0.3);
 
-      telemetry.addData("Power: ", robot.MotorThingy1.getPower());
-      telemetry.addData("Power: ", robot.MotorThingy2.getPower());
+      telemetry.addData("ButtonA: ", gamepad1.a);
+      telemetry.addData("ButtonY: ", gamepad1.y);
+      telemetry.addData("position: ", footPosition);
       telemetry.update();
    }
 }

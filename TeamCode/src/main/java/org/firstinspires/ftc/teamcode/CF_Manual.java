@@ -21,6 +21,8 @@ public class CF_Manual extends OpMode {
     // Instantiates variables
     int mode = 0;
 
+    double position = 0.0;
+
     public void init() {
         // Inits robot
         robot.init(hardwareMap);
@@ -32,10 +34,12 @@ public class CF_Manual extends OpMode {
         // Calls appropriate methods to run the robot.  These 2 methods do everything that the robot does
         updateMode();
         drive();
+        lift();
+        grab();
 
         telemetry.clearAll();
         telemetry.addData("Mode", mode);
-
+        telemetry.update();
     }
 
     // Updates drive mode.  0 = normal mech, 1 = tank, 2 = slow mech, 3 = backwards mech
@@ -74,5 +78,23 @@ public class CF_Manual extends OpMode {
             driveMan.changeDirectonAndPower(-1);
             driveMan.runMechWheels(robot, gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
+    }
+
+    // Implements lifter
+    public void lift() {
+        robot.clawMotor.setPower(gamepad2.right_stick_y);
+        robot.mastMotor.setPower(gamepad2.left_stick_y);
+    }
+
+    // Implements grabber()
+    public void grab() {
+        if(gamepad2.x && position > 0) {
+            position -= 0.0001;
+        }
+        if(gamepad2.b && position < 1) {
+            position += 0.0001;
+        }
+        robot.claw.setPosition(position);
+
     }
 }

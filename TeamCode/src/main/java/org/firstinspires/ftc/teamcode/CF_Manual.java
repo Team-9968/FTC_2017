@@ -5,6 +5,10 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,24 +21,31 @@ public class CF_Manual extends OpMode {
     // Instance of Robot
     CF_Hardware robot = new CF_Hardware();
     CF_Manual_Motor_Library driveMan = new CF_Manual_Motor_Library();
-
+    CF_Accessory_Motor_Library accessory = new CF_Accessory_Motor_Library();
+    CF_IMU_Library imu = new CF_IMU_Library();
     // Instantiates variables
     int mode = 0;
+    double position = 0.44;
 
     public void init() {
         // Inits robot
         robot.init(hardwareMap);
+        robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 200);
         telemetry.addData("", "init");
-
     }
 
     public void loop(){
         // Calls appropriate methods to run the robot.  These 2 methods do everything that the robot does
         updateMode();
         drive();
+        lift();
+        clamp();
 
         telemetry.clearAll();
+        imu.updateNumbers(robot);
         telemetry.addData("Mode", mode);
+        telemetry.addData("X", imu.getRotation(3));
+        telemetry.update();
 
     }
 
@@ -74,5 +85,23 @@ public class CF_Manual extends OpMode {
             driveMan.changeDirectonAndPower(-1);
             driveMan.runMechWheels(robot, gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
+    }
+
+    // Implements the lifter motors
+    public void lift() {
+        accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
+        accessory.setPowerToPower(robot.mastMotor, gamepad2.left_stick_y, 3);
+    }
+
+    // Clamps the block
+    public void clamp() {
+        if(gamepad2.x && position < 0.78) {
+            position += 0.001;
+        }
+        if(gamepad2.b && position > 0.44) {
+            position -= 0.001;
+        }
+        robot.clamp.setPosition(position);
+
     }
 }

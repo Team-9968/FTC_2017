@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -19,6 +21,13 @@ public class CF_Hardware {
     public DcMotor leftFront = null;
     public DcMotor leftRear = null;
 
+    public DcMotor mastMotor = null;
+    public DcMotor clawMotor = null;
+
+    BNO055IMU imu = null;
+
+    public Servo clamp = null;
+
     HardwareMap hwMap = null;
 
     public CF_Hardware() {}
@@ -37,6 +46,25 @@ public class CF_Hardware {
 
         leftFront = hwMap.get(DcMotor.class, "motorFour");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        mastMotor = hwMap.get(DcMotor.class, "mastMotor");
+        mastMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        clawMotor = hwMap.get(DcMotor.class, "clawMotor");
+        clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        clamp = hwMap.get(Servo.class, "clamp");
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
 
     }
 }

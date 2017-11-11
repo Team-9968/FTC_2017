@@ -21,9 +21,8 @@ public class CF_IMU_Auto_Test extends LinearOpMode {
 
         waitForStart();
 
-        robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
-        auto.driveIMU(this, robot, 0.5, 2000);
-        auto.driveIMU(this, robot, -0.5, 2000);
+        robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 50);
+        auto.rotateIMU(this, robot, 0.1, -90);
 
 //        while(opModeIsActive()) {
 //            imuLib.updateNumbers(robot);

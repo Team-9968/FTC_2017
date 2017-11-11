@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -28,6 +29,7 @@ public class CF_Hardware {
 
     public Servo clamp = null;
 
+    public DigitalChannel limit = null;
     HardwareMap hwMap = null;
 
     public CF_Hardware() {}
@@ -54,6 +56,8 @@ public class CF_Hardware {
         clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         clamp = hwMap.get(Servo.class, "clamp");
+
+        limit = hwMap.get(DigitalChannel.class, "touch");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

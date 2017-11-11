@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Ryley on 9/25/17.
  */
-@TeleOp(name="CF_Manual", group = "code")
+@TeleOp(name="CF_Manual_Test", group = "code")
 //@Disabled
-public class CF_Manual extends OpMode {
+public class CF_Manual_Test extends OpMode {
     // Instance of Robot
     CF_Hardware robot = new CF_Hardware();
     CF_Manual_Motor_Library driveMan = new CF_Manual_Motor_Library();
@@ -85,7 +85,11 @@ public class CF_Manual extends OpMode {
 
     // Implements the lifter motors
     public void lift() {
-        accessory.setPowerToPower(robot.clawMotor, -gamepad2.right_stick_y, 3);
+        if(!robot.limit.getState()) {
+            accessory.setPowerToPower(robot.clawMotor, -gamepad2.right_stick_y, 3);
+        } else {
+            accessory.setPowerToPower(robot.clawMotor, 0, 3);
+        }
         accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
     }
 

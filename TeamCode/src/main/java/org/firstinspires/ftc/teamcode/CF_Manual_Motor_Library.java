@@ -42,7 +42,7 @@ public class CF_Manual_Motor_Library {
         RRPower = -strafe + drive;
 
         // Sets the mechanum powers
-        motors.setMechPowers(bot, DirectionPower, LFPower, RFPower, LRPower, RRPower, rotate);
+        motors.setMechPowers(bot, DirectionPower, LFPower, RFPower, LRPower, RRPower, -rotate);
     }
 
     // This is just a mutator method to set the directionpower variable

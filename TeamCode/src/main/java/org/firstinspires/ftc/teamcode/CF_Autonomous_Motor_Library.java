@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import java.security.cert.CertStoreParameters;
+
 /**
  * Created by Ryley on 10/22/17.
  */
@@ -106,6 +108,36 @@ public class CF_Autonomous_Motor_Library {
         motors.setMechPowers(robot,1,0,0,0,0,0);
 
 
+    }
+
+    void rotateIMU(LinearOpMode mode, CF_Hardware robot, double power, double degrees) {
+        motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        imuLib.updateNumbers(robot);
+        double start = imuLib.getRotation(3);
+        degrees += start;
+        double kP = 0.01;
+        double error = 10.5;
+        double effort = 0;
+        while(!mode.isStopRequested() && Math.abs(error) > 10) {
+            imuLib.updateNumbers(robot);
+            error = degrees - imuLib.getRotation(3);
+            effort = error * kP;
+            if(Math.abs(effort) > power) {
+                if(effort < 0) {
+                    effort = -power;
+                }
+                if(effort > 0) {
+                    effort = power;
+                }
+            }
+            mode.telemetry.addData("error", error);
+            mode.telemetry.addData("degrees", degrees);
+            mode.telemetry.addData("totalDegrees", imuLib.getRotation(3));
+            mode.telemetry.update();
+            motors.setMechPowers(robot, 1, +effort, -effort, +effort, -effort, 0);
+        }
+        motors.setMechPowers(robot,1,0,0,0,0,0);
     }
 
 

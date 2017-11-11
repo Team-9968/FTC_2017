@@ -58,7 +58,7 @@ public class CF_Hardware
 
         clamp = hwMap.get(Servo.class, "clamp");
 
-       adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
+        adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

@@ -14,12 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 
 
-@Autonomous(name = "Target is Left", group = "Sensor")
+@Autonomous(name = "Team Blue", group = "Sensor")
 //@Disabled
-public class CF_Auto_Target_Left extends LinearOpMode
+public class CF_Team_Blue extends LinearOpMode
 {
    CF_Hardware robot = new CF_Hardware();
-   CF_Color_Sensor sensor = new CF_Color_Sensor();
+   CF_Color_Sensor sensor = new CF_Color_Sensor(robot);
    CF_Master_Motor_Library motors = new CF_Master_Motor_Library();
    CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
 
@@ -47,14 +47,33 @@ public class CF_Auto_Target_Left extends LinearOpMode
                auto.driveIMU(this, robot, 0.25, 500);
                telemetry.addData("1", " and done");
                telemetry.update();
-               TimeUnit.MILLISECONDS.sleep(500);
+               TimeUnit.MILLISECONDS.sleep(700);
                Step = steps.JEWELPUSHER;
                break;
             case JEWELPUSHER:
-               TimeUnit.MILLISECONDS.sleep(750);
-               auto.driveIMUStrafe(this, robot, 0.5, 400);
-               telemetry.addData("2", "");
-               telemetry.update();
+               TimeUnit.SECONDS.sleep(1);
+               if (sensor.hueVal = true)
+               {
+                  telemetry.addData("Ball is", "Blue");
+                  telemetry.update();
+                  TimeUnit.MILLISECONDS.sleep(750);
+                  auto.driveIMUStrafe(this, robot, 0.5, 400);  //COLOR SENSOR IS RIGHT when robot is viewed from the back.
+               }
+
+               else if (sensor.hueVal = false)
+               {
+                  telemetry.addData("Ball is", "Red");
+                  telemetry.update();
+                  TimeUnit.MILLISECONDS.sleep(500);
+                  auto.driveIMUStrafe(this, robot, -0.5, 600);
+               }
+
+               else
+               {
+                  telemetry.addData("Ball is", "nonexistent or something");
+                  telemetry.update();
+               }
+
                Step = steps.ENDOPMODE;
                break;
             case ENDOPMODE:

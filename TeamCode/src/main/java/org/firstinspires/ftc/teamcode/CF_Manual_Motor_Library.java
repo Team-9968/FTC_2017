@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 /**
  * Created by Ryley on 10/15/17.
  */
 
 public class CF_Manual_Motor_Library {
+    CF_Master_Motor_Library motors = new CF_Master_Motor_Library();
     // Variables to hold motor powers
     double LFPower;
     double RFPower;
@@ -39,16 +42,7 @@ public class CF_Manual_Motor_Library {
         RRPower = -strafe + drive;
 
         // Sets the mechanum powers
-        setMechPowers(bot, LFPower, RFPower, LRPower, RRPower, rotate);
-    }
-
-    // This method sets the mechanum powers.  It sets them and multiplies them by the directionpower
-    // multiplier.  This modifies direction and power
-    void setMechPowers(CF_Hardware robo, double LF, double RF, double LR, double RR, double rotate) {
-        robo.rightRear.setPower((DirectionPower * RR - rotate));
-        robo.rightFront.setPower((DirectionPower * RF) - rotate);
-        robo.leftRear.setPower((DirectionPower * LR) + rotate);
-        robo.leftFront.setPower((DirectionPower * LF) + rotate);
+        motors.setMechPowers(bot, DirectionPower, LFPower, RFPower, LRPower, RRPower, -rotate);
     }
 
     // This is just a mutator method to set the directionpower variable

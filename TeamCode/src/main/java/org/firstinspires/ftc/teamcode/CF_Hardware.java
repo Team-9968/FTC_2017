@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -19,11 +22,14 @@ public class CF_Hardware {
     public DcMotor leftFront = null;
     public DcMotor leftRear = null;
 
-    public DcMotor clawMotor = null;
     public DcMotor mastMotor = null;
+    public DcMotor clawMotor = null;
 
-    public Servo claw = null
+    BNO055IMU imu = null;
 
+    public Servo clamp = null;
+
+    public DigitalChannel limit = null;
     HardwareMap hwMap = null;
 
     public CF_Hardware() {}
@@ -43,13 +49,26 @@ public class CF_Hardware {
         leftFront = hwMap.get(DcMotor.class, "motorFour");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        clawMotor = hwMap.get(DcMotor.class, "clawMotor");
-        clawMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
         mastMotor = hwMap.get(DcMotor.class, "mastMotor");
-        mastMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        mastMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        claw = hwMap.get(Servo.class, "claw");
+        clawMotor = hwMap.get(DcMotor.class, "clawMotor");
+        clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        clamp = hwMap.get(Servo.class, "clamp");
+
+        limit = hwMap.get(DigitalChannel.class, "touch");
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
 
     }
 }

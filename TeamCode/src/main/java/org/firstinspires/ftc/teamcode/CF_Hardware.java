@@ -25,6 +25,8 @@ public class CF_Hardware {
     public DcMotor mastMotor = null;
     public DcMotor clawMotor = null;
 
+    public ColorSensor adafruitRGB = null;
+
     BNO055IMU imu = null;
 
     public Servo clamp = null;
@@ -55,9 +57,13 @@ public class CF_Hardware {
         clawMotor = hwMap.get(DcMotor.class, "clawMotor");
         clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
+
         clamp = hwMap.get(Servo.class, "clamp");
 
         limit = hwMap.get(DigitalChannel.class, "touch");
+
+         adafruitRGB.enableLed(false);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

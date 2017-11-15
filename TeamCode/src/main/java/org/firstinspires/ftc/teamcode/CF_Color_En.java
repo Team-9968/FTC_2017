@@ -6,5 +6,5 @@ package org.firstinspires.ftc.teamcode;
 
 public enum CF_Color_En
 {
-   RED, BLUE, UNKNOWN
+   RED, BLUE, UNKNOWN, INIT
 }

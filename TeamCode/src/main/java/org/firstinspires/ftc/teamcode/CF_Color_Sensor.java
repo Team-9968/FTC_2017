@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /*
@@ -33,61 +34,91 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class CF_Color_Sensor
 {
+   // Threshold values are mapped for rotating the color wheel 90 degrees
+   // Reason for rotating is to avoid red color wrapping from 360 to 0
+   private static final int BLUE_LOWER_LIMIT = 240;
+   private static final int BLUE_UPPER_LIMIT = 300;
+   private static final int RED_LOWER_LIMIT = 60;
+   private static final int RED_UPPER_LIMIT = 120;
 
-   int BlueLowerLimit = 185;
-   int BlueUpperLimit = 330;
-   int RedLowerLimit = 1;
-   int RedUpperLimit = 13;
+   // hsvValues is an array that will hold the hue, saturation, and value information.
+   private float hsvValues[] = {0F,0F,0F};
 
-   HardwareMap hwMap = null;
+   private CF_Color_En color = CF_Color_En.INIT;
+   float hue = 0.0f;
 
-   boolean hueVal;
-
-   CF_Color_En color;
-
-   // we assume that the LED pin of the RGB sensor is connected to
-   // digital port 5 (zero indexed).
-   static final int LED_CHANNEL = 3;
-
-   public CF_Color_Sensor(CF_Hardware robot)
+   public CF_Color_Sensor()
    {
-      //hwMap = ahwMap;
-      // get a reference to our ColorSensor object.
-      //robot.adafruitRGB = hwMap.get("adafruitRGB");
+      // Constructor
    }
 
+   /**
+    * This method reds the color values from an Adafruit color sensor, converts it to a
+    * hue equivalent, and determines what color the sensor is seein (red or blue)
+    *
+    * @param robot
+    * @return color as red, blue, or unknown
+    */
    public CF_Color_En getColorValues(CF_Hardware robot)
    {
-      color = CF_Color_En.UNKNOWN;
-
-      // hsvValues is an array that will hold the hue, saturation, and value information.
-      float hsvValues[] = {0F, 0F, 0F};
-
-//      // bLedOn represents the state of the LED.
-//      boolean bLedOn = true;
-
       // convert the RGB values to HSV values.
       Color.RGBToHSV((robot.adafruitRGB.red() * 255) / 800, (robot.adafruitRGB.green() * 255) / 800, (robot.adafruitRGB.blue() * 255) / 800, hsvValues);
 
-      float hue = hsvValues[0];
+      // hue is the first value in the hsvValues array
+      hue = hsvValues[0];
 
-      if ((hue >= BlueLowerLimit) && (hue <= BlueUpperLimit))
+      // Rotate color wheel by 90 degrees to handle red value wrapping from 360 to 0 degrees
+      hue += 90.0f;
+
+      // Values greater than 360 need be be mapped back to the 0 to 90 range
+      if (hue > 360.0f)
       {
-         //find limits. Run w/ two sensors w/ both  saying if b/w this and this
-         //"if greater than my other sensor buddy"
-         color  = CF_Color_En.BLUE;
+         hue -= 360.0f;
       }
 
-      else if ((hue >= RedLowerLimit) && (hue <= RedUpperLimit))
+      // Check which color is seen by sensor based on threshold values
+      if ((hue >= BLUE_LOWER_LIMIT) && (hue <= BLUE_UPPER_LIMIT))
+      {
+         color  = CF_Color_En.BLUE;
+      }
+      else if ((hue >= RED_LOWER_LIMIT) && (hue <= RED_UPPER_LIMIT))
       {
          color = CF_Color_En.RED;
       }
-
       else
       {
          color = CF_Color_En.UNKNOWN;
       }
 
       return color;
+   }
+
+
+   /**
+    * Get function returning the hue equivalent of RGB values read by Adafruit sensor
+    *
+    * @return hsvValues[0] which is the hue equivalent value from Color.RGBToHSV()
+    */
+   public float getColorHue()
+   {
+      return hue;
+   }
+
+
+   /**
+    * Method to turn on Adafruit LED sensor
+    */
+   public void turnOnAdafruiLED(CF_Hardware robot)
+   {
+      robot.adafruitRGB.enableLed(true);
+   }
+
+
+   /**
+    * Method to turn off Adafruit LED sensor
+    */
+   public void turnOffAdafruiLED(CF_Hardware robot)
+   {
+      robot.adafruitRGB.enableLed(false);
    }
 }

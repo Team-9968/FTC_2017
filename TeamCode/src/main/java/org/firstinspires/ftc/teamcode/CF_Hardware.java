@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -30,6 +31,7 @@ public class CF_Hardware {
     BNO055IMU imu = null;
 
     public Servo clamp = null;
+    public Servo jewelHitter;
 
     public DigitalChannel limit = null;
     HardwareMap hwMap = null;
@@ -61,9 +63,13 @@ public class CF_Hardware {
 
         clamp = hwMap.get(Servo.class, "clamp");
 
-        limit = hwMap.get(DigitalChannel.class, "touch");
+        jewelHitter = hwMap.get(Servo.class, "jewelHitter");
 
-         adafruitRGB.enableLed(false);
+        //limit = hwMap.get(DigitalChannel.class, "touch");
+
+        adafruitRGB.enableLed(false);
+
+        jewelHitter.setPosition(0.8);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -77,4 +83,11 @@ public class CF_Hardware {
         imu.initialize(parameters);
 
     }
+
+//    This method sets the position of the servo.
+   public void SetjewelHitterPosition(double servoPositionDesired)
+   {
+      double servoPositionActual = Range.clip(servoPositionDesired, 0, 1);
+      jewelHitter.setPosition(servoPositionActual);
+   }
 }

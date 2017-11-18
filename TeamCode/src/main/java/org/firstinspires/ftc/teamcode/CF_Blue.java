@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 @Autonomous(name = "Team Blue", group = "Sensor")
 //@Disabled                            // Comment this out to add to the opmode list
-public class CF_Team_Blue extends LinearOpMode
+public class CF_Blue extends LinearOpMode
 {
    CF_Hardware robot = new CF_Hardware();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
@@ -23,7 +23,7 @@ public class CF_Team_Blue extends LinearOpMode
 
    private enum steps
    {
-      BACKUP, JEWELPUSHER, ENDOPMODE
+      BACKUP, JEWELPUSHER, PARK, ENDOPMODE
    }
 
    @Override
@@ -45,27 +45,29 @@ public class CF_Team_Blue extends LinearOpMode
          switch (Step)
          {
             case BACKUP:
-               auto.driveIMU(this, robot, 0.25, 500);
+               auto.driveIMU(this, robot, 0.15, 350);
                TimeUnit.MILLISECONDS.sleep(500);
                Step = steps.JEWELPUSHER;
                break;
-            case JEWELPUSHER:
-               TimeUnit.MILLISECONDS.sleep(500);
 
-               //Servo down
+            case JEWELPUSHER:
 
                if (sensorColor == CF_Color_En.BLUE)
                {
+                  auto.driveIMU(this, robot, -0.15, 80);
                   telemetry.addData("Ball is"," blue");
-                  TimeUnit.MILLISECONDS.sleep(750);
-                  auto.driveIMUStrafe(this, robot, 0.5, 400);  //COLOR SENSOR IS RIGHT when robot is viewed from the back.
+                  robot.jewelHitter.setPosition(0.2);
+                  TimeUnit.MILLISECONDS.sleep(700);
+                  auto.driveIMUStrafe(this, robot, 0.3, 250);  //COLOR SENSOR IS RIGHT when robot is viewed from the back.
                }
 
                else if (sensorColor == CF_Color_En.RED)
                {
+                  auto.driveIMU(this, robot, -0.15, 80);
                   telemetry.addData("Ball is"," red");
-                  TimeUnit.MILLISECONDS.sleep(500);
-                  auto.driveIMUStrafe(this, robot, -0.5, 600);
+                  robot.jewelHitter.setPosition(0.2);
+                  TimeUnit.MILLISECONDS.sleep(700);
+                  auto.driveIMUStrafe(this, robot, -0.3, 400);
                }
 
                else
@@ -73,14 +75,20 @@ public class CF_Team_Blue extends LinearOpMode
                   telemetry.addData("Ball is", " unknown");
                }
 
-               Step = steps.ENDOPMODE;
+               Step = steps.PARK;
                break;
+
+//            case PARK:
+//               auto.driveIMU(this, robot, -0.5, 500);
+//               auto.driveIMUStrafe(this, robot, -0.5, 1200);
+
+
             case ENDOPMODE:
                telemetry.addData("Done", "");
                break;
          }
 
-         //telemetry.addData("Color: ", sensorColor);
+         telemetry.addData("Color: ", sensorColor);
          telemetry.addData("Hue: ", sensor.getColorHue());
          telemetry.update();
       }

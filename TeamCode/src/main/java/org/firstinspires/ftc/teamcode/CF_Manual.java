@@ -88,7 +88,7 @@ public class CF_Manual extends OpMode {
     // Implements the lifter motors
     public void lift() {
         accessory.setPowerToPower(robot.clawMotor, -gamepad2.right_stick_y, 3);
-        accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
+        accessory.setPowerToPower(robot.mastMotor, -gamepad2.right_stick_y, 3);
     }
 
     // Clamps the block

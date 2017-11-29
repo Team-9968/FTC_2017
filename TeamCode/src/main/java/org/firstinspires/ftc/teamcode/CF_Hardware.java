@@ -28,6 +28,11 @@ public class CF_Hardware {
 
     public ColorSensor adafruitRGB = null;
 
+    public DigitalChannel limitMastLiftLower = null;
+    public DigitalChannel limitMastLiftUpper = null;
+    public DigitalChannel limitClawLiftLower = null;
+    public DigitalChannel limitClawLiftUpper = null;
+
     BNO055IMU imu = null;
 
     public Servo clamp = null;
@@ -60,6 +65,16 @@ public class CF_Hardware {
         clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
+
+        limitMastLiftLower = hwMap.get(DigitalChannel.class, "limitMastLiftLower");
+        limitMastLiftUpper = hwMap.get(DigitalChannel.class, "limitMastLiftUpper");
+        limitClawLiftLower = hwMap.get(DigitalChannel.class, "limitClawLiftLower");
+        limitClawLiftUpper = hwMap.get(DigitalChannel.class, "limitClawLiftUpper");
+
+        limitMastLiftLower.setMode(DigitalChannel.Mode.INPUT);
+        limitMastLiftUpper.setMode(DigitalChannel.Mode.INPUT);
+        limitClawLiftLower.setMode(DigitalChannel.Mode.INPUT);
+        limitClawLiftUpper.setMode(DigitalChannel.Mode.INPUT);
 
         clamp = hwMap.get(Servo.class, "clamp");
 

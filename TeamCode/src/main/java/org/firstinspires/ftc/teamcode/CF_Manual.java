@@ -22,6 +22,7 @@ public class CF_Manual extends OpMode {
     CF_Hardware robot = new CF_Hardware();
     CF_Manual_Motor_Library driveMan = new CF_Manual_Motor_Library();
     CF_Accessory_Motor_Library accessory = new CF_Accessory_Motor_Library();
+    CF_Limit_Switch limit = new CF_Limit_Switch();
     // Instantiates variables
     int mode = 0;
 
@@ -87,8 +88,17 @@ public class CF_Manual extends OpMode {
 
     // Implements the lifter motors
     public void lift() {
-        accessory.setPowerToPower(robot.clawMotor, -gamepad2.right_stick_y, 3);
-        accessory.setPowerToPower(robot.mastMotor, -gamepad2.right_stick_y, 3);
+        if(limit.getClawLower(robot) && limit.getClawUpper(robot)) {
+            accessory.setPowerToPower(robot.clawMotor, -gamepad2.right_stick_y, 3);
+        } else {
+            accessory.setPowerToPower(robot.clawMotor, 0, 3);
+        }
+
+        if(limit.getMastLower(robot) && limit.getMastUpper(robot)) {
+            accessory.setPowerToPower(robot.mastMotor, -gamepad2.right_stick_y, 3);
+        } else {
+            accessory.setPowerToPower(robot.mastMotor, 0, 3);
+        }
     }
 
     // Clamps the block

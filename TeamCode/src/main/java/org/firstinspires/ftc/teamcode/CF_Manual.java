@@ -88,17 +88,19 @@ public class CF_Manual extends OpMode {
 
     // Implements the lifter motors
     public void lift() {
-        if(limit.getClawLower(robot) && limit.getClawUpper(robot)) {
+        //If neither the lower or upper limit switches are pressed, set power to the stick, else set power to 0
+        //if(limit.getClawLower(robot) && limit.getClawUpper(robot)) {
             accessory.setPowerToPower(robot.clawMotor, -gamepad2.right_stick_y, 3);
-        } else {
-            accessory.setPowerToPower(robot.clawMotor, 0, 3);
-        }
+        //} else {
+        //    accessory.setPowerToPower(robot.clawMotor, 0, 3);
+        //}
 
-        if(limit.getMastLower(robot) && limit.getMastUpper(robot)) {
+        //If neither the lower or upper limit switches are pressed, set power to the stick, else set power to 0
+        //if(limit.getMastLower(robot) && limit.getMastUpper(robot)) {
             accessory.setPowerToPower(robot.mastMotor, -gamepad2.right_stick_y, 3);
-        } else {
-            accessory.setPowerToPower(robot.mastMotor, 0, 3);
-        }
+        //} else {
+        //    accessory.setPowerToPower(robot.mastMotor, 0, 3);
+        //}
     }
 
     // Clamps the block

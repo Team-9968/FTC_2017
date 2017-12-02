@@ -26,7 +26,8 @@ public class CF_Hardware {
     public DcMotor mastMotor = null;
     public DcMotor clawMotor = null;
 
-    public ColorSensor adafruitRGB = null;
+    public ColorSensor adafruitRGB = null;   //right when viewed from back of robot
+    public ColorSensor adafruitRGBTwo = null;  //left when viewed from back
 
     BNO055IMU imu = null;
 
@@ -61,6 +62,8 @@ public class CF_Hardware {
 
         adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
 
+        adafruitRGBTwo = hwMap.get(ColorSensor.class, "adafruitRGBTwo");
+
         clamp = hwMap.get(Servo.class, "clamp");
 
         jewelHitter = hwMap.get(Servo.class, "jewelHitter");
@@ -68,6 +71,7 @@ public class CF_Hardware {
         //limit = hwMap.get(DigitalChannel.class, "touch");
 
         adafruitRGB.enableLed(false);
+        adafruitRGBTwo.enableLed(false);
 
         jewelHitter.setPosition(0.8);
 

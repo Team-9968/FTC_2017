@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.Hardware;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Autonomous(name = "Team Blue", group = "Sensor")
-//@Disabled                            // Comment this out to add to the opmode list
+@Disabled                            // Comment this out to add to the opmode list
 public class CF_Blue extends LinearOpMode
 {
    CF_Hardware robot = new CF_Hardware();
@@ -40,7 +39,7 @@ public class CF_Blue extends LinearOpMode
       {
          //sensor.turnOffAdafruiLED(robot);
 
-         CF_Color_En sensorColor = sensor.getColorValues(robot);
+         CF_Color_Enum sensorColor = sensor.getColorValues(robot);
 
          switch (Step)
          {
@@ -52,7 +51,7 @@ public class CF_Blue extends LinearOpMode
 
             case JEWELPUSHER:
 
-               if (sensorColor == CF_Color_En.BLUE)
+               if (sensorColor == CF_Color_Enum.BLUE)
                {
                   auto.driveIMU(this, robot, -0.15, 80);
                   telemetry.addData("Ball is"," blue");
@@ -61,7 +60,7 @@ public class CF_Blue extends LinearOpMode
                   auto.driveIMUStrafe(this, robot, 0.3, 250);  //COLOR SENSOR IS RIGHT when robot is viewed from the back.
                }
 
-               else if (sensorColor == CF_Color_En.RED)
+               else if (sensorColor == CF_Color_Enum.RED)
                {
                   auto.driveIMU(this, robot, -0.15, 80);
                   telemetry.addData("Ball is"," red");
@@ -82,14 +81,12 @@ public class CF_Blue extends LinearOpMode
 //               auto.driveIMU(this, robot, -0.5, 500);
 //               auto.driveIMUStrafe(this, robot, -0.5, 1200);
 
-
             case ENDOPMODE:
                telemetry.addData("Done", "");
                break;
          }
 
          telemetry.addData("Color: ", sensorColor);
-         telemetry.addData("Hue: ", sensor.getColorHue());
          telemetry.update();
       }
    }

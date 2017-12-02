@@ -1,12 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.util.Hardware;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +37,7 @@ public class CF_Red extends LinearOpMode
       {
          //sensor.turnOffAdafruiLED(robot);
 
-         CF_Color_En sensorColor = sensor.getColorValues(robot);
+         CF_TypeEnum classification = sensor.setType(robot);
 
          switch (State)
          {
@@ -52,23 +47,23 @@ public class CF_Red extends LinearOpMode
                State = states.JEWELPUSHER;
                break;
             case JEWELPUSHER:
-               TimeUnit.MILLISECONDS.sleep(500);
-               if (sensorColor == CF_Color_En.BLUE)
-               {
-                  auto.driveIMU(this, robot, -0.15, 80);
-                  telemetry.addData("Ball is"," blue");
-                  robot.jewelHitter.setPosition(0.2);
-                  TimeUnit.MILLISECONDS.sleep(700);
-                  auto.driveIMUStrafe(this, robot, -0.3, 250);  //COLOR SENSOR IS RIGHT when robot is viewed from the back.
-               }
-
-                else if (sensorColor == CF_Color_En.RED)
+               TimeUnit.MILLISECONDS.sleep(1500);
+               if (classification == CF_TypeEnum.RIGHTISRED)
                {
                   auto.driveIMU(this, robot, -0.15, 80);
                   telemetry.addData("Ball is"," red");
                   robot.jewelHitter.setPosition(0.2);
                   TimeUnit.MILLISECONDS.sleep(700);
                   auto.driveIMUStrafe(this, robot, 0.3, 400);
+               }
+
+               else if (classification == CF_TypeEnum.RIGHTISBLUE)
+               {
+                  auto.driveIMU(this, robot, -0.15, 80);
+                  telemetry.addData("Ball is"," blue");
+                  robot.jewelHitter.setPosition(0.2);
+                  TimeUnit.MILLISECONDS.sleep(700);
+                  auto.driveIMUStrafe(this, robot, -0.3, 250);
                }
 
                else
@@ -83,8 +78,7 @@ public class CF_Red extends LinearOpMode
                break;
          }
 
-         //telemetry.addData("Color: ", sensorColor);
-         telemetry.addData("Hue: ", sensor.getColorHue());
+         telemetry.addData("Color: ", classification);
          telemetry.update();
       }
    }

@@ -25,7 +25,8 @@ public class CF_Manual extends OpMode {
     // Instantiates variables
     int mode = 0;
 
-    double position = 0.35;
+    double positionUpper = 0.35;
+    double positionLower = 0.35;
     public void init() {
         // Inits robot
         robot.init(hardwareMap);
@@ -42,7 +43,8 @@ public class CF_Manual extends OpMode {
 
         telemetry.clearAll();
         telemetry.addData("Mode", mode);
-        telemetry.addData("Position", position);
+        telemetry.addData("Position Upper", positionUpper);
+        telemetry.addData("Position Lower", positionLower);
         telemetry.update();
 
     }
@@ -93,11 +95,18 @@ public class CF_Manual extends OpMode {
 
     // Clamps the block
     public void clamp() {
-        if(gamepad2.x && position < 1.0) {
-            position = position + 0.01;
-        } else if(gamepad2.b && position > 0.41) {
-            position = position - 0.01;
+        if(gamepad2.x && positionUpper < 1.0) {
+            positionUpper = positionUpper + 0.01;
+        } else if(gamepad2.b && positionUpper > 0.41) {
+            positionUpper = positionUpper - 0.01;
         }
-        robot.clamp.setPosition(position);
+        robot.clamp.setPosition(positionUpper);
+
+        if(gamepad2.dpad_left && positionLower < 1.0) {
+            positionLower = positionLower + 0.01;
+        } else if(gamepad2.dpad_right && positionLower > 0.41) {
+            positionLower = positionLower - 0.01;
+        }
+        robot.lowerClamp.setPosition(positionLower);
     }
 }

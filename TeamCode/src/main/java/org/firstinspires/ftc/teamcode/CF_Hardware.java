@@ -31,6 +31,7 @@ public class CF_Hardware {
     BNO055IMU imu = null;
 
     public Servo clamp = null;
+    public Servo lowerClamp = null;
     public Servo jewelHitter;
 
     public DigitalChannel limit = null;
@@ -62,6 +63,8 @@ public class CF_Hardware {
         adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
 
         clamp = hwMap.get(Servo.class, "clamp");
+
+        lowerClamp = hwMap.get(Servo.class, "lowerClamp");
 
         jewelHitter = hwMap.get(Servo.class, "jewelHitter");
 

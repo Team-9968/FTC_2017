@@ -34,7 +34,7 @@ public class CF_Manual extends OpMode {
     }
 
     public void loop(){
-        // Calls appropriate methods to run the robot.  These 2 methods do everything that the robot does
+        // Calls appropriate methods to run the robot.  These 4 methods do everything that the robot does, excepting telemetry
         updateMode();
         drive();
         lift();

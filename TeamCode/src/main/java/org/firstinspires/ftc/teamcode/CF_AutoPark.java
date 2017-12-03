@@ -23,10 +23,11 @@ public class CF_AutoPark extends LinearOpMode
    {
       robot.init(hardwareMap);
 
+      waitForStart();
 
       while (opModeIsActive())
       {
-         auto.driveIMU(this, robot, -0.2, 1700);
+         auto.driveIMU(this, robot, -0.2, 1800);
          TimeUnit.MILLISECONDS.sleep(500);
          break;
       }

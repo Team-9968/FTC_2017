@@ -89,7 +89,7 @@ public class CF_Manual extends OpMode {
 
     // Implements the lifter motors
     public void lift() {
-        accessory.setPowerToPower(robot.clawMotor, -gamepad2.right_stick_y, 3);
+        accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
     }
 
@@ -102,9 +102,9 @@ public class CF_Manual extends OpMode {
         }
         robot.clamp.setPosition(positionUpper);
 
-        if(gamepad2.dpad_left && positionLower < 1.0) {
+        if(gamepad2.dpad_right && positionLower < 0.61) {
             positionLower = positionLower + 0.01;
-        } else if(gamepad2.dpad_right && positionLower > 0.41) {
+        } else if(gamepad2.dpad_left && positionLower > 0.30) {
             positionLower = positionLower - 0.01;
         }
         robot.lowerClamp.setPosition(positionLower);

@@ -26,7 +26,22 @@ public class CF_Manual extends OpMode {
     int mode = 0;
 
     double positionUpper = 0.35;
-    double positionLower = 0.35;
+    double positionLower = 0.71;
+
+    boolean changeDirectionLast = false;
+    boolean changeDirection = false;
+
+    boolean lastX = false;
+    boolean X = false;
+
+    boolean lastB = false;
+    boolean B = false;
+
+    boolean lastRB = false;
+    boolean RB = false;
+
+    boolean lastLB = false;
+    boolean LB = false;
     public void init() {
         // Inits robot
         robot.init(hardwareMap);
@@ -66,6 +81,8 @@ public class CF_Manual extends OpMode {
     }
     // Implements the drive modes
     public void drive() {
+        changeDirection = gamepad1.y;
+
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);
@@ -85,6 +102,7 @@ public class CF_Manual extends OpMode {
             driveMan.changeDirectonAndPower(-1);
             driveMan.runMechWheels(robot, gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
+        changeDirectionLast = changeDirection;
     }
 
     // Implements the lifter motors
@@ -95,18 +113,55 @@ public class CF_Manual extends OpMode {
 
     // Clamps the block
     public void clamp() {
-        if(gamepad2.x && positionUpper < 1.0) {
-            positionUpper = positionUpper + 0.01;
-        } else if(gamepad2.b && positionUpper > 0.41) {
-            positionUpper = positionUpper - 0.01;
-        }
-        robot.clamp.setPosition(positionUpper);
+//        if(gamepad2.x && positionUpper < 1.0) {
+//            positionUpper = positionUpper + 0.01;
+//        } else if(gamepad2.b && positionUpper > 0.41) {
+//            positionUpper = positionUpper - 0.01;
+//        }
+//
+//        if(gamepad2.dpad_right && positionLower < 0.61) {
+//            positionLower = positionLower + 0.01;
+//        } else if(gamepad2.dpad_left && positionLower > 0.30) {
+//            positionLower = positionLower - 0.01;
+//        }
+        X = gamepad2.x;
+        B = gamepad2.b;
+        RB = gamepad2.right_bumper;
+        LB = gamepad2.left_bumper;
 
-        if(gamepad2.dpad_right && positionLower < 0.61) {
-            positionLower = positionLower + 0.01;
-        } else if(gamepad2.dpad_left && positionLower > 0.30) {
-            positionLower = positionLower - 0.01;
+        if(!lastX && X) {
+            if(positionLower == 0.6) {
+                positionLower = 0.3;
+            } else if(positionLower == 0.3) {
+                positionLower = 0.6;
+            }
         }
+
+        if(!lastB && B) {
+            if(positionUpper == 0.71) {
+                positionUpper = 0.41;
+            } else if(positionUpper == 0.41) {
+                positionUpper = 0.71;
+            }
+        }
+
+        if(!lastRB && RB) {
+            positionUpper = 0.41;
+            positionLower = 0.6;
+        }
+
+        if(!lastLB && LB) {
+            positionUpper = 0.71;
+            positionLower = 0.3;
+        }
+
+        robot.clamp.setPosition(positionUpper);
         robot.lowerClamp.setPosition(positionLower);
+        //lower = 0.386
+        //upper = 0.71  0.41
+        lastX = X;
+        lastB = B;
+        lastRB = RB;
+        lastLB = LB;
     }
 }

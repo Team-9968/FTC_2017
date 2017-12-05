@@ -31,8 +31,13 @@ public class CF_Manual extends OpMode {
     boolean changeDirectionLast = false;
     boolean changeDirection = false;
 
-    boolean lastX = false;
-    boolean X = false;
+    int invert = 1;
+
+    boolean lastY = false;
+    boolean Y = false;
+
+    boolean lastA = false;
+    boolean A = false;
 
     boolean lastB = false;
     boolean B = false;
@@ -42,6 +47,9 @@ public class CF_Manual extends OpMode {
 
     boolean lastLB = false;
     boolean LB = false;
+
+    double start = 0;
+
     public void init() {
         // Inits robot
         robot.init(hardwareMap);
@@ -60,6 +68,7 @@ public class CF_Manual extends OpMode {
         telemetry.addData("Mode", mode);
         telemetry.addData("Position Upper", positionUpper);
         telemetry.addData("Position Lower", positionLower);
+        telemetry.addData("Position Claw", robot.clawMotor.getCurrentPosition());
         telemetry.update();
 
     }
@@ -82,33 +91,46 @@ public class CF_Manual extends OpMode {
     // Implements the drive modes
     public void drive() {
         changeDirection = gamepad1.y;
+        if(!changeDirectionLast && changeDirection) {
+            invert = -1 * invert;
+        }
 
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);
-            driveMan.runMechWheels(robot, gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
         // Mode for tank mode
         if (mode == 1) {
-            driveMan.tankMode(robot, gamepad1.left_stick_y, gamepad1.right_stick_y);
+            driveMan.tankMode(robot, invert * gamepad1.left_stick_y, invert * gamepad1.right_stick_y);
         }
         // Mode for half power forward mechanum
         if (mode == 2) {
             driveMan.changeDirectonAndPower(0.5);
-            driveMan.runMechWheels(robot, gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
         // Mode for full power backwards mechanum
         if (mode == 3) {
             driveMan.changeDirectonAndPower(-1);
-            driveMan.runMechWheels(robot, gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
         changeDirectionLast = changeDirection;
     }
 
     // Implements the lifter motors
     public void lift() {
+        B = gamepad2.b;
         accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
+        if(!lastB && B) {
+            start = Math.abs(robot.clawMotor.getCurrentPosition());
+            while(Math.abs(robot.clawMotor.getCurrentPosition()) < start + 2046) {
+                accessory.setPowerToPower(robot.clawMotor, -1, 3);
+            }
+            accessory.setPowerToPower(robot.clawMotor,0,3);
+        }
+        //1419
+        lastB = B;
     }
 
     // Clamps the block
@@ -124,12 +146,12 @@ public class CF_Manual extends OpMode {
 //        } else if(gamepad2.dpad_left && positionLower > 0.30) {
 //            positionLower = positionLower - 0.01;
 //        }
-        X = gamepad2.x;
-        B = gamepad2.b;
+        A = gamepad2.a;
+        Y = gamepad2.y;
         RB = gamepad2.right_bumper;
         LB = gamepad2.left_bumper;
 
-        if(!lastX && X) {
+        if(!lastA && A) {
             if(positionLower == 0.6) {
                 positionLower = 0.3;
             } else if(positionLower == 0.3) {
@@ -137,11 +159,11 @@ public class CF_Manual extends OpMode {
             }
         }
 
-        if(!lastB && B) {
-            if(positionUpper == 0.71) {
+        if(!lastY && Y) {
+            if(positionUpper == 0.81) {
                 positionUpper = 0.41;
             } else if(positionUpper == 0.41) {
-                positionUpper = 0.71;
+                positionUpper = 0.81;
             }
         }
 
@@ -151,7 +173,7 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastLB && LB) {
-            positionUpper = 0.71;
+            positionUpper = 0.82;
             positionLower = 0.3;
         }
 
@@ -159,8 +181,8 @@ public class CF_Manual extends OpMode {
         robot.lowerClamp.setPosition(positionLower);
         //lower = 0.386
         //upper = 0.71  0.41
-        lastX = X;
-        lastB = B;
+        lastY = Y;
+        lastA = A;
         lastRB = RB;
         lastLB = LB;
     }

@@ -48,8 +48,8 @@ public class CF_Manual extends OpMode {
     boolean lastLB = false;
     boolean LB = false;
 
-    boolean reset = false;
-    boolean lastReset = false;
+    boolean X = false;
+    boolean lastX = false;
 
     double start = 0;
     double end = 0;
@@ -130,7 +130,7 @@ public class CF_Manual extends OpMode {
         accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
         B = gamepad2.b;
-        reset = gamepad2.start;
+        X = gamepad2.start;
         if(!lastB && B && robot.clawMotor.getCurrentPosition() < end) {
             while(robot.clawMotor.getCurrentPosition() < end) {
                 accessory.setPowerToPower(robot.clawMotor, -1, 3);
@@ -138,13 +138,13 @@ public class CF_Manual extends OpMode {
             accessory.setPowerToPower(robot.clawMotor,0,3);
         }
 
-        if(!lastReset && reset) {
+        if(!lastX && X) {
             start = robot.clawMotor.getCurrentPosition();
             end = start + 1719;
         }
 
         lastB = B;
-        lastReset = reset;
+        lastX = X;
     }
 
     // Clamps the block

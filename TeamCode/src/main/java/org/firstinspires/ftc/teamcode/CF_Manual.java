@@ -129,22 +129,22 @@ public class CF_Manual extends OpMode {
         //To get rid of the quick lift method, comment out everything in this method except for the top two lines.
         accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
-        B = gamepad2.b;
-        X = gamepad2.start;
-        if(!lastB && B && robot.clawMotor.getCurrentPosition() < end) {
-            while(robot.clawMotor.getCurrentPosition() < end) {
-                accessory.setPowerToPower(robot.clawMotor, -1, 3);
-            }
-            accessory.setPowerToPower(robot.clawMotor,0,3);
-        }
-
-        if(!lastX && X) {
-            start = robot.clawMotor.getCurrentPosition();
-            end = start + 1719;
-        }
-
-        lastB = B;
-        lastX = X;
+//        B = gamepad2.b;
+//        X = gamepad2.start;
+//        if(!lastB && B && robot.clawMotor.getCurrentPosition() < end) {
+//            while(robot.clawMotor.getCurrentPosition() < end) {
+//                accessory.setPowerToPower(robot.clawMotor, -1, 3);
+//            }
+//            accessory.setPowerToPower(robot.clawMotor,0,3);
+//        }
+//
+//        if(!lastX && X) {
+//            start = robot.clawMotor.getCurrentPosition();
+//            end = start + 1719;
+//        }
+//
+//        lastB = B;
+//        lastX = X;
     }
 
     // Clamps the block

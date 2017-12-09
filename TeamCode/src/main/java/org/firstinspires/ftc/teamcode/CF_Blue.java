@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class CF_Blue extends LinearOpMode
 {
    CF_Hardware robot = new CF_Hardware();
-   CF_Color_Sensor sensor = new CF_Color_Sensor();
+   //CF_Color_Sensor sensor = new CF_Color_Sensor();
    CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
 
    private enum steps

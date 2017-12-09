@@ -126,10 +126,11 @@ public class CF_Manual extends OpMode {
 
     // Implements the lifter motors
     public void lift() {
-        B = gamepad2.b;
-        reset = gamepad2.start;
+        //To get rid of the quick lift method, comment out everything in this method except for the top two lines.
         accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
+        B = gamepad2.b;
+        reset = gamepad2.start;
         if(!lastB && B && robot.clawMotor.getCurrentPosition() < end) {
             while(robot.clawMotor.getCurrentPosition() < end) {
                 accessory.setPowerToPower(robot.clawMotor, -1, 3);

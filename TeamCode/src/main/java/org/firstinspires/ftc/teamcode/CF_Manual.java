@@ -25,8 +25,8 @@ public class CF_Manual extends OpMode {
     // Instantiates variables
     int mode = 0;
 
-    double positionUpper = 0.35;
-    double positionLower = 0.71;
+    double positionUpper = 0.81;
+    double positionLower = 0.6;
 
     boolean changeDirectionLast = false;
     boolean changeDirection = false;
@@ -48,12 +48,18 @@ public class CF_Manual extends OpMode {
     boolean lastLB = false;
     boolean LB = false;
 
+    boolean reset = false;
+    boolean lastReset = false;
+
     double start = 0;
+    double end = 0;
 
     public void init() {
         // Inits robot
         robot.init(hardwareMap);
         telemetry.addData("", "init");
+        start = robot.clawMotor.getCurrentPosition();
+        end = start + 1719;
     }
 
     public void loop(){
@@ -61,7 +67,6 @@ public class CF_Manual extends OpMode {
         updateMode();
         drive();
         lift();
-
         clamp();
 
         telemetry.clearAll();
@@ -90,8 +95,10 @@ public class CF_Manual extends OpMode {
     }
     // Implements the drive modes
     public void drive() {
+        // Implements Owen's switchy thingamajigger
         changeDirection = gamepad1.y;
         if(!changeDirectionLast && changeDirection) {
+            //Invert is the multiplyer to switch the gizmo
             invert = -1 * invert;
         }
 
@@ -120,17 +127,23 @@ public class CF_Manual extends OpMode {
     // Implements the lifter motors
     public void lift() {
         B = gamepad2.b;
+        reset = gamepad2.start;
         accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, -gamepad2.left_stick_y, 3);
-        if(!lastB && B) {
-            start = Math.abs(robot.clawMotor.getCurrentPosition());
-            while(Math.abs(robot.clawMotor.getCurrentPosition()) < start + 2046) {
+        if(!lastB && B && robot.clawMotor.getCurrentPosition() < end) {
+            while(robot.clawMotor.getCurrentPosition() < end) {
                 accessory.setPowerToPower(robot.clawMotor, -1, 3);
             }
             accessory.setPowerToPower(robot.clawMotor,0,3);
         }
-        //1419
+
+        if(!lastReset && reset) {
+            start = robot.clawMotor.getCurrentPosition();
+            end = start + 1719;
+        }
+
         lastB = B;
+        lastReset = reset;
     }
 
     // Clamps the block
@@ -152,6 +165,7 @@ public class CF_Manual extends OpMode {
         LB = gamepad2.left_bumper;
 
         if(!lastA && A) {
+            //0.3
             if(positionLower == 0.6) {
                 positionLower = 0.3;
             } else if(positionLower == 0.3) {
@@ -160,6 +174,7 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastY && Y) {
+            //0.81
             if(positionUpper == 0.81) {
                 positionUpper = 0.41;
             } else if(positionUpper == 0.41) {

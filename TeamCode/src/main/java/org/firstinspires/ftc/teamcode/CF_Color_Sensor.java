@@ -81,12 +81,12 @@ public class CF_Color_Sensor
       getColorValues(robot);
       getWiffleBallValues(robot);
 
-      if (wiffleball == CF_SecondSensorEnum.BLUE)  //(color == CF_Color_Enum.RED &&
+      if (color == CF_Color_Enum.RED && wiffleball == CF_SecondSensorEnum.BLUE) 
       {
          type = CF_TypeEnum.RIGHTISRED;
       }
 
-      else if ( wiffleball == CF_SecondSensorEnum.RED)  //color == CF_Color_Enum.BLUE &&
+      else if (color == CF_Color_Enum.BLUE && wiffleball == CF_SecondSensorEnum.RED)
       {
          type = CF_TypeEnum.RIGHTISBLUE;
       }

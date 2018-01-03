@@ -3,18 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import java.util.concurrent.TimeUnit;
 
 /**
- * Created by dawso on 12/18/2017.
+ * Created by dawson on 12/18/2017.
  */
-
 
 
 @Autonomous(name = "Auto OpMode", group = "Sensor")
@@ -22,100 +14,125 @@ import java.util.concurrent.TimeUnit;
 public class CF_OpMode_Auto_Red extends OpMode
 {
 
-      CF_Hardware robot = new CF_Hardware();
-      ElapsedTime runTime = new ElapsedTime();
-      CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
-      CF_Color_Sensor sensor = new CF_Color_Sensor();
+   CF_Hardware robot = new CF_Hardware();
+   ElapsedTime runTime = new ElapsedTime();
+   CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
+   CF_Color_Sensor sensor = new CF_Color_Sensor();
 
-      private enum states
+   double positionUpper = 0.81;
+   double positionLower = 0.6;
+
+    private enum states
+    {
+       BACKUP, JEWELHITTER, PASTBALANCE, ROTATETOBOX, GOTOBOX, RELEASEBLOCK, PARK
+    }
+
+   states State = states.BACKUP;
+
+   int endTime = 29;
+
+    private void checkTime()
+    {
+      // Kills the robot if time is over the endTime
+      if(runTime.seconds() >= endTime)
       {
-         BACKUP, JEWELHITTER, PASTBALANCE, ROTATETOBOX, GOTOBOX, RELEASEBLOCK, PARK
+         requestOpModeStop();
       }
+    }
 
-      states State = states.BACKUP;
+   @Override
+   public void init()
+   {
+      robot.init(hardwareMap);
+   }
 
-      int endTime = 10;
+   @Override
+   public void loop()
+   {
+      runTime.reset();
+      checkTime();
+      CF_TypeEnum classification = sensor.setType(robot);
 
-      private void checkTime()
+      switch (State)
       {
-         // Kills the robot if time is over the endTime
-         if(runTime.seconds() >= endTime) {
-            requestOpModeStop();
-         }
-      }
+         //Drives the robot off ot the balance pad to the jewel stand thing
+         case BACKUP:
+            auto.driveIMU(robot, 0.15, 300);
+            robot.jewelHitter.setPosition(0.5);
+            checkTime();
+            State = states.JEWELHITTER;
+            break;
 
-      @Override
-      public void init()
-      {
-         robot.init(hardwareMap);
-      }
+         //Decides which color the ball on the right is and uses that to determine which way to strafe
+         case JEWELHITTER:
+            telemetry.addData("Case Jewelpusher", "");
+            sensor.setType(robot);
 
-      @Override
-      public void loop()
-      {
-         runTime.reset();
-         checkTime();
-         CF_TypeEnum classification = sensor.setType(robot);
-
-         switch (State)
-         {
-            case BACKUP:
-
-               auto.driveIMU(robot, 0.15, 350);
-               robot.jewelHitter.setPosition(0.65);
+            if (classification == CF_TypeEnum.RIGHTISRED)
+            {
+               telemetry.addData("Right is"," red");
+               auto.driveIMUStrafe(robot, 0.3, 80);
                checkTime();
-               State = states.JEWELHITTER;
-               break;
+               auto.driveIMU(robot, -0.3, 40);
+               robot.jewelHitter.setPosition(0.1);
+               auto.driveIMUStrafe(robot, -0.3, 110);
+            }
 
-//         case JEWELHITTER:
-//            telemetry.addData("Case Jewelpusher", "");
-//            sensor.setType(robot);
-//
-//            if (classification == CF_TypeEnum.RIGHTISRED)
-//            {
-//               auto.driveIMU(robot, -0.15, 0);
-//               telemetry.addData("Ball is"," red");
-//               auto.driveIMUStrafe(robot, 0.3, 400);
-//               checkTime();
-//            }
-//
-//            else if (classification == CF_TypeEnum.RIGHTISBLUE)
-//            {
-//               auto.driveIMU(robot, -0.15, 0);
-//               telemetry.addData("Ball is"," blue");
-//               auto.driveIMUStrafe(robot, -0.3, 250);
-//               checkTime();
-//            }
-//
-//            else
-//            {
-//               telemetry.addData("Ball is", " unknown");
-//               checkTime();
-//            }
-//
-//            State = states.PASTBALANCE;
-//            break;
-//
-//         case PASTBALANCE:
-//            auto.driveIMU(robot, 0.3, 800);
-//            State = states.ROTATETOBOX;
-//            break;
-//
+            else if (classification == CF_TypeEnum.RIGHTISBLUE)
+            {
+               telemetry.addData("Right is"," blue");
+               auto.driveIMUStrafe(robot, -0.3, 100);
+               auto.driveIMU(robot, -0.3, 30);
+               robot.jewelHitter.setPosition(0.1);
+               auto.driveIMUStrafe(robot, 0.3, 200);
+               checkTime();
+            }
+
+            else
+            {
+               telemetry.addData("Ball is", " unknown");
+               checkTime();
+            }
+
+            State = states.PASTBALANCE;
+            break;
+
+//         Drives the robot back onto the balance pad and over it to the floor
+         case PASTBALANCE:
+            auto.driveIMU(robot, -0.3, 1000);
+            checkTime();
+            State = states.ROTATETOBOX;
+            break;
+
+         // Rotates the robot 90 degrees ish so it faces the cryptobox
 //         case ROTATETOBOX:
-//            auto.driveIMUTurnRight(robot, 0.5, 100); //the number of counts is a not-so-educated guess.
+//            auto.driveIMUTurnLeft(robot, -0.5, 100); //the number of counts is a not-so-educated guess.
+//            checkTime();
 //            State = states.GOTOBOX;
 //            break;
-
-            case GOTOBOX:
-               auto.driveIMU(robot, 0.4, 1000); //again, just a guess
-               //maybe some strafing somewhere in there
-               State = states.RELEASEBLOCK;
-               break;
-
-            case RELEASEBLOCK:
-               robot.positionUpper = 0.41;
-               positionLower = 0.6;
-         }
+//
+         //Drives robot to cryptobox and alignes it
+//         case GOTOBOX:
+//            auto.driveIMU(robot, -0.4, 1000); //again, just a guess
+//            //maybe some strafing somewhere in there
+//            checkTime();
+//            State = states.RELEASEBLOCK;
+//            break;
+//
+         //Opens claw(s) so the block is dropped in the box
+//         case RELEASEBLOCK:
+//            positionUpper = 0.41;
+//            positionLower = 0.6;
+//
+//            robot.clamp.setPosition(positionUpper);
+//            robot.lowerClamp.setPosition(positionLower);
+//            checkTime();
+//
+         //Backs robot up slightly so we aren't touching the block, but are still parking
+//         case PARK:
+//            auto.driveIMU(robot, 0.5, 75);
+//            checkTime();
+//            break;
       }
-
+   }
 }

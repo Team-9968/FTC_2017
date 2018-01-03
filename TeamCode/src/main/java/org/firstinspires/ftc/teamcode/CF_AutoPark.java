@@ -27,7 +27,7 @@ public class CF_AutoPark extends LinearOpMode
 
       while (opModeIsActive())
       {
-         auto.driveIMU(this, robot, -0.2, 1800);
+         auto.driveIMU(robot, -0.2, 1800);
          TimeUnit.MILLISECONDS.sleep(500);
          break;
       }

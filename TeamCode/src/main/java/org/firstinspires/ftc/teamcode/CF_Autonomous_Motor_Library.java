@@ -160,7 +160,7 @@ public class CF_Autonomous_Motor_Library {
 
    }
 
-   void driveIMUTurnRight( CF_Hardware robot, double power, double encoderCounts) {
+   void driveIMUTurnLeft( CF_Hardware robot, double power, double encoderCounts) {
       motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
       motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       imuLib.updateNumbers(robot);

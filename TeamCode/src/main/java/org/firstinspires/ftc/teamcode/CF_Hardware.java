@@ -76,7 +76,7 @@ public class CF_Hardware {
         adafruitRGB.enableLed(false);
         adafruitRGBTwo.enableLed(false);
 
-        jewelHitter.setPosition(0.8);
+        jewelHitter.setPosition(0.0);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

@@ -29,6 +29,7 @@ public class CF_RunTwoSensors extends LinearOpMode
       waitForStart();
 
       // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+      robot.tailLight.setPower(1.0);
       while (opModeIsActive())
       {
 

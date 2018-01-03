@@ -26,6 +26,8 @@ public class CF_Hardware {
     public DcMotor mastMotor = null;
     public DcMotor clawMotor = null;
 
+    public DcMotor tailLight = null;
+
     public ColorSensor adafruitRGB = null;   //right when viewed from back of robot
     public ColorSensor adafruitRGBTwo = null;  //left when viewed from back
 
@@ -60,6 +62,10 @@ public class CF_Hardware {
 
         clawMotor = hwMap.get(DcMotor.class, "clawMotor");
         clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        tailLight = hwMap.get(DcMotor.class, "tailLight");
+        tailLight.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
         adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
 

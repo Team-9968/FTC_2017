@@ -60,6 +60,7 @@ public class CF_OpMode_Auto_Red extends OpMode
             auto.driveIMU(robot, 0.15, 300);
             robot.jewelHitter.setPosition(0.5);
             checkTime();
+            robot.tailLight.setPower(1.0);
             State = states.JEWELHITTER;
             break;
 
@@ -101,6 +102,7 @@ public class CF_OpMode_Auto_Red extends OpMode
          case PASTBALANCE:
             auto.driveIMU(robot, -0.3, 1000);
             checkTime();
+            robot.tailLight.setPower(0.0);
             State = states.ROTATETOBOX;
             break;
 

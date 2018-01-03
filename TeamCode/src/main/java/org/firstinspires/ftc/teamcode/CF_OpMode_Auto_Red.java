@@ -8,27 +8,34 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created by dawson on 12/18/2017.
  */
 
-
+//Autonomous mode to knock off the right color of jewel, then puch a block into the cryptobox and park in
+   //the parking zone.
 @Autonomous(name = "Auto OpMode", group = "Sensor")
 //@Disabled
 public class CF_OpMode_Auto_Red extends OpMode
 {
-
+   //Allows this file to access pieces of hardware created in other files.
    CF_Hardware robot = new CF_Hardware();
    ElapsedTime runTime = new ElapsedTime();
    CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
 
+   //Sets desired servo positions for the claws, so they can grab and release the preloaded block
    double positionUpper = 0.81;
    double positionLower = 0.6;
 
+
+   //A "checklist" of thins this program must do IN ORDER for it to work
     private enum states
     {
        BACKUP, JEWELHITTER, PASTBALANCE, ROTATETOBOX, GOTOBOX, RELEASEBLOCK, PARK
     }
 
+    //Sets current stage of the "List"
    states State = states.BACKUP;
 
+   //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
+   //a backup method in case the coach forgets to turn on the timer built into the robot app.
    int endTime = 29;
 
     private void checkTime()
@@ -55,7 +62,7 @@ public class CF_OpMode_Auto_Red extends OpMode
 
       switch (State)
       {
-         //Drives the robot off ot the balance pad to the jewel stand thing
+         //Drives the robot off ot the balance pad to the jewel stand
          case BACKUP:
             auto.driveIMU(robot, 0.15, 300);
             robot.jewelHitter.setPosition(0.5);

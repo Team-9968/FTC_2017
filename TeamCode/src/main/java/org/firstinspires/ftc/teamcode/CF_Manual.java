@@ -174,6 +174,7 @@ public class CF_Manual extends OpMode {
             }
         }
 
+        // Debouncing for the buttons
         if(!lastY && Y) {
             //0.81
             if(positionUpper == 0.81) {

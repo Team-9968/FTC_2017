@@ -19,11 +19,7 @@ public class CF_OpMode_Auto_Red extends OpMode
    ElapsedTime runTime = new ElapsedTime();
    CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
-
-   //Sets desired servo positions for the claws, so they can grab and release the preloaded block
-   double positionUpper = 0.81;
-   double positionLower = 0.6;
-
+   boolean distance;
 
    //A "checklist" of thins this program must do IN ORDER for it to work
     private enum states
@@ -84,6 +80,7 @@ public class CF_OpMode_Auto_Red extends OpMode
                auto.driveIMU(robot, -0.3, 40);
                robot.jewelHitter.setPosition(0.1);
                auto.driveIMUStrafe(robot, -0.3, 110);
+               distance = true;
             }
 
             else if (classification == CF_TypeEnum.RIGHTISBLUE)
@@ -94,6 +91,7 @@ public class CF_OpMode_Auto_Red extends OpMode
                robot.jewelHitter.setPosition(0.1);
                auto.driveIMUStrafe(robot, 0.3, 200);
                checkTime();
+               distance = false;
             }
 
             else
@@ -113,29 +111,41 @@ public class CF_OpMode_Auto_Red extends OpMode
             State = states.ROTATETOBOX;
             break;
 
-         // Rotates the robot 90 degrees ish so it faces the cryptobox
-//         case ROTATETOBOX:
-//            auto.driveIMUTurnLeft(robot, -0.5, 100); //the number of counts is a not-so-educated guess.
-//            checkTime();
-//            State = states.GOTOBOX;
-//            break;
-//
+          //Rotates the robot 90 degrees ish so it faces the cryptobox
+         case ROTATETOBOX:
+            auto.driveIMUTurnLeft(robot, -0.5, 700);
+            checkTime();
+            State = states.GOTOBOX;
+            break;
+
          //Drives robot to cryptobox and alignes it
 //         case GOTOBOX:
-//            auto.driveIMU(robot, -0.4, 1000); //again, just a guess
-//            //maybe some strafing somewhere in there
+//              if (distance = true)
+//              {
+//                 auto.driveIMU(robot, -0.5, 1000);
+//              }
+//
+//              else if (distance = false)
+//              {
+//                 auto.driveIMU(robot, -0.5, 700);
+//              }
+//
+//              else
+//              {
+//                 auto.driveIMU(robot, -0.5, 850)
+//              }
+
 //            checkTime();
 //            State = states.RELEASEBLOCK;
 //            break;
 //
          //Opens claw(s) so the block is dropped in the box
 //         case RELEASEBLOCK:
-//            positionUpper = 0.41;
-//            positionLower = 0.6;
-//
-//            robot.clamp.setPosition(positionUpper);
-//            robot.lowerClamp.setPosition(positionLower);
+//            robot.clamp.setPosition(0.41);
+//            robot.lowerClamp.setPosition(0.6);
 //            checkTime();
+//            State = states.PARK;
+//            break;
 //
          //Backs robot up slightly so we aren't touching the block, but are still parking
 //         case PARK:

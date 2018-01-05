@@ -4,13 +4,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by dawson on 12/18/2017.
  */
 
 //Autonomous mode to knock off the right color of jewel, then puch a block into the cryptobox and park in
    //the parking zone.
-@Autonomous(name = "Auto OpMode", group = "Sensor")
+@Autonomous(name = "Auto OpMode Red", group = "Sensor")
 //@Disabled
 public class CF_OpMode_Auto_Red extends OpMode
 {
@@ -21,7 +23,7 @@ public class CF_OpMode_Auto_Red extends OpMode
    CF_Color_Sensor sensor = new CF_Color_Sensor();
    boolean distance;
 
-   //A "checklist" of thins this program must do IN ORDER for it to work
+   //A "checklist" of things this program must do IN ORDER for it to work
     private enum states
     {
        BACKUP, JEWELHITTER, PASTBALANCE, ROTATETOBOX, GOTOBOX, RELEASEBLOCK, PARK
@@ -61,7 +63,10 @@ public class CF_OpMode_Auto_Red extends OpMode
          //Drives the robot off ot the balance pad to the jewel stand
          case BACKUP:
             auto.driveIMU(robot, 0.15, 300);
-            robot.jewelHitter.setPosition(0.5);
+            robot.jewelHitter.setPosition(0.54);
+            try {
+               TimeUnit.MILLISECONDS.sleep(1000);
+            } catch (InterruptedException I) {}
             checkTime();
             robot.tailLight.setPower(1.0);
             State = states.JEWELHITTER;
@@ -75,21 +80,22 @@ public class CF_OpMode_Auto_Red extends OpMode
             if (classification == CF_TypeEnum.RIGHTISRED)
             {
                telemetry.addData("Right is"," red");
-               auto.driveIMUStrafe(robot, 0.3, 80);
+               auto.driveIMUStrafe(robot, 0.3, 250);
                checkTime();
-               auto.driveIMU(robot, -0.3, 40);
-               robot.jewelHitter.setPosition(0.1);
-               auto.driveIMUStrafe(robot, -0.3, 110);
+               //auto.driveIMU(robot, -0.3, 70);
+              // robot.jewelHitter.setPosition(0.1);
+               //auto.driveIMUStrafe(robot, -0.3, 250);
                distance = true;
             }
 
             else if (classification == CF_TypeEnum.RIGHTISBLUE)
             {
                telemetry.addData("Right is"," blue");
-               auto.driveIMUStrafe(robot, -0.3, 100);
-               auto.driveIMU(robot, -0.3, 30);
-               robot.jewelHitter.setPosition(0.1);
-               auto.driveIMUStrafe(robot, 0.3, 200);
+               auto.driveIMUStrafe(robot, -0.3, 250);
+               checkTime();
+              // auto.driveIMU(robot, -0.3, 70);
+               //robot.jewelHitter.setPosition(0.1);
+               //auto.driveIMUStrafe(robot, 0.3, 250);
                checkTime();
                distance = false;
             }
@@ -100,23 +106,29 @@ public class CF_OpMode_Auto_Red extends OpMode
                checkTime();
             }
 
-            State = states.PASTBALANCE;
+            robot.jewelHitter.setPosition(0.1);
+            robot.tailLight.setPower(0.0);
+            try{
+            TimeUnit.MILLISECONDS.sleep(1000);}
+            catch (InterruptedException I) {}
+            requestOpModeStop();
+           // State = states.PASTBALANCE;
             break;
 
 //         Drives the robot back onto the balance pad and over it to the floor
-         case PASTBALANCE:
-            auto.driveIMU(robot, -0.3, 1000);
-            checkTime();
-            robot.tailLight.setPower(0.0);
-            State = states.ROTATETOBOX;
-            break;
-
-          //Rotates the robot 90 degrees ish so it faces the cryptobox
-         case ROTATETOBOX:
-            auto.driveIMUTurnLeft(robot, -0.5, 700);
-            checkTime();
-            State = states.GOTOBOX;
-            break;
+//         case PASTBALANCE:
+//            auto.driveIMU(robot, -0.3, 1300);
+//            checkTime();
+//            robot.tailLight.setPower(0.0);
+//            State = states.ROTATETOBOX;
+//            break;
+//
+//          //Rotates the robot 90 degrees ish so it faces the cryptobox
+//         case ROTATETOBOX:
+//            auto.driveIMUTurnLeft(robot, -0.5, 700);
+//            checkTime();
+//            State = states.GOTOBOX;
+//            break;
 
          //Drives robot to cryptobox and alignes it
 //         case GOTOBOX:

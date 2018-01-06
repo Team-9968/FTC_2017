@@ -102,7 +102,6 @@ public class CF_Manual extends OpMode {
             //Invert is the multiplyer to switch the gizmo
             invert = -1 * invert;
         }
-
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);

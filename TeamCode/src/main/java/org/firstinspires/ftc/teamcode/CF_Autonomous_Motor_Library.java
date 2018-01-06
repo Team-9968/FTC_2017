@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -80,7 +81,7 @@ public class CF_Autonomous_Motor_Library {
 
    }
 
-   void driveIMU( CF_Hardware robot, double power, double encoderCounts) {
+   void driveIMU(OpMode mode, CF_Hardware robot, double power, double encoderCounts) {
       motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
       motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       imuLib.updateNumbers(robot);
@@ -122,7 +123,7 @@ public class CF_Autonomous_Motor_Library {
    }
 
 
-   void driveIMUStrafe( CF_Hardware robot, double power, double encoderCounts) {
+   void driveIMUStrafe(OpMode mode, CF_Hardware robot, double power, double encoderCounts) {
       motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
       motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       imuLib.updateNumbers(robot);
@@ -160,7 +161,7 @@ public class CF_Autonomous_Motor_Library {
 
    }
 
-   void driveIMUTurnLeft( CF_Hardware robot, double power, double encoderCounts) {
+   void driveIMUTurnLeft(OpMode mode, CF_Hardware robot, double power, double encoderCounts) {
       motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
       motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       imuLib.updateNumbers(robot);

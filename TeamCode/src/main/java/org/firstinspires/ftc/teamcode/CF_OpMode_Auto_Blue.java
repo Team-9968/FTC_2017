@@ -62,7 +62,7 @@ public class CF_OpMode_Auto_Blue extends OpMode
         {
             //Drives the robot off ot the balance pad to the jewel stand
             case BACKUP:
-                auto.driveIMU(robot, 0.15, 300);
+                auto.driveIMU(this, robot, 0.15, 300);
                 robot.jewelHitter.setPosition(0.54);
                 try {
                     TimeUnit.MILLISECONDS.sleep(1000);
@@ -80,7 +80,7 @@ public class CF_OpMode_Auto_Blue extends OpMode
                 if (classification == CF_TypeEnum.RIGHTISBLUE)
                 {
                     telemetry.addData("Right is"," blue");
-                    auto.driveIMUStrafe(robot, 0.3, 250);
+                    auto.driveIMUStrafe(this, robot, 0.3, 250);
                     checkTime();
                     //auto.driveIMU(robot, -0.3, 70);
                     // robot.jewelHitter.setPosition(0.1);
@@ -91,7 +91,7 @@ public class CF_OpMode_Auto_Blue extends OpMode
                 else if (classification == CF_TypeEnum.RIGHTISRED)
                 {
                     telemetry.addData("Right is"," red");
-                    auto.driveIMUStrafe(robot, -0.3, 250);
+                    auto.driveIMUStrafe(this, robot, -0.3, 250);
                     checkTime();
                     // auto.driveIMU(robot, -0.3, 70);
                     //robot.jewelHitter.setPosition(0.1);

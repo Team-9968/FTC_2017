@@ -62,7 +62,7 @@ public class CF_OpMode_Auto_Red extends OpMode
       {
          //Drives the robot off ot the balance pad to the jewel stand
          case BACKUP:
-            auto.driveIMU(robot, 0.15, 300);
+            auto.driveIMU(this, robot, 0.15, 300);
             robot.jewelHitter.setPosition(0.54);
             try {
                TimeUnit.MILLISECONDS.sleep(1000);
@@ -80,24 +80,24 @@ public class CF_OpMode_Auto_Red extends OpMode
             if (classification == CF_TypeEnum.RIGHTISRED)
             {
                telemetry.addData("Right is"," red");
-               auto.driveIMUStrafe(robot, 0.3, 250);
+               auto.driveIMUStrafe(this, robot, 0.3, 250); //90
                checkTime();
-               //auto.driveIMU(robot, -0.3, 70);
-              // robot.jewelHitter.setPosition(0.1);
-               //auto.driveIMUStrafe(robot, -0.3, 250);
-               distance = true;
+//               auto.driveIMU(this, robot, -0.3, 70);
+//               robot.jewelHitter.setPosition(0.1);
+//               auto.driveIMUStrafe(this, robot, -0.3, 250); //90
+ //              distance = true;
             }
 
             else if (classification == CF_TypeEnum.RIGHTISBLUE)
             {
                telemetry.addData("Right is"," blue");
-               auto.driveIMUStrafe(robot, -0.3, 250);
+               auto.driveIMUStrafe(this, robot, -0.3, 250);
                checkTime();
-              // auto.driveIMU(robot, -0.3, 70);
-               //robot.jewelHitter.setPosition(0.1);
-               //auto.driveIMUStrafe(robot, 0.3, 250);
-               checkTime();
-               distance = false;
+//               auto.driveIMU(this, robot, -0.3, 70);
+//               robot.jewelHitter.setPosition(0.1);
+//               auto.driveIMUStrafe(this, robot, 0.3, 250);
+//               checkTime();
+//               distance = false;
             }
 
             else
@@ -108,16 +108,16 @@ public class CF_OpMode_Auto_Red extends OpMode
 
             robot.jewelHitter.setPosition(0.1);
             robot.tailLight.setPower(0.0);
-            try{
-            TimeUnit.MILLISECONDS.sleep(1000);}
-            catch (InterruptedException I) {}
-            requestOpModeStop();
-           // State = states.PASTBALANCE;
+//            try{
+//            TimeUnit.MILLISECONDS.sleep(1000);}
+//            catch (InterruptedException I) {}
+//            requestOpModeStop();
+//            State = states.PASTBALANCE;
             break;
 
-//         Drives the robot back onto the balance pad and over it to the floor
+//         //Drives the robot back onto the balance pad and over it to the floor
 //         case PASTBALANCE:
-//            auto.driveIMU(robot, -0.3, 1300);
+//            auto.driveIMU(this, robot, -0.3, 1300);
 //            checkTime();
 //            robot.tailLight.setPower(0.0);
 //            State = states.ROTATETOBOX;
@@ -125,7 +125,7 @@ public class CF_OpMode_Auto_Red extends OpMode
 //
 //          //Rotates the robot 90 degrees ish so it faces the cryptobox
 //         case ROTATETOBOX:
-//            auto.driveIMUTurnLeft(robot, -0.5, 700);
+//            auto.driveIMUTurnLeft(this, robot, -0.5, 700);
 //            checkTime();
 //            State = states.GOTOBOX;
 //            break;

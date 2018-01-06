@@ -89,8 +89,9 @@ public class CF_Hardware {
         adafruitRGB.enableLed(false);
         adafruitRGBTwo.enableLed(false);
 
+        jewelHitter.setPosition(0.1);
        //sets init position of the servo so we stay within 18 inches
-        jewelHitter.setPosition(0.0);
+
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

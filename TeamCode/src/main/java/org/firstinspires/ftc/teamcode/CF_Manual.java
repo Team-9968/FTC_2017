@@ -59,6 +59,7 @@ public class CF_Manual extends OpMode {
         robot.init(hardwareMap);
         telemetry.addData("", "init");
         start = robot.clawMotor.getCurrentPosition();
+        robot.jewelHitter.setPosition(0.1);
         end = start + 1719;
     }
 
@@ -101,7 +102,6 @@ public class CF_Manual extends OpMode {
             //Invert is the multiplyer to switch the gizmo
             invert = -1 * invert;
         }
-
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);
@@ -190,7 +190,7 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastLB && LB) {
-            positionUpper = 0.82;
+            positionUpper = 0.81;
             positionLower = 0.3;
         }
 

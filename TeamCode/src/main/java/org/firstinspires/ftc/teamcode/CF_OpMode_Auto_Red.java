@@ -79,6 +79,7 @@ public class CF_OpMode_Auto_Red extends OpMode
 
             if (classification == CF_TypeEnum.RIGHTISRED)
             {
+               robot.jewelHitter.setPosition(0.4);
                telemetry.addData("Right is"," red");
                auto.driveIMUStrafe(this, robot, 0.3, 250); //90
                checkTime();
@@ -90,6 +91,7 @@ public class CF_OpMode_Auto_Red extends OpMode
 
             else if (classification == CF_TypeEnum.RIGHTISBLUE)
             {
+               robot.jewelHitter.setPosition(0.4);
                telemetry.addData("Right is"," blue");
                auto.driveIMUStrafe(this, robot, -0.3, 250);
                checkTime();

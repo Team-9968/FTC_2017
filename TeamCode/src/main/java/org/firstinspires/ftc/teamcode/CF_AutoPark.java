@@ -3,14 +3,15 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by dawso on 12/1/2017.
+ * Created by dawson on 12/1/2017.
  */
 
 
+
+//Autonomous program that drives from the balance pad to the parking zone.
 @Autonomous(name = "", group = "Sensor")
 //@Disabled
 public class CF_AutoPark extends LinearOpMode
@@ -21,8 +22,11 @@ public class CF_AutoPark extends LinearOpMode
    @Override
    public void runOpMode() throws InterruptedException
    {
+      //Sets each piece of the robot to the desired position prior to the
+      //start of the match.
       robot.init(hardwareMap);
 
+      //robot waits until coach presses play button on phone
       waitForStart();
 
       while (opModeIsActive())

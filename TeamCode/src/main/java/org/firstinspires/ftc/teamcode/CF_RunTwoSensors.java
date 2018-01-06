@@ -29,14 +29,20 @@ public class CF_RunTwoSensors extends LinearOpMode
       waitForStart();
 
       // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+      robot.tailLight.setPower(1.0);
       while (opModeIsActive())
       {
+
+         robot.jewelHitter.setPosition(0.53);
+
+
          // convert the RGB values to HSV values.
          Color.RGBToHSV((robot.adafruitRGB.red() * 255) / 800, (robot.adafruitRGB.green() * 255) / 800, (robot.adafruitRGB.blue() * 255) / 800, hsvValues);
          Color.RGBToHSV((robot.adafruitRGBTwo.red() * 255) / 800, (robot.adafruitRGBTwo.green() * 255) / 800, (robot.adafruitRGBTwo.blue() * 255) / 800, hsvValues);
 
+         //this sensor is on the right when robot is viewed from the back
          // Check which color is seen by sensor based on threshold values
-         if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 20)
+         if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 35)
          {
             color  = CF_Color_Enum.RED;
             telemetry.addData("Right Sensor = red" , robot.adafruitRGB.red() - robot.adafruitRGB.blue());
@@ -52,8 +58,9 @@ public class CF_RunTwoSensors extends LinearOpMode
             telemetry.addData("Right Sensor = unknown" , Math.abs(robot.adafruitRGB.red() - robot.adafruitRGB.blue()));
          }
 
+         //When robot is viewed form back, this sensor is on the left.
          // Check which color is seen by the second sensor based on threshold values
-         if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 20)
+         if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 35)
          {
             wiffleball  = CF_SecondSensorEnum.RED;
             telemetry.addData("Left Sensor = red" , robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue());

@@ -18,6 +18,8 @@ import com.qualcomm.robotcore.util.Range;
 
 
 public class CF_Hardware {
+
+   //Names all of the motors, sensors, servos, and various other pieces of the robot
     public DcMotor rightFront = null;
     public DcMotor rightRear = null;
     public DcMotor leftFront = null;
@@ -25,6 +27,8 @@ public class CF_Hardware {
 
     public DcMotor mastMotor = null;
     public DcMotor clawMotor = null;
+
+    public DcMotor tailLight = null;
 
     public ColorSensor adafruitRGB = null;   //right when viewed from back of robot
     public ColorSensor adafruitRGBTwo = null;  //left when viewed from back
@@ -43,6 +47,10 @@ public class CF_Hardware {
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
 
+
+       //Sets motor directions and gives the names (In purple) of what each piece will be
+       //named in the configuration file. If these names are off by even one letter, that piece of hardware
+       //will not run.
         rightFront = hwMap.get(DcMotor.class, "motorOne");
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -61,6 +69,10 @@ public class CF_Hardware {
         clawMotor = hwMap.get(DcMotor.class, "clawMotor");
         clawMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        tailLight = hwMap.get(DcMotor.class, "tailLight");
+        tailLight.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
         adafruitRGB = hwMap.get(ColorSensor.class, "adafruitRGB");
 
         adafruitRGBTwo = hwMap.get(ColorSensor.class, "adafruitRGBTwo");
@@ -73,10 +85,13 @@ public class CF_Hardware {
 
         //limit = hwMap.get(DigitalChannel.class, "touch");
 
+       //makes sure the LEDS on the sensors are off to be polite to the drivers
         adafruitRGB.enableLed(false);
         adafruitRGBTwo.enableLed(false);
 
         jewelHitter.setPosition(0.1);
+       //sets init position of the servo so we stay within 18 inches
+
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

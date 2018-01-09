@@ -89,7 +89,7 @@ public class CF_Hardware {
         adafruitRGB.enableLed(false);
         adafruitRGBTwo.enableLed(false);
 
-        jewelHitter.setPosition(0.1);
+        jewelHitter.setPosition(0.0);
        //sets init position of the servo so we stay within 18 inches
 
 

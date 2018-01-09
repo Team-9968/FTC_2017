@@ -161,7 +161,8 @@ public class CF_Autonomous_Motor_Library {
 
    }
 
-   void driveIMUTurnLeft(OpMode mode, CF_Hardware robot, double power, double encoderCounts) {
+   void driveIMUTurnLeft(OpMode mode, CF_Hardware robot, double power, double encoderCounts)
+   {
       motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
       motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       imuLib.updateNumbers(robot);
@@ -174,31 +175,39 @@ public class CF_Autonomous_Motor_Library {
       double RRPower = 0;
       double LRPower = 0;
 
-      while(Math.abs(motors.getEncoderCounts(robot, 1)) < count /* && Math.abs(motors.getEncoderCounts(robot, 2)) < count && Math.abs(motors.getEncoderCounts(robot, 3)) < count && Math.abs(motors.getEncoderCounts(robot, 4)) < count*/)
+      RFPower = -power;// + error;
+      LFPower = power;// - error;
+      RRPower = -power;// + error;
+      LRPower = power;// - error;
+
+//      while(Math.abs(motors.getEncoderCounts(robot, 1)) < count /* && Math.abs(motors.getEncoderCounts(robot, 2)) < count && Math.abs(motors.getEncoderCounts(robot, 3)) < count && Math.abs(motors.getEncoderCounts(robot, 4)) < count*/)
+//      {
+//
+//
+//         //LineaerOpmode mode
+//
+//
+//
+//
+//         //!mode.isStopRequested() &&
+//
+//
+//
+//         //Could be wrong and the whole method could make the robot turn left
+//         imuLib.updateNumbers(robot);
+//         error = (start + (imuLib.getRotation(3) * kP));
+//         RFPower = -power;// + error;
+//         LFPower = power;// - error;
+//         RRPower = -power;// + error;
+//         LRPower = power;// - error;
+//
+//         motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+//      }
+
+      if (Math.abs(motors.getEncoderCounts(robot, 1)) < count)
       {
-
-
-         //LineaerOpmode mode
-
-
-
-
-         //!mode.isStopRequested() &&
-
-
-
-         //Could be wrong and the whole method could make the robot turn left
-         imuLib.updateNumbers(robot);
-         error = (start + (imuLib.getRotation(3) * kP));
-         RFPower = -power;// + error;
-         LFPower = power;// - error;
-         RRPower = -power;// + error;
-         LRPower = power;// - error;
-
-         motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+         motors.setMechPowers(robot, 1, 0, 0, 0, 0, 0);
       }
-
-      motors.setMechPowers(robot,1,0,0,0,0,0);
 
 
    }

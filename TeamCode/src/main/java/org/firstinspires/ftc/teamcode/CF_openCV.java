@@ -28,9 +28,14 @@ public class CF_openCV extends OpMode {
     }
     public void loop() {
         image = getter.getmRgba();
-        for(int i = 0; i < image.size().height){
-            for(int x = 0; x < image.size().width) {
-                System.out.println(image.get(i,x));
+        for(int i = 0; i < image.size().height; i++){
+            for(int x = 0; x < image.size().width; x++) {
+                System.out.println("B" + image.get(i,x)[0]);
+                System.out.println("G" + image.get(i,x)[1]);
+                System.out.println("R" + image.get(i,x)[2]);
+                System.out.println("A" + image.get(i,x)[3]);
+
+
             }
         }
     }

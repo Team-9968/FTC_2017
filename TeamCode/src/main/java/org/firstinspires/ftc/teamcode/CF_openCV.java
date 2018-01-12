@@ -8,6 +8,7 @@ import org.opencv.android.JavaCameraView;
 import org.opencv.android.OpenCVLoader;
 import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
 import org.firstinspires.ftc.robotcontroller.internal.CF_Vision_Getter;
+import org.opencv.core.Mat;
 
 /**
  * Created by Ryley on 1/11/18.
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.robotcontroller.internal.CF_Vision_Getter;
 //@Disabled
 public class CF_openCV extends OpMode {
     CF_Vision_Getter getter = new CF_Vision_Getter();
+    Mat image = null;
     public void init() {
         if(!OpenCVLoader.initDebug()) {
             telemetry.addData("OpenCV not loaded","");
@@ -25,7 +27,12 @@ public class CF_openCV extends OpMode {
 
     }
     public void loop() {
-
+        image = getter.getmRgba();
+        for(int i = 0; i < image.size().height){
+            for(int x = 0; x < image.size().width) {
+                System.out.println(image.get(i,x));
+            }
+        }
     }
 }
 

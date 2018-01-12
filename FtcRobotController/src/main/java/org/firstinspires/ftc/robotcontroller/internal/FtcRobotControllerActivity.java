@@ -184,6 +184,10 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       }
     };
 
+    public Mat getmRgba() {
+      return mRgba;
+    }
+
     @Override
     public void onCameraViewStarted(int width, int height) {
       mRgba = new Mat(height, width, CvType.CV_8UC4);

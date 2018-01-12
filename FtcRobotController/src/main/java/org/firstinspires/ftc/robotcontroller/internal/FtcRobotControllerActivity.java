@@ -47,9 +47,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageButton;
@@ -108,12 +110,20 @@ import org.firstinspires.ftc.robotcore.internal.ui.UILocation;
 import org.firstinspires.ftc.robotcore.internal.webserver.RobotControllerWebInfo;
 import org.firstinspires.ftc.robotcore.internal.webserver.WebServer;
 import org.firstinspires.inspection.RcInspectionActivity;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.JavaCameraView;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.firstinspires.ftc.robotcontroller.internal.CF_Vision_Getter;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @SuppressWarnings("WeakerAccess")
-public class FtcRobotControllerActivity extends Activity
+public class FtcRobotControllerActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2
   {
   public static final String TAG = "RCActivity";
   public String getTag() { return TAG; }
@@ -154,13 +164,55 @@ public class FtcRobotControllerActivity extends Activity
   protected FtcEventLoop eventLoop;
   protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
 
-  protected class RobotRestarter implements Restarter {
+    //////////// Start OpenCV code ///////////
+    JavaCameraView javaCameraView;
+    public Mat mRgba;
+    BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+      @Override
+      public void onManagerConnected(int status) {
+        super.onManagerConnected(status);
+        switch(status) {
+          case BaseLoaderCallback.SUCCESS: {
+            javaCameraView.enableView();
+            break;
+          }
+          default: {
+            super.onManagerConnected(status);
+            break;
+          }
+        }
+      }
+    };
+
+    @Override
+    public void onCameraViewStarted(int width, int height) {
+      mRgba = new Mat(height, width, CvType.CV_8UC4);
+
+    }
+
+    @Override
+    public void onCameraViewStopped() {
+      mRgba.release();
+    }
+
+    @Override
+    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
+      mRgba = inputFrame.rgba();
+      return mRgba;
+    }
+
+    //////////// End OpenCV code ////////////
+
+    protected class RobotRestarter implements Restarter {
 
     public void requestRestart() {
       requestRobotRestart();
     }
 
   }
+
+
+
 
   protected ServiceConnection connection = new ServiceConnection() {
     @Override
@@ -305,6 +357,13 @@ public class FtcRobotControllerActivity extends Activity
     ServiceController.startService(FtcRobotControllerWatchdogService.class);
     bindToService();
     logPackageVersions();
+
+    ///////// Start OpenCV Code *custom* //////////
+    javaCameraView = (JavaCameraView)findViewById(R.id.java_camera_view);
+    javaCameraView.setVisibility(SurfaceView.VISIBLE);
+    javaCameraView.setCvCameraViewListener(this);
+
+    ///////// End OpenCV Code *custom* /////////
   }
 
   protected UpdateUI createUpdateUI() {
@@ -347,6 +406,18 @@ public class FtcRobotControllerActivity extends Activity
   protected void onResume() {
     super.onResume();
     RobotLog.vv(TAG, "onResume()");
+
+
+    //////// Start OpenCV Code ///////
+    if(OpenCVLoader.initDebug()) {
+      Log.i(TAG, "OpenCV Loaded Successfully");
+      mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+    } else {
+      Log.i(TAG, "OpenCV Not Loaded");
+      OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0, this, mLoaderCallback);
+    }
+
+    //////// End OpenCV Code ////////
   }
 
   @Override
@@ -356,6 +427,12 @@ public class FtcRobotControllerActivity extends Activity
     if (programmingModeController.isActive()) {
       programmingModeController.stopProgrammingMode();
     }
+    ////////// Start OpenCV Code ///////
+    if(javaCameraView != null) {
+      javaCameraView.disableView();
+    }
+
+    ////////// End OpenCV Code /////////
   }
 
   @Override
@@ -384,6 +461,13 @@ public class FtcRobotControllerActivity extends Activity
 
     preferencesHelper.getSharedPreferences().unregisterOnSharedPreferenceChangeListener(sharedPreferencesListener);
     RobotLog.cancelWriteLogcatToDisk();
+
+    ///////// Start OpenCV Code ////////
+    if(javaCameraView != null) {
+      javaCameraView.disableView();
+    }
+
+    ///////// End OpenCV Code //////////
   }
 
   protected void bindToService() {

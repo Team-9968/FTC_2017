@@ -9,25 +9,33 @@ import java.util.concurrent.TimeUnit;
  * Created by dawso on 1/8/2018.
  */
 
-@Autonomous(name = "New", group = "Sensor")
+//Autonomous mode for starting on the red team, pad nearest the cryptobox in b/w the balancing stones
+@Autonomous(name = "Red Aim CP", group = "Sensor")
 //@Disabled
-public class CF_New_Auto extends OpMode
+public class CF_Red_Aim_CP extends OpMode
 {
    //Allows this file to access pieces of hardware created in other files.
    CF_Hardware robot = new CF_Hardware();
    ElapsedTime runTime = new ElapsedTime();
    CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
-   boolean distance;
+   CF_OpenCV_Library cam = new CF_OpenCV_Library();
+   CF_OpenCV_Library.ballColor cam_color = null;
 
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
    {
-      JEWELHITTER, PASTBALANCE, GOTOBOX, RELEASEBLOCK, PARK
+      PICTURE, JEWELHITTER, PASTBALANCE, GOTOBOX, RELEASEBLOCK, PARK
+   }
+
+   private enum distances
+   {
+      INIT, NEAR, MIDDLE, FAR
    }
 
    //Sets current stage of the "List"
-   checks Check = checks.JEWELHITTER;
+   checks Check = checks.PICTURE;
+   distances Distance = distances.INIT;
 
    //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
    //a backup method in case the coach forgets to turn on the timer built into the robot app.
@@ -57,26 +65,38 @@ public class CF_New_Auto extends OpMode
 
       switch (Check)
       {
+         case PICTURE:
+            cam_color = cam.getColor();
+            checkTime();
+            Check = checks.JEWELHITTER;
+
          //Decides which color the ball on the right is and uses that to determine which way to strafe
          case JEWELHITTER:
             telemetry.addData("Case Jewelpusher", "");
             sensor.setType(robot);
+            robot.tailLight.setPower(1);
 
-            if (classification == CF_TypeEnum.RIGHTISBLUE)
-            {
-               robot.jewelHitter.setPosition(0.54);  //these values will change
-               telemetry.addData("Right is"," blue");
-               robot.colorArm.setPosition(unknown yet);
-               checkTime();
-            }
+            if ((classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.BLUE) ||
+                (classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
+                (classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
 
-            else if (classification == CF_TypeEnum.RIGHTISRED)
-            {
-               robot.jewelHitter.setPosition(0.54);
-               telemetry.addData("Right is"," red");
-               robot.colorArm.setPosition(unknown yet);
-               checkTime();
-            }
+               {
+                  telemetry.addData("Right is"," blue");
+                 // robot.colorArm.setPosition(unknown yet);
+                 // robot.jewelHitter.setPosition(unknown yet);
+                  checkTime();
+               }
+
+            else if ((classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.RED) ||
+                     (classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
+                     (classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
+
+               {
+                  telemetry.addData("Right is"," red");
+       //           robot.colorArm.setPosition(same as above);
+        //          robot.jewelHitter.setPosition(negative of above);
+                  checkTime();
+               }
 
             else
             {
@@ -84,37 +104,23 @@ public class CF_New_Auto extends OpMode
                checkTime();
             }
 
-            robot.jewelHitter.setPosition(0.1); //retract second servo
-            robot.colorArm.setPosition(unknown yet); //retract first servo
+            //robot.jewelHitter.setPosition(original position); //retract flicker servo
+            robot.colorArm.setPosition(0.15);
             robot.tailLight.setPower(0.0);
             checkTime();
             Check = checks.PASTBALANCE;
             break;
-//
-//         //Drives the robot back onto the balance pad and over it to the floor
+
+//         //Drives the robot off of the balance pad
          case PASTBALANCE:
-            auto.driveIMU(this, robot, -0.3, 1300);
+//            auto.driveIMU(robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.4, 1300);
             checkTime();
-            robot.tailLight.setPower(0.0);
-//            Check = checks.GOTOBOX;
+            Check = checks.GOTOBOX;
             break;
 
          //Drives robot to cryptobox and alignes it
 //         case GOTOBOX:
-//              if (distance = true)
-//              {
-//                 auto.driveIMU(robot, -0.5, 1000);
-//              }
-//
-//              else if (distance = false)
-//              {
-//                 auto.driveIMU(robot, -0.5, 700);
-//              }
-//
-//              else
-//              {
-//                 auto.driveIMU(robot, -0.5, 850)
-//              }
+
 
 //            checkTime();
 //            State = states.RELEASEBLOCK;
@@ -122,7 +128,7 @@ public class CF_New_Auto extends OpMode
 //
          //Opens claw(s) so the block is dropped in the box
 //         case RELEASEBLOCK:
-//            robot.clamp.setPosition(0.41);
+//            robot.clamp.setPosition(0.4);
 //            robot.lowerClamp.setPosition(0.6);
 //            checkTime();
 //            State = states.PARK;

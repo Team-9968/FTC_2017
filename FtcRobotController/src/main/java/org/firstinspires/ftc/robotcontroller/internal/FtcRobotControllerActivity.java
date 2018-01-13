@@ -115,9 +115,10 @@ import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.firstinspires.ftc.robotcontroller.internal.CF_Vision_Getter;
+import org.opencv.imgproc.Imgproc;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -164,9 +165,14 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
   protected FtcEventLoop eventLoop;
   protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
 
+    CF_Globals globals = new CF_Globals();
+    Mat source;
+    Mat mRgba;
+    Mat mRgbaT;
+    Mat mRgbaF;
+
     //////////// Start OpenCV code ///////////
     JavaCameraView javaCameraView;
-    public Mat mRgba;
     BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
       @Override
       public void onManagerConnected(int status) {
@@ -184,25 +190,29 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       }
     };
 
-    public Mat getmRgba() {
-      return mRgba;
-    }
-
     @Override
     public void onCameraViewStarted(int width, int height) {
-      mRgba = new Mat(height, width, CvType.CV_8UC4);
+      mRgba =new Mat(height, width, CvType.CV_8UC4);
+      mRgbaT =new Mat(height, width, CvType.CV_8UC4);
+      mRgbaF =new Mat(height, width, CvType.CV_8UC4);
+
+      globals.setmRgba(new Mat(height, width, CvType.CV_8UC4));
 
     }
 
     @Override
     public void onCameraViewStopped() {
-      mRgba.release();
+      globals.releasemRgba();
     }
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
       mRgba = inputFrame.rgba();
-      return mRgba;
+//      Core.transpose(mRgba, mRgbaT);
+//      Imgproc.resize(mRgbaT, mRgbaF, mRgbaF.size(),0,0,0);
+//      Core.flip(mRgbaT, mRgba, 1);
+      globals.setmRgba(mRgba);
+      return globals.getmRgba();
     }
 
     //////////// End OpenCV code ////////////

@@ -59,17 +59,43 @@ public class CF_New_Auto extends OpMode
       {
          //Decides which color the ball on the right is and uses that to determine which way to strafe
          case JEWELHITTER:
+            telemetry.addData("Case Jewelpusher", "");
+            sensor.setType(robot);
 
-            auto.driveIMUTurnLeft(this,robot, 0.3, 60);
-            auto.driveIMUTurnLeft(this, robot, -0.3, 60);
+            if (classification == CF_TypeEnum.RIGHTISBLUE)
+            {
+               robot.jewelHitter.setPosition(0.54);  //these values will change
+               telemetry.addData("Right is"," blue");
+               robot.colorArm.setPosition(unknown yet);
+               checkTime();
+            }
+
+            else if (classification == CF_TypeEnum.RIGHTISRED)
+            {
+               robot.jewelHitter.setPosition(0.54);
+               telemetry.addData("Right is"," red");
+               robot.colorArm.setPosition(unknown yet);
+               checkTime();
+            }
+
+            else
+            {
+               telemetry.addData("Ball is", " unknown");
+               checkTime();
+            }
+
+            robot.jewelHitter.setPosition(0.1); //retract second servo
+            robot.colorArm.setPosition(unknown yet); //retract first servo
+            robot.tailLight.setPower(0.0);
+            checkTime();
             Check = checks.PASTBALANCE;
             break;
 //
 //         //Drives the robot back onto the balance pad and over it to the floor
          case PASTBALANCE:
-//            auto.driveIMU(this, robot, -0.3, 1300);
+            auto.driveIMU(this, robot, -0.3, 1300);
             checkTime();
-//            robot.tailLight.setPower(0.0);
+            robot.tailLight.setPower(0.0);
 //            Check = checks.GOTOBOX;
             break;
 

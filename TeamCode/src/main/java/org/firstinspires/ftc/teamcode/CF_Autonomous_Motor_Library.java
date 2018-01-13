@@ -88,7 +88,7 @@ public class CF_Autonomous_Motor_Library {
          double offset = imuLib.getRotation(3);
          imuLib.updateNumbers(robot);
          double rot = imuLib.getRotation(3);
-         while((imuLib.getRotation(3) - offset) < counts && (imuLib.getRotation(3) - offset) > (-1 * counts)) {
+         while((imuLib.getRotation(3) - offset) < counts - 2 && (imuLib.getRotation(3) - offset) > (-1 * counts) + 2 ) {
             imuLib.updateNumbers(robot);
             error = imuLib.getRotation(3) - rot;
             gain = error * kP;

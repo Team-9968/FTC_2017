@@ -38,6 +38,7 @@ public class CF_Hardware {
     public Servo clamp = null;
     public Servo lowerClamp = null;
     public Servo jewelHitter;
+    public Servo colorArm;
 
     public DigitalChannel limit = null;
     HardwareMap hwMap = null;
@@ -83,6 +84,8 @@ public class CF_Hardware {
 
         jewelHitter = hwMap.get(Servo.class, "jewelHitter");
 
+        colorArm = hwMap.get(Servo.class, "arm");
+
         //limit = hwMap.get(DigitalChannel.class, "touch");
 
        //makes sure the LEDS on the sensors are off to be polite to the drivers
@@ -90,6 +93,7 @@ public class CF_Hardware {
         adafruitRGBTwo.enableLed(false);
 
         jewelHitter.setPosition(0.0);
+        colorArm.setPosition("unknown yet");
        //sets init position of the servo so we stay within 18 inches
 
 
@@ -105,11 +109,4 @@ public class CF_Hardware {
         imu.initialize(parameters);
 
     }
-
-//    This method sets the position of the servo.
-   public void SetjewelHitterPosition(double servoPositionDesired)
-   {
-      double servoPositionActual = Range.clip(servoPositionDesired, 0, 1);
-      jewelHitter.setPosition(servoPositionActual);
-   }
 }

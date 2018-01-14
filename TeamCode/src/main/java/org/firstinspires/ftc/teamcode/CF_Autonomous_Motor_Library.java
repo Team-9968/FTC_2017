@@ -99,7 +99,7 @@ public class CF_Autonomous_Motor_Library {
          double rotation = 0;
          double rot = imuLib.getRotation(3);
 
-         while(imuLib.getRotation(3) < counts + rot && imuLib.getRotation(3) < counts - rot) {
+         while(imuLib.getRotation(3) < counts + rot && imuLib.getRotation(3) > rot - counts) {
             imuLib.updateNumbers(robot);
             double r = imuLib.getRotation(3);
             if(lastRot > 300 && r < 100) {

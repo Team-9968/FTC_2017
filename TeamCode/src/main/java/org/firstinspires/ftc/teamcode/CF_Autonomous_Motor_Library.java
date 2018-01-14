@@ -9,6 +9,8 @@ import com.vuforia.STORAGE_TYPE;
 
 import java.security.cert.CertStoreParameters;
 
+import static java.lang.Boolean.FALSE;
+
 /**
  * Created by Ryley on 10/22/17.
  */
@@ -20,6 +22,9 @@ public class CF_Autonomous_Motor_Library {
 
    enum mode {
       DRIVE, STRAFE, ROTATE
+   }
+   enum wrap {
+      NORMAL, BACKWARDS, FORWARDS
    }
 
    void EncoderIMUDrive(CF_Hardware robot, mode m, float power, int counts) {
@@ -83,25 +88,42 @@ public class CF_Autonomous_Motor_Library {
 
       // ROTATE
       else if(m == mode.ROTATE) {
+         imuLib.updateNumbers(robot);
+         wrap w = wrap.NORMAL;
          double kP = 0.05;
          double error = 0;
          double gain = error * kP;
-         imuLib.updateNumbers(robot);
+         double lastRot = imuLib.getRotation(3);
          motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
          motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-         double offset = imuLib.getRotation(3);
+         double rotation = 0;
          double rot = imuLib.getRotation(3);
-         if(offset < 90) {
 
-         }
-         while(imuLib.getRotation(3) < 360 - counts + 2 && imuLib.getRotation(3) > rot - counts + 2) {
+         while(imuLib.getRotation(3) < counts + rot && imuLib.getRotation(3) < counts - rot) {
             imuLib.updateNumbers(robot);
-            error = imuLib.getRotation(3) - rot;
+            double r = imuLib.getRotation(3);
+            if(lastRot > 300 && r < 100) {
+               w = wrap.FORWARDS;
+            } else if(lastRot < 100 && r > 300) {
+               w = wrap.BACKWARDS;
+            } else {
+               w = wrap.NORMAL;
+            }
+            if(w == wrap.NORMAL) {
+               rotation = r;
+            } else if(w == wrap.FORWARDS) {
+               rotation = r + 360;
+            } else if(w == wrap.BACKWARDS) {
+               rotation = r - 360;
+            }
+
+            error = rotation - rot;
             gain = error * kP;
             RFPower = -power + gain;
             LFPower = power + gain;
             RRPower = -power + gain;
             LRPower = power + gain;
+
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
             Thread.yield();
          }

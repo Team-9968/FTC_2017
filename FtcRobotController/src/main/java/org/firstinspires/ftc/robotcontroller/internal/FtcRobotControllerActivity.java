@@ -374,7 +374,7 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
 
     ///////// Start OpenCV Code *custom* //////////
     javaCameraView = (JavaCameraView)findViewById(R.id.java_camera_view);
-    javaCameraView.setVisibility(SurfaceView.VISIBLE);
+    javaCameraView.setVisibility(SurfaceView.INVISIBLE);
     javaCameraView.setCvCameraViewListener(this);
 
     ///////// End OpenCV Code *custom* /////////

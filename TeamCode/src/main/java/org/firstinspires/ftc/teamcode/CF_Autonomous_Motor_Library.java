@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ThreadPool;
 import com.vuforia.STORAGE_TYPE;
 
 import java.security.cert.CertStoreParameters;
@@ -31,7 +32,7 @@ public class CF_Autonomous_Motor_Library {
 
       if(m == mode.DRIVE) {
          // This is a trial and error value
-         double kP = 0.05;
+         double kP = 0.01;
          // Values for the P controller
          double error = 0;
          double gain = error * kP;
@@ -53,12 +54,13 @@ public class CF_Autonomous_Motor_Library {
             RRPower = power + gain;
             LRPower = power - gain;
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+            Thread.yield();
          }
       }
 
       // STRAFE
       else if(m == mode.STRAFE) {
-         double kP = 0.05;
+         double kP = 0.01;
          double error = 0;
          double gain = error * kP;
          motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -75,6 +77,7 @@ public class CF_Autonomous_Motor_Library {
             RRPower = -power - gain;
             LRPower = power + gain;
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+            Thread.yield();
          }
       }
 
@@ -83,20 +86,24 @@ public class CF_Autonomous_Motor_Library {
          double kP = 0.05;
          double error = 0;
          double gain = error * kP;
+         imuLib.updateNumbers(robot);
          motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
          motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
          double offset = imuLib.getRotation(3);
-         imuLib.updateNumbers(robot);
          double rot = imuLib.getRotation(3);
-         while((imuLib.getRotation(3) - offset) < counts - 2 && (imuLib.getRotation(3) - offset) > (-1 * counts) + 2 ) {
+         if(offset < 90) {
+
+         }
+         while(imuLib.getRotation(3) < 360 - counts + 2 && imuLib.getRotation(3) > rot - counts + 2) {
             imuLib.updateNumbers(robot);
             error = imuLib.getRotation(3) - rot;
             gain = error * kP;
-            RFPower = power + gain;
-            LFPower = power - gain;
-            RRPower = power + gain;
-            LRPower = power - gain;
+            RFPower = -power + gain;
+            LFPower = power + gain;
+            RRPower = -power + gain;
+            LRPower = power + gain;
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+            Thread.yield();
          }
 
       }

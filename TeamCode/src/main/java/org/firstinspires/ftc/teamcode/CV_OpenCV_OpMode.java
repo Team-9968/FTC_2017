@@ -40,10 +40,7 @@ public class CV_OpenCV_OpMode extends OpMode {
             System.out.println("Unknown");
         }
         telemetry.update();
-        try {
-            TimeUnit.MILLISECONDS.sleep(25500);
-        } catch (InterruptedException e) {}
 
-        requestOpModeStop();
+
     }
 }

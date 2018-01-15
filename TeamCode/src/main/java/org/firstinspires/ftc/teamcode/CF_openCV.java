@@ -32,6 +32,7 @@ public class CF_openCV extends OpMode {
     }
 
     public void loop() {
+        cam.getColor();
         telemetry.addData("Red Total", global.getRed());
         telemetry.addData("Blue Total", global.getBlue());
         telemetry.addData("Difference, Red - Blue", global.getRed() - global.getBlue());

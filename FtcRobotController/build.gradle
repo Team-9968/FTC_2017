@@ -17,6 +17,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
     sourceSets { main { jni.srcDirs = ['src/main/jni', 'src/main/jniLibs/'] } }
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jniLibs/OpenCV.mk'
+        }
+    }
 }
 repositories {
     flatDir {

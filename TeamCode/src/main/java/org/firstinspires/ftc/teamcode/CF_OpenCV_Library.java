@@ -27,6 +27,8 @@ public class CF_OpenCV_Library {
     public ballColor getColor() {
         source = globals.getmRgba();
         image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
+        red = 0;
+        blue = 0;
 
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
 
@@ -39,9 +41,9 @@ public class CF_OpenCV_Library {
                 }
             }
         }
-        if(red > blue) {
+        if(red > blue + 2500) {
             color = ballColor.RED;
-        } else if(blue > red) {
+        } else if(blue > red + 2500) {
             color = ballColor.BLUE;
         } else {
             color = ballColor.UNKNOWN;

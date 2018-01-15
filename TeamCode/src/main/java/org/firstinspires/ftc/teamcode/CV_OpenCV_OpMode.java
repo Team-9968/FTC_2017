@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Camera;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+import org.firstinspires.ftc.robotcontroller.internal.CF_Globals;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,10 +16,14 @@ import java.util.concurrent.TimeUnit;
 @Autonomous(name="OpenCV_OpMode", group="Test")
 public class CV_OpenCV_OpMode extends OpMode {
     CF_OpenCV_Library cam = new CF_OpenCV_Library();
+    CF_Globals global = new CF_Globals();
 
     @Override
     public void init() {
         msStuckDetectLoop = 7000;
+        global.setmRgba(null);
+
+
 
     }
 

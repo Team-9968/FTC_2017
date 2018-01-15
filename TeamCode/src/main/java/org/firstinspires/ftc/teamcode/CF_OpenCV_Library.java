@@ -15,6 +15,8 @@ public class CF_OpenCV_Library {
     Mat image = null;
     double red = 0;
     double blue = 0;
+    double[] ret = new double[3];
+
 
     public enum ballColor {
         RED, BLUE, UNKNOWN
@@ -45,7 +47,29 @@ public class CF_OpenCV_Library {
             color = ballColor.UNKNOWN;
         }
 
+        globals.setRed(red);
+        globals.setBlue(blue);
+
         return color;
 
+    }
+
+    public double[] getRGB(int x, int y) {
+        source = globals.getmRgba();
+        image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
+        Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
+        ret[0] = 0;
+        ret[1] = 0;
+        ret[2] = 0;
+        if(image != null) {
+            // 0 = red;
+            // 1 = green;
+            // 2 = blue;
+            ret[0] = image.get(x, y)[0];
+            ret[1] = image.get(x, y)[1];
+            ret[2] = image.get(x, y)[2];
+
+        }
+        return ret;
     }
 }

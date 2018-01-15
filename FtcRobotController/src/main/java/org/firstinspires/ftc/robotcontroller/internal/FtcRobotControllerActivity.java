@@ -40,6 +40,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.hardware.Camera;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.net.wifi.WifiManager;
@@ -126,7 +127,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @SuppressWarnings("WeakerAccess")
 public class FtcRobotControllerActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2
   {
-  public static final String TAG = "RCActivity";
+    public static final String TAG = "RCActivity";
   public String getTag() { return TAG; }
 
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
@@ -196,6 +197,9 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       mRgbaT =new Mat(height, width, CvType.CV_8UC4);
       mRgbaF =new Mat(height, width, CvType.CV_8UC4);
 
+//      globals.setCam(Camera.open());
+//      globals.setParams(globals.getCam().getParameters());
+
       globals.setmRgba(new Mat(height, width, CvType.CV_8UC4));
 
     }
@@ -212,6 +216,12 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
 //      Imgproc.resize(mRgbaT, mRgbaF, mRgbaF.size(),0,0,0);
 //      Core.flip(mRgbaT, mRgba, 1);
       globals.setmRgba(mRgba);
+
+//      globals.setParams(globals.getCam().getParameters());
+//      globals.getParams().setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+//      globals.getCam().setParameters(globals.getParams());
+      //globals.getCam().startPreview();
+
       return globals.getmRgba();
     }
 
@@ -374,7 +384,7 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
 
     ///////// Start OpenCV Code *custom* //////////
     javaCameraView = (JavaCameraView)findViewById(R.id.java_camera_view);
-    javaCameraView.setVisibility(SurfaceView.INVISIBLE);
+    javaCameraView.setVisibility(SurfaceView.VISIBLE);
     javaCameraView.setCvCameraViewListener(this);
 
     ///////// End OpenCV Code *custom* /////////

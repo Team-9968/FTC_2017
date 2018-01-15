@@ -16,6 +16,8 @@ import org.opencv.core.Mat;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.util.logging.Logger.global;
+
 
 /**
  * Created by Ryley on 1/11/18.
@@ -23,70 +25,26 @@ import java.util.concurrent.TimeUnit;
 @Autonomous(name="openCV", group = "test")
 //@Disabled
 public class CF_openCV extends OpMode {
-    CF_Globals globals = new CF_Globals();
-    Mat source = null;
-    Mat image = null;
-    Mat rotatedImage = null;
-    int x = 1;
-    double red = 0;
-    double blue = 0;
+    CF_OpenCV_Library cam = new CF_OpenCV_Library();
+    CF_Globals global = new CF_Globals();
 //    double redM [] [];
 //    double blueM [] [];
 
     public void init() {
 
+        global.setmRgba(null);
+
     }
 
     public void loop() {
+//        telemetry.addData("Red", cam.getRGB(240, 320)[0]);
+//        telemetry.addData("Blue", cam.getRGB(240, 320)[2]);
+        telemetry.addData("Red Total", global.getRed());
+        telemetry.addData("Blue Total", global.getBlue());
+        telemetry.addData("Difference, Red - Blue", global.getRed() - global.getBlue());
+        telemetry.update();
 
-        while (x == 1) {
-            source = globals.getmRgba();
 
-//            double redM [] [] = new double[(int)image.size().width][(int)image.size().height];
-//            double blueM [] [] = new double[(int)image.size().width] [(int)image.size().height];
-//
-//            for(int h = 0; h < image.size().height - 1; h++) {
-//                for(int w = 0; w < image.size().width - 1; w++) {
-//                    for(int hb = (int)image.size().height -1; h > 0; h--) {
-//                        redM[w][hb] = image.get(h, w)[0];
-//                        blueM[w][hb] = image.get(h, w)[2];
-//                        resetStartTime();
-//                    }
-//                }
-//            }
-
-            //if (image != null) {
-
-            image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
-
-            Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
-            System.out.println("Height " + image.size().height);
-            System.out.println("Width " + image.size().width);
-            System.out.println("Red" + image.get(320, 240)[0]);
-            System.out.println("Green" + image.get(320, 240)[1]);
-            System.out.println("Blue" + image.get(320, 240)[2]);
-            System.out.println("Alpha" + image.get(320, 240)[3]);
-
-                for (int i = 0; i < image.size().height - 1; i+= 2) {
-                    for (int x = 0; x < image.size().width - 1; x+= 2) {
-                        if(image.get(i,x)[0] > 192 && image.get(i,x)[2] < 70) {
-                            red += x;
-                        } else if(image.get(i,x)[2] > 159 && image.get(i,x)[0] < 58) {
-                            blue += x;
-                        }
-                    }
-                }
-            //}
-            System.out.println("Total Red " + red);
-            System.out.println("Total Blue " + blue);
-            if(red > blue) {
-                System.out.println("Red Right");
-            } else if (blue > red) {
-                System.out.println("Blue Right");
-            }
-            x = 2;
-            requestOpModeStop();
-        }
 
     }
 }

@@ -41,7 +41,7 @@ public class CV_OpenCV_OpMode extends OpMode {
         }
         telemetry.update();
         try {
-            TimeUnit.MILLISECONDS.sleep(4500);
+            TimeUnit.MILLISECONDS.sleep(25500);
         } catch (InterruptedException e) {}
 
         requestOpModeStop();

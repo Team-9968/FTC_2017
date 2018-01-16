@@ -211,6 +211,7 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
+      mRgba = null;
       mRgba = inputFrame.rgba();
 //      Core.transpose(mRgba, mRgbaT);
 //      Imgproc.resize(mRgbaT, mRgbaF, mRgbaF.size(),0,0,0);

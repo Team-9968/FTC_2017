@@ -57,7 +57,11 @@ public class CF_OpenCV_Library {
     }
 
     public double[] getRGB(int x, int y) {
-        source = globals.getmRgba();
+        source = null;
+        image = null;
+        if(globals.getmRgba() != null) {
+            source = globals.getmRgba();
+        }
         image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
         ret[0] = 0;
@@ -67,6 +71,9 @@ public class CF_OpenCV_Library {
             // 0 = red;
             // 1 = green;
             // 2 = blue;
+            if(image == null) {
+                System.out.println("Cnull");
+            }
             ret[0] = image.get(x, y)[0];
             ret[1] = image.get(x, y)[1];
             ret[2] = image.get(x, y)[2];

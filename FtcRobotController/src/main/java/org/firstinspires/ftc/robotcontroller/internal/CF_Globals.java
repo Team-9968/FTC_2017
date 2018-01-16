@@ -46,6 +46,7 @@ public class CF_Globals {
 //        cam = command;
 //    }
     public void setmRgba(Mat s) {
+        mRgba = null;
         mRgba = s;
     }
     public Mat getmRgba() {

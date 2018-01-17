@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcontroller.internal.CF_Globals;
+import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -62,7 +63,8 @@ public class CF_OpenCV_Library {
 
     public double[] getRGB(int x, int y) {
         source = null;
-        source = CF_Globals.getmRgba().clone();
+        //source = CF_Globals.getmRgba().clone();
+        source = FtcRobotControllerActivity.getmRgba().clone();
 
         image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
@@ -73,6 +75,9 @@ public class CF_OpenCV_Library {
             if(image == null) {
                 System.out.println("Cnull");
             }
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e){}
             double z = image.get(x, y)[0];
             ret[0] = z;
             ret[1] = image.get(x, y)[1];

@@ -168,14 +168,18 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
   protected FtcEventLoop eventLoop;
   protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
 
-    CF_Globals globals = new CF_Globals();
-    Mat source;
-    Mat mRgba;
-    Mat mRgbaT;
-    Mat mRgbaF;
+
 
     //////////// Start OpenCV code ///////////
     JavaCameraView javaCameraView;
+    CF_Globals globals = new CF_Globals();
+    Mat source;
+    static Mat mRgba;
+    Mat mRgbaT;
+    Mat mRgbaF;
+
+    private static final Object lock = new Object();
+
     BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
       @Override
       public void onManagerConnected(int status) {
@@ -208,20 +212,21 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       CF_Globals.releasemRgba();
     }
 
+    public static Mat getmRgba() {
+      return mRgba;
+
+    }
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
       //mRgba = null;
-      mRgba = inputFrame.rgba();
-//      Core.transpose(mRgba, mRgbaT);
-//      Imgproc.resize(mRgbaT, mRgbaF, mRgbaF.size(),0,0,0);
-//      Core.flip(mRgbaT, mRgba, 1);
-
-
+      synchronized (lock) {
+        mRgba = inputFrame.rgba();
+        return mRgba;
+      }
      // CF_Globals.setmRgba(null);
-      CF_Globals.setmRgba(mRgba);
+      //CF_Globals.setmRgba(mRgba);
 
 
-      return CF_Globals.getmRgba().clone();
     }
 
     //////////// End OpenCV code ////////////

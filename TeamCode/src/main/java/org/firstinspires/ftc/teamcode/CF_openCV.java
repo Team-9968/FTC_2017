@@ -28,7 +28,6 @@ public class CF_openCV extends OpMode {
     CF_OpenCV_Library cam = new CF_OpenCV_Library();
     CF_Globals global = new CF_Globals();
     public void init() {
-        global.setmRgba(null);
     }
 
     public void loop() {
@@ -40,6 +39,10 @@ public class CF_openCV extends OpMode {
         telemetry.addData("Red", cam.getRGB(240, 320)[0]);
         telemetry.addData("Blue", cam.getRGB(240, 32)[2]);
         telemetry.update();
+//        try{
+//            TimeUnit.MILLISECONDS.sleep(5);
+//        } catch (InterruptedException e) {}
+
     }
 }
 

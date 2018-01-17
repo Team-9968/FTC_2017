@@ -124,6 +124,8 @@ import org.opencv.imgproc.Imgproc;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static java.lang.Boolean.TRUE;
+
 @SuppressWarnings("WeakerAccess")
 public class FtcRobotControllerActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2
   {
@@ -197,33 +199,29 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       mRgbaT =new Mat(height, width, CvType.CV_8UC4);
       mRgbaF =new Mat(height, width, CvType.CV_8UC4);
 
-//      globals.setCam(Camera.open());
-//      globals.setParams(globals.getCam().getParameters());
-
-      globals.setmRgba(new Mat(height, width, CvType.CV_8UC4));
+      CF_Globals.setmRgba(new Mat(height, width, CvType.CV_8UC4));
 
     }
 
     @Override
     public void onCameraViewStopped() {
-      globals.releasemRgba();
+      CF_Globals.releasemRgba();
     }
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-      mRgba = null;
+      //mRgba = null;
       mRgba = inputFrame.rgba();
 //      Core.transpose(mRgba, mRgbaT);
 //      Imgproc.resize(mRgbaT, mRgbaF, mRgbaF.size(),0,0,0);
 //      Core.flip(mRgbaT, mRgba, 1);
-      globals.setmRgba(mRgba);
 
-//      globals.setParams(globals.getCam().getParameters());
-//      globals.getParams().setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-//      globals.getCam().setParameters(globals.getParams());
-      //globals.getCam().startPreview();
 
-      return globals.getmRgba();
+     // CF_Globals.setmRgba(null);
+      CF_Globals.setmRgba(mRgba);
+
+
+      return CF_Globals.getmRgba().clone();
     }
 
     //////////// End OpenCV code ////////////

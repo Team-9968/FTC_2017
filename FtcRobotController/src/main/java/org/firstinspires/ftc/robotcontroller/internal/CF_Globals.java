@@ -4,18 +4,36 @@ import android.hardware.Camera;
 
 import org.opencv.core.Mat;
 
+import java.util.concurrent.locks.ReentrantLock;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 /**
  * Created by Ryley on 1/12/18.
  */
 
 public class CF_Globals {
+
     public static Mat mRgba;
+
+    public static double red;
+
+    public static boolean imageFlag = FALSE;
+
+    public static final Object lock = new Object();
+
+    public static void setImageFlag(boolean f) {
+        imageFlag = f;
+    }
+
+    public static boolean getImageFlag() {
+        return imageFlag;
+    }
 
     public static double getRed() {
         return red;
     }
-
-    public static double red;
 
     public static double getBlue() {
         return blue;
@@ -31,28 +49,18 @@ public class CF_Globals {
 
     public static double blue;
 
-//    public static Camera cam;
-//    public static Camera.Parameters params;
-//    public void setParams(Camera.Parameters p) {
-//        params = p;
-//    }
-//    public Camera.Parameters getParams() {
-//        return params;
-//    }
-//    public Camera getCam() {
-//        return cam;
-//    }
-//    public void setCam(Camera command) {
-//        cam = command;
-//    }
-    public void setmRgba(Mat s) {
-        mRgba = null;
-        mRgba = s;
+    public static void setmRgba(Mat s) {
+       // mRgba = null;
+        if(s != null) {
+            synchronized (lock) {
+                mRgba = s;
+            }
+        }
     }
-    public Mat getmRgba() {
+    public static Mat getmRgba() {
         return mRgba;
     }
-    public void releasemRgba() {
+    public static void releasemRgba() {
         mRgba.release();
     }
 

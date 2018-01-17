@@ -9,6 +9,9 @@ import org.firstinspires.ftc.robotcontroller.internal.CF_Globals;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 /**
  * Created by Ryley on 1/13/18.
  */
@@ -21,7 +24,6 @@ public class CV_OpenCV_OpMode extends OpMode {
     @Override
     public void init() {
         msStuckDetectLoop = 7000;
-        global.setmRgba(null);
 
 
 
@@ -40,6 +42,9 @@ public class CV_OpenCV_OpMode extends OpMode {
             System.out.println("Unknown");
         }
         telemetry.update();
+//        try{
+//            TimeUnit.MILLISECONDS.sleep(4000);
+//        } catch (InterruptedException e) {}
 
 
     }

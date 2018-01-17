@@ -25,32 +25,36 @@ public class CF_OpenCV_Library {
 
 
     public ballColor getColor() {
-        source = globals.getmRgba();
-        image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
-        red = 0;
-        blue = 0;
+        //if(source != null) {
+            source = CF_Globals.getmRgba().clone();
+            image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
+            red = 0;
+            blue = 0;
 
-        Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
+            Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
 
-        for (int i = 0; i < image.size().height - 1; i+= 2) {
-            for (int x = 0; x < image.size().width - 1; x+= 2) {
-                if(image.get(i,x)[0] > 208 && image.get(i,x)[0] < 238 && image.get(i,x)[2] < 70) {
-                    red += x;
-                } else if(image.get(i,x)[2] > 170 && image.get(i,x)[2] < 192 && image.get(i,x)[0] < 58) {
-                    blue += x;
+            for (int i = 0; i < image.size().height - 1; i += 2) {
+                for (int x = 0; x < image.size().width - 1; x += 2) {
+                    if (image.get(i, x)[0] > 208 && image.get(i, x)[0] < 238 && image.get(i, x)[2] < 70) {
+                        red += x;
+                    } else if (image.get(i, x)[2] > 170 && image.get(i, x)[2] < 192 && image.get(i, x)[0] < 58) {
+                        blue += x;
+                    }
                 }
             }
-        }
-        if(red > blue + 2500) {
-            color = ballColor.RED;
-        } else if(blue > red + 2500) {
-            color = ballColor.BLUE;
-        } else {
-            color = ballColor.UNKNOWN;
-        }
+            if (red > blue + 2500) {
+                color = ballColor.RED;
+            } else if (blue > red + 2500) {
+                color = ballColor.BLUE;
+            } else {
+                color = ballColor.UNKNOWN;
+            }
 
-        globals.setRed(red);
-        globals.setBlue(blue);
+            CF_Globals.setRed(red);
+            CF_Globals.setBlue(blue);
+//        } else {
+//            color = ballColor.UNKNOWN;
+//        }
 
         return color;
 
@@ -58,15 +62,10 @@ public class CF_OpenCV_Library {
 
     public double[] getRGB(int x, int y) {
         source = null;
-        image = null;
-        if(globals.getmRgba() != null) {
-            source = globals.getmRgba();
-        }
+        source = CF_Globals.getmRgba().clone();
+
         image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
-        ret[0] = 0;
-        ret[1] = 0;
-        ret[2] = 0;
         if(image != null) {
             // 0 = red;
             // 1 = green;
@@ -74,7 +73,8 @@ public class CF_OpenCV_Library {
             if(image == null) {
                 System.out.println("Cnull");
             }
-            ret[0] = image.get(x, y)[0];
+            double z = image.get(x, y)[0];
+            ret[0] = z;
             ret[1] = image.get(x, y)[1];
             ret[2] = image.get(x, y)[2];
 

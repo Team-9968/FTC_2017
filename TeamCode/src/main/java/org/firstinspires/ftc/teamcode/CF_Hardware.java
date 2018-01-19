@@ -83,13 +83,13 @@ public class CF_Hardware {
 
         jewelHitter = hwMap.get(Servo.class, "jewelHitter");
 
-        //limit = hwMap.get(DigitalChannel.class, "touch");
+        limit = hwMap.get(DigitalChannel.class, "limit");
 
        //makes sure the LEDS on the sensors are off to be polite to the drivers
         adafruitRGB.enableLed(false);
         adafruitRGBTwo.enableLed(false);
 
-        jewelHitter.setPosition(0.0);
+        jewelHitter.setPosition(1.0);
        //sets init position of the servo so we stay within 18 inches
 
 

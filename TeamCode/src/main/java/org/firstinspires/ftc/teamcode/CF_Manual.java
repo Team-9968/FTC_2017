@@ -61,6 +61,13 @@ public class CF_Manual extends OpMode {
         start = robot.clawMotor.getCurrentPosition();
         robot.jewelHitter.setPosition(0.0);
         end = start + 1719;
+
+        while(robot.limit.getState()) {
+            accessory.setPowerToPower(robot.clawMotor, 1, 3);
+            accessory.setPowerToPower(robot.mastMotor, 1, 3);
+        }
+        accessory.setPowerToPower(robot.clawMotor, 0, 3);
+        accessory.setPowerToPower(robot.mastMotor, 0, 3);
     }
 
     public void loop(){

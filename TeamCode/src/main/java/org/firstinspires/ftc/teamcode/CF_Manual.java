@@ -51,6 +51,9 @@ public class CF_Manual extends OpMode {
     boolean X = false;
     boolean lastX = false;
 
+    boolean down = false;
+    boolean lastDown = false;
+
     double start = 0;
     double end = 0;
 
@@ -59,7 +62,8 @@ public class CF_Manual extends OpMode {
         robot.init(hardwareMap);
         telemetry.addData("", "init");
         start = robot.clawMotor.getCurrentPosition();
-        robot.jewelHitter.setPosition(0.0);
+        robot.jewelHitter.setPosition(1.0);
+        robot.colorArm.setPosition(0.333);
         end = start + 1719;
 
         while(robot.limit.getState()) {
@@ -136,37 +140,19 @@ public class CF_Manual extends OpMode {
         //To get rid of the quick lift method, comment out everything in this method except for the top two lines.
         accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, gamepad2.left_stick_y, 3);
-//        B = gamepad2.b;
-//        X = gamepad2.start;
-//        if(!lastB && B && robot.clawMotor.getCurrentPosition() < end) {
-//            while(robot.clawMotor.getCurrentPosition() < end) {
-//                accessory.setPowerToPower(robot.clawMotor, -1, 3);
-//            }
-//            accessory.setPowerToPower(robot.clawMotor,0,3);
-//        }
-//
-//        if(!lastX && X) {
-//            start = robot.clawMotor.getCurrentPosition();
-//            end = start + 1719;
-//        }
-//
-//        lastB = B;
-//        lastX = X;
+        down = gamepad2.dpad_down;
+
+        if(down && !lastDown) {
+            while(robot.limit.getState()) {
+                accessory.setPowerToPower(robot.clawMotor, 1, 3);
+                accessory.setPowerToPower(robot.mastMotor, 1, 3);
+            }
+        }
+
     }
 
     // Clamps the block
     public void clamp() {
-//        if(gamepad2.x && positionUpper < 1.0) {
-//            positionUpper = positionUpper + 0.01;
-//        } else if(gamepad2.b && positionUpper > 0.41) {
-//            positionUpper = positionUpper - 0.01;
-//        }
-//
-//        if(gamepad2.dpad_right && positionLower < 0.61) {
-//            positionLower = positionLower + 0.01;
-//        } else if(gamepad2.dpad_left && positionLower > 0.30) {
-//            positionLower = positionLower - 0.01;
-//        }
         A = gamepad2.a;
         Y = gamepad2.y;
         RB = gamepad2.right_bumper;
@@ -183,7 +169,6 @@ public class CF_Manual extends OpMode {
 
         // Debouncing for the buttons
         if(!lastY && Y) {
-            //0.81
             if(positionUpper == 0.81) {
                 positionUpper = 0.41;
             } else if(positionUpper == 0.41) {

@@ -84,7 +84,7 @@ public class CF_Hardware {
 
         jewelHitter = hwMap.get(Servo.class, "jewelHitter");
 
-        colorArm = hwMap.get(Servo.class, )
+        colorArm = hwMap.get(Servo.class, "arm");
 
         limit = hwMap.get(DigitalChannel.class, "limit");
 

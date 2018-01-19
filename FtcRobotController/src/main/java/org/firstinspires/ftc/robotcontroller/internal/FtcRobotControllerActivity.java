@@ -213,13 +213,15 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
     }
 
     public static Mat getmRgba() {
-      return mRgba;
+      synchronized(mRgba) {
+        return mRgba;
+      }
 
     }
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
       //mRgba = null;
-      synchronized (lock) {
+      synchronized (mRgba) {
         mRgba = inputFrame.rgba();
         return mRgba;
       }

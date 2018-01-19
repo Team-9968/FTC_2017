@@ -13,10 +13,11 @@ import org.opencv.core.Mat;
 public class CF_OpenCV_Library {
     CF_Globals globals = new CF_Globals();
     Mat source = null;
-    Mat image = null;
     double red = 0;
     double blue = 0;
     double[] ret = new double[3];
+    Mat image = new Mat(FtcRobotControllerActivity.getmRgba().cols(), FtcRobotControllerActivity.getmRgba().rows(), CvType.CV_8UC4);
+
 
 
     public enum ballColor {
@@ -27,8 +28,7 @@ public class CF_OpenCV_Library {
 
     public ballColor getColor() {
         //if(source != null) {
-            source = CF_Globals.getmRgba().clone();
-            image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
+            source = FtcRobotControllerActivity.getmRgba();
             red = 0;
             blue = 0;
 
@@ -63,25 +63,23 @@ public class CF_OpenCV_Library {
 
     public double[] getRGB(int x, int y) {
         source = null;
-        //source = CF_Globals.getmRgba().clone();
-        source = FtcRobotControllerActivity.getmRgba().clone();
+        source = FtcRobotControllerActivity.getmRgba();
 
-        image = new Mat(source.cols(), source.rows(), CvType.CV_8UC4);
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
-        if(image != null) {
+        if(source != null) {
             // 0 = red;
             // 1 = green;
             // 2 = blue;
-            if(image == null) {
+            if(source == null) {
                 System.out.println("Cnull");
             }
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e){}
-            double z = image.get(x, y)[0];
-            ret[0] = z;
-            ret[1] = image.get(x, y)[1];
-            ret[2] = image.get(x, y)[2];
+
+            ret[0] = source.get(x, y)[0];
+            ret[1] = source.get(x, y)[1];
+            ret[2] = source.get(x, y)[2];
 
         }
         return ret;

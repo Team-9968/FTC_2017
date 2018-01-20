@@ -119,6 +119,7 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.Queue;
@@ -175,8 +176,9 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
     CF_Globals globals = new CF_Globals();
     Mat source;
     static Mat mRgba;
-    Mat mRgbaT;
+    static Mat mRgbaT;
     Mat mRgbaF;
+    Size kernel = new Size(41, 41);
 
     private static final Object lock = new Object();
 
@@ -220,9 +222,9 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
     }
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-      //mRgba = null;
       synchronized (mRgba) {
-        mRgba = inputFrame.rgba();
+        //mRgba = inputFrame.rgba();
+        Imgproc.GaussianBlur(inputFrame.rgba(), mRgba, kernel, 15);
         return mRgba;
       }
      // CF_Globals.setmRgba(null);

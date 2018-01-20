@@ -84,4 +84,26 @@ public class CF_OpenCV_Library {
         }
         return ret;
     }
+
+    public ballColor getColor(int x, int y) {
+        source = FtcRobotControllerActivity.getmRgba();
+        red = 0;
+        blue = 0;
+        Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
+        if(image != null) {
+            if (image.get(x, y)[0] > 208 && image.get(x, y)[0] < 238 && image.get(x, y)[2] < 70) {
+                red += x;
+            } else if (image.get(x, y)[2] > 170 && image.get(x, y)[2] < 192 && image.get(x, y)[0] < 58) {
+                blue += x;
+            }
+
+        }
+        if(red > blue) {
+            return ballColor.RED;
+        } else if(blue > red) {
+            return ballColor.BLUE;
+        } else {
+            return ballColor.UNKNOWN;
+        }
+    }
 }

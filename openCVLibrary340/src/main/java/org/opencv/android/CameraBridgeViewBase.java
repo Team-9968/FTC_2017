@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.opencv.BuildConfig;
 import org.opencv.R;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 
@@ -390,6 +391,8 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
 
         if (mListener != null) {
             modified = mListener.onCameraFrame(frame);
+            // Flips the image for the screen.
+            //Core.rotate(modified, modified, Core.ROTATE_90_CLOCKWISE);
         } else {
             modified = frame.rgba();
         }
@@ -454,6 +457,8 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
     // NOTE: On Android 4.1.x the function must be called before SurfaceTexture constructor!
     protected void AllocateCache()
     {
+        // I changed it from Width, Height to Height, Width so I could rotate the image properly
+        //mCacheBitmap = Bitmap.createBitmap(mFrameHeight, mFrameWidth, Bitmap.Config.ARGB_8888);
         mCacheBitmap = Bitmap.createBitmap(mFrameWidth, mFrameHeight, Bitmap.Config.ARGB_8888);
     }
 

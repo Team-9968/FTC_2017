@@ -36,9 +36,9 @@ public class CF_openCV extends OpMode {
 //        telemetry.addData("Blue Total", global.getBlue());
 //        telemetry.addData("Difference, Red - Blue", global.getRed() - global.getBlue());
         telemetry.clearAll();
-//        telemetry.addData("Red", cam.getRGB(240, 320)[0]);
-//        telemetry.addData("Blue", cam.getRGB(240, 320)[2]);
-        telemetry.addData("Color", cam.getColor(240, 320));
+        telemetry.addData("Red", cam.getRGB(320, 240)[0]);
+        telemetry.addData("Blue", cam.getRGB(320, 240)[2]);
+        telemetry.addData("Color", cam.getColor(320, 240));
         telemetry.update();
 //        try{
 //            TimeUnit.MILLISECONDS.sleep(5);

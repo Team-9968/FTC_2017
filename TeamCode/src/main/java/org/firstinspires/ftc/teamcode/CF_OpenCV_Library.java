@@ -5,6 +5,10 @@ import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ryley on 1/13/18.
@@ -17,8 +21,13 @@ public class CF_OpenCV_Library {
     double blue = 0;
     double[] ret = new double[3];
     Mat image = new Mat(FtcRobotControllerActivity.getmRgba().cols(), FtcRobotControllerActivity.getmRgba().rows(), CvType.CV_8UC4);
+    Size kernel = new Size(41, 41);
 
+    ArrayList<Integer> redX = new ArrayList<Integer>();
+    ArrayList<Integer> redY = new ArrayList<Integer>();
 
+    ArrayList<Integer> blueX = new ArrayList<Integer>();
+    ArrayList<Integer> blueY = new ArrayList<Integer>();
 
     public enum ballColor {
         RED, BLUE, UNKNOWN
@@ -33,12 +42,24 @@ public class CF_OpenCV_Library {
             blue = 0;
 
             Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
+            Imgproc.GaussianBlur(image, image, kernel, 15);
 
-            for (int i = 0; i < image.size().height - 1; i += 2) {
+        for (int y = 0; y < image.size().height - 1; y += 2) {
                 for (int x = 0; x < image.size().width - 1; x += 2) {
-                    if (image.get(i, x)[0] > 208 && image.get(i, x)[0] < 238 && image.get(i, x)[2] < 70) {
+                    // Original:
+//                    if (image.get(i, x)[0] > 208 && image.get(i, x)[0] < 238 && image.get(i, x)[2] < 70) {
+//                        red += x;
+//                    } else if (image.get(i, x)[2] > 170 && image.get(i, x)[2] < 192 && image.get(i, x)[0] < 58) {
+//                        blue += x;
+//                    }
+
+                    if (image.get(y, x)[0] > 130 && image.get(y, x)[0] < 238 && image.get(y, x)[2] < 70) {
+                        redX.add(x);
+                        redY.add(y);
                         red += x;
-                    } else if (image.get(i, x)[2] > 170 && image.get(i, x)[2] < 192 && image.get(i, x)[0] < 58) {
+                    } else if (image.get(y, x)[2] > 100 && image.get(y, x)[2] < 192 && image.get(y, x)[0] < 58) {
+                        blueX.add(x);
+                        blueY.add(y);
                         blue += x;
                     }
                 }
@@ -63,9 +84,11 @@ public class CF_OpenCV_Library {
 
     public double[] getRGB(int x, int y) {
         source = null;
-        source = FtcRobotControllerActivity.getmRgba();
+        source = FtcRobotControllerActivity.getmRgba().clone();
 
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
+        Imgproc.GaussianBlur(image, image, kernel, 15);
+
         if(source != null) {
             // 0 = red;
             // 1 = green;
@@ -77,27 +100,32 @@ public class CF_OpenCV_Library {
                 Thread.sleep(1);
             } catch (InterruptedException e){}
 
-            ret[0] = source.get(x, y)[0];
-            ret[1] = source.get(x, y)[1];
-            ret[2] = source.get(x, y)[2];
+            ret[0] = image.get(x, y)[0];
+            ret[1] = image.get(x, y)[1];
+            ret[2] = image.get(x, y)[2];
 
         }
+        source.release();
         return ret;
     }
 
     public ballColor getColor(int x, int y) {
-        source = FtcRobotControllerActivity.getmRgba();
+        source = FtcRobotControllerActivity.getmRgba().clone();
         red = 0;
         blue = 0;
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
+        Imgproc.GaussianBlur(image, image, kernel, 15);
         if(image != null) {
-            if (image.get(x, y)[0] > 208 && image.get(x, y)[0] < 238 && image.get(x, y)[2] < 70) {
+            if (image.get(x, y)[0] > 130 && image.get(x, y)[0] < 238 && image.get(x, y)[2] < 70) {
                 red += x;
-            } else if (image.get(x, y)[2] > 170 && image.get(x, y)[2] < 192 && image.get(x, y)[0] < 58) {
+            } else if (image.get(x, y)[2] > 100 && image.get(x, y)[2] < 192 && image.get(x, y)[0] < 58) {
                 blue += x;
             }
 
         }
+        source.release();
+        image.release();
+
         if(red > blue) {
             return ballColor.RED;
         } else if(blue > red) {

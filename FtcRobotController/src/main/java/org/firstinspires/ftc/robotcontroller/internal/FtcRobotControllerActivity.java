@@ -214,19 +214,23 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       CF_Globals.releasemRgba();
     }
 
-    public static Mat getmRgba() {
-      synchronized(mRgba) {
+    public synchronized static Mat getmRgba() {
+      synchronized (lock) {
         return mRgba;
       }
+    }
 
+    public synchronized static void setmRgba(Mat s) {
+      mRgba = s;
     }
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-      synchronized (mRgba) {
-        //mRgba = inputFrame.rgba();
-        Imgproc.GaussianBlur(inputFrame.rgba(), mRgba, kernel, 15);
-        return mRgba;
-      }
+//      synchronized (lock) {
+//        mRgba = inputFrame.rgba();
+        //Imgproc.GaussianBlur(inputFrame.rgba(), mRgba, kernel, 15);
+      setmRgba(inputFrame.rgba());
+        return getmRgba();
+      //}
      // CF_Globals.setmRgba(null);
       //CF_Globals.setmRgba(mRgba);
 

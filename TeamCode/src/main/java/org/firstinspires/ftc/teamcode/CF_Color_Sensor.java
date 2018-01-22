@@ -16,7 +16,6 @@ public class CF_Color_Sensor
    private CF_SecondSensorEnum wiffleball = CF_SecondSensorEnum.INIT;
    private CF_TypeEnum type = CF_TypeEnum.INIT;
 
-
    //This method runs one of the sensors and determines whether that specific ball is blue, red, or unknown
    //based off of the red and blue values it senses.
    public CF_Color_Enum getColorValues(CF_Hardware robot)   //Sensor on RIGHT side of bot when viewed from back

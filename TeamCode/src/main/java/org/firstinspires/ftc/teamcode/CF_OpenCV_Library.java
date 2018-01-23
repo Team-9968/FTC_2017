@@ -1,7 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Bitmap;
+import android.os.SystemClock;
+import android.provider.MediaStore;
+
+import org.firstinspires.ftc.robotcontroller.internal.ApplicationContextProvider;
 import org.firstinspires.ftc.robotcontroller.internal.CF_Globals;
 import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
+import org.firstinspires.ftc.robotcore.internal.ftdi.eeprom.FT_EE_232A_Ctrl;
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -22,6 +29,7 @@ public class CF_OpenCV_Library {
     double[] ret = new double[3];
     Mat image = new Mat(FtcRobotControllerActivity.getmRgba().cols(), FtcRobotControllerActivity.getmRgba().rows(), CvType.CV_8UC4);
     Size kernel = new Size(41, 41);
+    Bitmap map = Bitmap.createBitmap(FtcRobotControllerActivity.getmRgba().width(), FtcRobotControllerActivity.getmRgba().height(), Bitmap.Config.ARGB_8888);
 
     ArrayList<Integer> redX = new ArrayList<Integer>();
     ArrayList<Integer> redY = new ArrayList<Integer>();
@@ -87,7 +95,9 @@ public class CF_OpenCV_Library {
         source = FtcRobotControllerActivity.getmRgba().clone();
 
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
-        Imgproc.GaussianBlur(image, image, kernel, 15);
+        if(image != null) {
+            //Imgproc.GaussianBlur(image, image, kernel, 15);
+        }
 
         if(source != null) {
             // 0 = red;
@@ -133,5 +143,12 @@ public class CF_OpenCV_Library {
         } else {
             return ballColor.UNKNOWN;
         }
+    }
+
+    public void save() {
+        source = FtcRobotControllerActivity.getmRgba();
+        Utils.matToBitmap(source, map);
+        MediaStore.Images.Media.insertImage(ApplicationContextProvider.getContext().getContentResolver(), map, "FTC Pic", "FTC Pic");
+
     }
 }

@@ -27,10 +27,16 @@ import static java.util.logging.Logger.global;
 public class CF_openCV extends OpMode {
     CF_OpenCV_Library cam = new CF_OpenCV_Library();
     CF_Globals global = new CF_Globals();
+    int x = 1;
     public void init() {
     }
 
     public void loop() {
+        if(x == 1) {
+            cam.save();
+            x = 2;
+        }
+
 //        cam.getColor();
 //        telemetry.addData("Red Total", global.getRed());
 //        telemetry.addData("Blue Total", global.getBlue());

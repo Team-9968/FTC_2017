@@ -25,7 +25,7 @@ public class CF_Red_Aim_CP extends OpMode
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
    {
-      SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, GOTOBOX, RELEASEBLOCK, PARK
+      GRABBLOCK, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, GOTOBOX, RELEASEBLOCK, PARK
    }
 
    private enum distances
@@ -34,7 +34,7 @@ public class CF_Red_Aim_CP extends OpMode
    }
 
    //Sets current stage of the "List"
-   checks Check = checks.PICTURE;
+   checks Check = checks.GRABBLOCK;
    distances Distance = distances.INIT;
 
    //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
@@ -65,6 +65,12 @@ public class CF_Red_Aim_CP extends OpMode
 
       switch (Check)
       {
+         case GRABBLOCK:
+            robot.clamp.setPosition(0.81);
+            robot.lowerClamp.setPosition(0.3);
+            checkTime();
+            Check = checks.SENSECOLOR;
+
          case SENSECOLOR:
             //cam_color = cam.getColor();
             checkTime();

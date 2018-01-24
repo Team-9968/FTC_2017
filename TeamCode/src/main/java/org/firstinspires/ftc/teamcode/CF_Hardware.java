@@ -17,7 +17,8 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 
-public class CF_Hardware {
+public class CF_Hardware
+{
 
    //Names all of the motors, sensors, servos, and various other pieces of the robot
    public DcMotor rightFront = null;
@@ -45,7 +46,8 @@ public class CF_Hardware {
 
    public CF_Hardware() {}
 
-   public void init(HardwareMap ahwMap) {
+   public void init(HardwareMap ahwMap)
+   {
       hwMap = ahwMap;
 
 

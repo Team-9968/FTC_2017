@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 import org.firstinspires.ftc.robotcontroller.internal.ApplicationContextProvider;
 import org.firstinspires.ftc.robotcontroller.internal.CF_Globals;
 import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
@@ -145,10 +147,10 @@ public class CF_OpenCV_Library {
         }
     }
 
-    public void save() {
+    public void save(OpMode mode) {
         source = FtcRobotControllerActivity.getmRgba();
         Utils.matToBitmap(source, map);
-        MediaStore.Images.Media.insertImage(ApplicationContextProvider.getContext().getContentResolver(), map, "FTC Pic", "FTC Pic");
+        System.out.println(MediaStore.Images.Media.insertImage(mode.hardwareMap.appContext.getContentResolver(), map, "FTC Pic", "FTC Pic"));
 
     }
 }

@@ -29,11 +29,12 @@ public class CF_openCV extends OpMode {
     CF_Globals global = new CF_Globals();
     int x = 1;
     public void init() {
+
     }
 
     public void loop() {
         if(x == 1) {
-            cam.save();
+            cam.save(this);
             x = 2;
         }
 

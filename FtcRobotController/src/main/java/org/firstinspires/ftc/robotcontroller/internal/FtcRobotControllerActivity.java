@@ -210,6 +210,7 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
 
     }
 
+
     @Override
     public void onCameraViewStopped() {
       CF_Globals.releasemRgba();

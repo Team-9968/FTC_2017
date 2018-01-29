@@ -24,14 +24,16 @@ public class CF_Color_Sensor
       Color.RGBToHSV((robot.adafruitRGB.red() * 255) / 800, (robot.adafruitRGB.green() * 255) / 800, (robot.adafruitRGB.blue() * 255) / 800, hsvValues);
 
       // Check which color is seen by sensor based on threshold values
-      if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 18)
+      if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 15)
       {
          color  = CF_Color_Enum.RED;
       }
-      else if (robot.adafruitRGB.blue() - robot.adafruitRGB.red() > 18)
+
+      else if (robot.adafruitRGB.blue() - robot.adafruitRGB.red() > 15)
       {
          color = CF_Color_Enum.BLUE;
       }
+
       else
       {
          color = CF_Color_Enum.UNKNOWN;
@@ -47,11 +49,11 @@ public class CF_Color_Sensor
       Color.RGBToHSV((robot.adafruitRGBTwo.red() * 255) / 800, (robot.adafruitRGBTwo.green() * 255) / 800, (robot.adafruitRGBTwo.blue() * 255) / 800, secondValues);
 
       // Check which color is seen by the second sensor based on threshold values
-      if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 18)
+      if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 15)
       {
          wiffleball  = CF_SecondSensorEnum.RED;
       }
-      else if (robot.adafruitRGBTwo.blue() - robot.adafruitRGBTwo.red() > 18)
+      else if (robot.adafruitRGBTwo.blue() - robot.adafruitRGBTwo.red() > 15)
       {
          wiffleball = CF_SecondSensorEnum.BLUE;
       }

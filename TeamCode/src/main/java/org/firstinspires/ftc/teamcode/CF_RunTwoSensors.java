@@ -33,21 +33,19 @@ public class CF_RunTwoSensors extends LinearOpMode
       while (opModeIsActive())
       {
 
-         robot.jewelHitter.setPosition(0.53);
-
-
+         robot.armDown(0.13);
          // convert the RGB values to HSV values.
          Color.RGBToHSV((robot.adafruitRGB.red() * 255) / 800, (robot.adafruitRGB.green() * 255) / 800, (robot.adafruitRGB.blue() * 255) / 800, hsvValues);
          Color.RGBToHSV((robot.adafruitRGBTwo.red() * 255) / 800, (robot.adafruitRGBTwo.green() * 255) / 800, (robot.adafruitRGBTwo.blue() * 255) / 800, hsvValues);
 
          //this sensor is on the right when robot is viewed from the back
          // Check which color is seen by sensor based on threshold values
-         if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 35)
+         if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 15)
          {
             color  = CF_Color_Enum.RED;
             telemetry.addData("Right Sensor = red" , robot.adafruitRGB.red() - robot.adafruitRGB.blue());
          }
-         else if (robot.adafruitRGB.blue() - robot.adafruitRGB.red() > 20)
+         else if (robot.adafruitRGB.blue() - robot.adafruitRGB.red() > 15)
          {
             color = CF_Color_Enum.BLUE;
             telemetry.addData("Right Sensor = blue" , robot.adafruitRGB.blue() - robot.adafruitRGB.red());
@@ -60,12 +58,12 @@ public class CF_RunTwoSensors extends LinearOpMode
 
          //When robot is viewed form back, this sensor is on the left.
          // Check which color is seen by the second sensor based on threshold values
-         if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 35)
+         if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 15)
          {
             wiffleball  = CF_SecondSensorEnum.RED;
             telemetry.addData("Left Sensor = red" , robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue());
          }
-         else if (robot.adafruitRGBTwo.blue() - robot.adafruitRGBTwo.red() > 20)
+         else if (robot.adafruitRGBTwo.blue() - robot.adafruitRGBTwo.red() > 15)
          {
             wiffleball = CF_SecondSensorEnum.BLUE;
             telemetry.addData("Left Sensor = blue" , robot.adafruitRGBTwo.blue() - robot.adafruitRGBTwo.red());

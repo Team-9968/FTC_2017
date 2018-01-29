@@ -101,16 +101,16 @@ public class CF_Hardware
       //sets init position of the servo so we stay within 18 inches
 
 
-//      BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-//      parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-//      parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-//      parameters.calibrationDataFile = "BNO055IMUCalibration.json";
-//      parameters.loggingEnabled = true;
-//      parameters.loggingTag = "IMU";
-//      parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-//
-//      //imu = hwMap.get(BNO055IMU.class, "imu");
-//      imu.initialize(parameters);
+      BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+      parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+      parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+      parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+      parameters.loggingEnabled = true;
+      parameters.loggingTag = "IMU";
+      parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+      imu = hwMap.get(BNO055IMU.class, "imu");
+      imu.initialize(parameters);
 
    }
 

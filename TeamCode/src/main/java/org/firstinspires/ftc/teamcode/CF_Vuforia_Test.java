@@ -35,7 +35,7 @@ public class CF_Vuforia_Test extends OpMode {
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
+        //robot.init(hardwareMap);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);

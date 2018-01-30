@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.robocol.TelemetryMessage;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Ryley on 1/24/18.
  */
@@ -25,7 +27,11 @@ public class CF_Test_Rotate extends OpMode {
     }
     public void loop() {
         if(x == 1) {
-            mot.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.ROTATE, -0.4f, -90);
+            mot.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.STRAFE, -0.5f, 2000);
+            try {
+                TimeUnit.MILLISECONDS.sleep(1000);
+            } catch (InterruptedException e) {}
+            mot.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.STRAFE, 0.5f, 2000);
             x = 2;
         }
 

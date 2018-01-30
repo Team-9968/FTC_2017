@@ -18,8 +18,8 @@ public class CF_Autonomous_Motor_Library {
    CF_Master_Motor_Library motors = new CF_Master_Motor_Library();
    CF_IMU_Library imuLib = new CF_IMU_Library();
 
-
-   enum mode {
+   enum mode
+   {
       DRIVE, STRAFE, ROTATE
    }
 
@@ -133,6 +133,21 @@ public class CF_Autonomous_Motor_Library {
       motors.setMechPowers(robot,1,0,0,0,0,0);
 
       }
+
+   void mastMotorMove(CF_Hardware robot, float power, int counts)
+   {
+      // Reset encoders
+      robot.mastMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      robot.mastMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+      while(Math.abs(robot.mastMotor.getCurrentPosition()) < Math.abs(counts))
+      {
+         robot.mastMotor.setPower(power);
+      }
+
+      robot.mastMotor.setPower(0);
+   }
+
 
 
 

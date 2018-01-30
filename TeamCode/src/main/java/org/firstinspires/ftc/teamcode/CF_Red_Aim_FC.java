@@ -1,19 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by dawso on 1/8/2018.
+ * Created by dawso on 1/28/2018.
  */
+
 
 //Autonomous mode for starting on the red team, pad nearest the cryptobox in b/w the balancing stones
 @Autonomous(name = "Red Aim CP", group = "Sensor")
-//@Disabled
-public class CF_Red_Aim_CP extends OpMode
+@Disabled
+public class CF_Red_Aim_FC extends OpMode
 {
    //Allows this file to access pieces of hardware created in other files.
    CF_Hardware robot = new CF_Hardware();
@@ -112,8 +113,8 @@ public class CF_Red_Aim_CP extends OpMode
             CF_TypeEnum classification = sensor.setType(robot);
 
             if (classification == CF_TypeEnum.RIGHTISBLUE) //&& cam_color == CF_OpenCV_Library.ballColor.BLUE) ||
-               //(classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-               //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
+            //(classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
+            //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
 
             {
                telemetry.addData("Right is"," blue");
@@ -130,8 +131,8 @@ public class CF_Red_Aim_CP extends OpMode
             }
 
             else if ((classification == CF_TypeEnum.RIGHTISRED)) //&& cam_color == CF_OpenCV_Library.ballColor.RED)// ||
-               //(classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-               //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
+            //(classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
+            //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
 
             {
                telemetry.addData("Right is"," red");
@@ -158,7 +159,7 @@ public class CF_Red_Aim_CP extends OpMode
             telemetry.update();
             robot.tailLight.setPower(0.0);
             robot.armUp(0.25);
-            robot.armLeft(0.333);
+            robot.jewelHitter.setPosition(0.333);
             robot.armUp(1.0);
             checkTime();
             Check = checks.MOVEMAST;

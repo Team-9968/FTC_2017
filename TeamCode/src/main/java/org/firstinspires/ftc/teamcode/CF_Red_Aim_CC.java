@@ -62,12 +62,6 @@ public class CF_Red_Aim_CC extends OpMode
          case GRABBLOCK:
             robot.clamp.setPosition(0.81);
             robot.lowerClamp.setPosition(0.3);
-
-            try
-            {
-               TimeUnit.MILLISECONDS.sleep(1000);
-            } catch(InterruptedException e) {}
-
             checkTime();
             Check = checks.SENSECOLOR;
             break;
@@ -98,14 +92,14 @@ public class CF_Red_Aim_CC extends OpMode
 
             try
             {
-               TimeUnit.MILLISECONDS.sleep(1000);
+               TimeUnit.MILLISECONDS.sleep(300);
             } catch(InterruptedException e) {}
 
             robot.tailLight.setPower(1);
 
             try
             {
-               TimeUnit.MILLISECONDS.sleep(1000);
+               TimeUnit.MILLISECONDS.sleep(700);
             } catch(InterruptedException e) {}
 
             sensor.setType(robot);
@@ -178,7 +172,7 @@ public class CF_Red_Aim_CC extends OpMode
 
          //Drives the robot off of the balance pad
          case PASTBALANCE:
-
+            auto.driveIMU(this, robot, -0.8, 250);
             //auto.EncoderIMUDrive(robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.7f, 1300); //No idea how far that goes
             checkTime();
             Check = checks.GOTOBOX;

@@ -134,6 +134,36 @@ public class CF_Autonomous_Motor_Library {
 
       }
 
+   void rotate(CF_Hardware robot, float power, int counts) {
+
+      double RFPower = 0;
+      double LFPower = 0;
+      double RRPower = 0;
+      double LRPower = 0;
+
+      // Reset encoders
+      motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+      // The offset for the encoder counts
+      double offset = motors.getEncoderCounts(robot, 1);
+      // Gets the rotation in the Z axis(Up and down through the center of the bot)
+      imuLib.updateNumbers(robot);
+      double rot = imuLib.getRotation(2);
+      // This logic should work whether the encoder counts are positive or negative, and either way they go
+      while((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts)) {
+         imuLib.updateNumbers(robot);
+         RFPower = +power;
+         LFPower = -power;
+         RRPower = +power;
+         LRPower = -power;
+         motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+      }
+
+      motors.setMechPowers(robot, 1, 0,0,0,0,0);
+
+
+   }
+
    void mastMotorMove(CF_Hardware robot, float power, int counts)
    {
       // Reset encoders

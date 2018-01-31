@@ -27,11 +27,11 @@ public class CF_Test_Rotate extends OpMode {
     }
     public void loop() {
         if(x == 1) {
-            mot.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.STRAFE, -0.5f, 2000);
+            mot.rotate(robot, 0.5f, 690);
             try {
-                TimeUnit.MILLISECONDS.sleep(1000);
+                TimeUnit.MILLISECONDS.sleep(3000);
             } catch (InterruptedException e) {}
-            mot.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.STRAFE, 0.5f, 2000);
+            mot.rotate(robot, -0.5f, 690);
             x = 2;
         }
 

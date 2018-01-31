@@ -33,7 +33,7 @@ public class CF_Red_Aim_CC extends OpMode
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
    {
-      GRABBLOCK, MOVEMAST, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, STRAFETOBOX, GOTOBOX, RELEASEBLOCK, PARK
+      GRABBLOCK, MOVEMAST, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, STRAFETOBOX, RELEASEBLOCK, PARK, END
    }
 
    //Sets current stage of the "List"
@@ -188,7 +188,7 @@ public class CF_Red_Aim_CC extends OpMode
          case PASTBALANCE:
             auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 1250);
             auto.rotate(robot, 0.5f, 685);
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 200);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 250);
             Check = checks.RELEASEBLOCK;
             break;
 //
@@ -208,25 +208,37 @@ public class CF_Red_Aim_CC extends OpMode
 //         {
 //
 //         }
-//
-//
-////            checkTime();
-////            State = states.GOTOBOX;
-////            break;
-////
+
 //         //Opens claw(s) so the block is dropped in the box
          case RELEASEBLOCK:
+
+            try
+            {
+               TimeUnit.MILLISECONDS.sleep(500);
+            } catch(InterruptedException e) {}
+
             robot.clamp.setPosition(0.4);
             robot.lowerClamp.setPosition(0.6);
             checkTime();
             Check = checks.PARK;
             break;
-////
-//         //Backs robot up slightly so we aren't touching the block, but are still parking
-////         case PARK:
-////            auto.driveIMU(robot, 0.5, 75);
-////            checkTime();
-////            break;
+
+        // Backs robot up slightly so we aren't touching the block, but are still parking
+         case PARK:
+
+            try
+            {
+               TimeUnit.MILLISECONDS.sleep(500);
+            } catch(InterruptedException e) {}
+
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 60);
+            checkTime();
+            Check = checks.END;
+            break;
+
+         //End state. Does nothing.
+         case END:
+            break:
       }
    }
 }

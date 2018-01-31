@@ -59,10 +59,10 @@ public class CF_Autonomous_Motor_Library {
             imuLib.updateNumbers(robot);
             error = imuLib.getRotation(2) - rot;
             gain = error * kP;
-            RFPower = -power + gain;
-            LFPower = -power - gain;
-            RRPower = -power + gain;
-            LRPower = -power - gain;
+            RFPower = -power; // + gain;
+            LFPower = -power; //- gain;
+            RRPower = -power; //+ gain;
+            LRPower = -power; //- gain;
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
          }
       }

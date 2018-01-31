@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Enums.CF_Pic_Enum;
+import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,12 +26,12 @@ public class CF_Red_Aim_CC extends OpMode
    //CF_OpenCV_Library cam = new CF_OpenCV_Library();
    //CF_OpenCV_Library.ballColor cam_color = null;
 
-   private CF_Distance_Enum Distance = CF_Distance_Enum.INIT;
+   private CF_Pic_Enum Picture = CF_Pic_Enum.INIT;
 
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
    {
-      GRABBLOCK, MOVEMAST, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, GOTOBOX, RELEASEBLOCK, PARK
+      GRABBLOCK, MOVEMAST, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, PLACEBOX, RELEASEBLOCK, PARK
    }
 
    //Sets current stage of the "List"
@@ -73,9 +76,19 @@ public class CF_Red_Aim_CC extends OpMode
             break;
 
          case PICTURE:
-            //
-            //
-            //
+//            //   if (sees i pic)
+//         {
+//            Picture = CF_Pic_Enum.ONE;
+//         }
+//            // else if (sees a different pic)
+//         {
+//            Picture = CF_Pic_Enum.TWO;
+//         }
+//            //
+//            //else if (sees a different picture)
+//         {
+//            Picture = CF_Pic_Enum.THREE;
+//         }
             //
             //
             //
@@ -111,7 +124,6 @@ public class CF_Red_Aim_CC extends OpMode
 
             {
                telemetry.addData("Right is"," blue");
-               telemetry.addData("Distance: ", Distance);
                robot.jewelHitter.setPosition(0.7);
 
                try
@@ -119,7 +131,6 @@ public class CF_Red_Aim_CC extends OpMode
                   TimeUnit.MILLISECONDS.sleep(500);
                } catch(InterruptedException e) {}
 
-               Distance = CF_Distance_Enum.NEAR;
                checkTime();
             }
 
@@ -129,7 +140,6 @@ public class CF_Red_Aim_CC extends OpMode
 
             {
                telemetry.addData("Right is"," red");
-               telemetry.addData("Distance: ", Distance);
                robot.jewelHitter.setPosition(0.0);
 
                try
@@ -137,15 +147,12 @@ public class CF_Red_Aim_CC extends OpMode
                   TimeUnit.MILLISECONDS.sleep(500);
                } catch(InterruptedException e) {}
 
-               Distance = CF_Distance_Enum.FAR;
                checkTime();
             }
 
             else
             {
-               Distance = CF_Distance_Enum.MIDDLE;
                telemetry.addData("Ball is", " unknown");
-               telemetry.addData("Distance: ", Distance);
                checkTime();
             }
 
@@ -172,14 +179,13 @@ public class CF_Red_Aim_CC extends OpMode
 
          //Drives the robot off of the balance pad
          case PASTBALANCE:
-            auto.driveIMU(this, robot, -0.8, 250);
-            //auto.EncoderIMUDrive(robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.7f, 1300); //No idea how far that goes
-            checkTime();
-            Check = checks.GOTOBOX;
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 1500);
+
+            Check = checks.PLACEBOX;
             break;
 //
 //         //Drives robot to cryptobox and alignes it
-////         case GOTOBOX:
+////         case PLACEBOX:
 //
 //
 ////            checkTime();

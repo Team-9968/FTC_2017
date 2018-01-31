@@ -5,6 +5,9 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Enums.CF_Color_Enum;
+import org.firstinspires.ftc.teamcode.Enums.CF_SecondSensorEnum;
+
 /**
  * Created by dawso on 11/20/2017.
  */

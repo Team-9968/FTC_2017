@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
 
+import org.firstinspires.ftc.teamcode.Enums.CF_Color_Enum;
+import org.firstinspires.ftc.teamcode.Enums.CF_SecondSensorEnum;
+import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
+
 //This OpMode does not show up on the phone
 public class CF_Color_Sensor
 

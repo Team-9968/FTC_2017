@@ -4,6 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,8 +26,6 @@ public class CF_Red_Aim_FC extends OpMode
    CF_Color_Sensor sensor = new CF_Color_Sensor();
    //CF_OpenCV_Library cam = new CF_OpenCV_Library();
    //CF_OpenCV_Library.ballColor cam_color = null;
-
-   private CF_Distance_Enum Distance = CF_Distance_Enum.INIT;
 
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
@@ -118,7 +119,6 @@ public class CF_Red_Aim_FC extends OpMode
 
             {
                telemetry.addData("Right is"," blue");
-               telemetry.addData("Distance: ", Distance);
                robot.jewelHitter.setPosition(0.7);
 
                try
@@ -126,7 +126,6 @@ public class CF_Red_Aim_FC extends OpMode
                   TimeUnit.MILLISECONDS.sleep(500);
                } catch(InterruptedException e) {}
 
-               Distance = CF_Distance_Enum.NEAR;
                checkTime();
             }
 
@@ -136,7 +135,6 @@ public class CF_Red_Aim_FC extends OpMode
 
             {
                telemetry.addData("Right is"," red");
-               telemetry.addData("Distance: ", Distance);
                robot.jewelHitter.setPosition(0.0);
 
                try
@@ -144,15 +142,12 @@ public class CF_Red_Aim_FC extends OpMode
                   TimeUnit.MILLISECONDS.sleep(500);
                } catch(InterruptedException e) {}
 
-               Distance = CF_Distance_Enum.FAR;
                checkTime();
             }
 
             else
             {
-               Distance = CF_Distance_Enum.MIDDLE;
                telemetry.addData("Ball is", " unknown");
-               telemetry.addData("Distance: ", Distance);
                checkTime();
             }
 

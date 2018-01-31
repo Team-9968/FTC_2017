@@ -8,6 +8,8 @@ import com.vuforia.STORAGE_TYPE;
 
 import java.security.cert.CertStoreParameters;
 
+import static java.lang.Boolean.TRUE;
+
 /**
  * Created by Ryley on 10/22/17.
  */
@@ -21,7 +23,16 @@ public class CF_Autonomous_Motor_Library {
       DRIVE, STRAFE, ROTATE
    }
 
-   void EncoderIMUDrive(CF_Hardware robot, mode m, float power, int counts) {
+   /*
+   The rotate part of this method does not work.
+   a method call for this would look like: EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.STRAFE, 0.5f, 2000);
+
+   gotta pass in an OpMode
+   Counts is always positive
+   Negative motor power makes it strafe left or drive backwards;
+
+    */
+   void EncoderIMUDrive(OpMode opmode, CF_Hardware robot, mode m, float power, int counts) {
       // Enum tells the method what operation it wants the robot to perform
       // DRIVE
       double RFPower = 0;
@@ -42,69 +53,86 @@ public class CF_Autonomous_Motor_Library {
          double offset = motors.getEncoderCounts(robot, 1);
          // Gets the rotation in the Z axis(Up and down through the center of the bot)
          imuLib.updateNumbers(robot);
-         double rot = imuLib.getRotation(3);
+         double rot = imuLib.getRotation(2);
          // This logic should work whether the encoder counts are positive or negative, and either way they go
          while((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts)) {
             imuLib.updateNumbers(robot);
-            error = imuLib.getRotation(3) - rot;
+            error = imuLib.getRotation(2) - rot;
             gain = error * kP;
-            RFPower = power + gain;
-            LFPower = power - gain;
-            RRPower = power + gain;
-            LRPower = power - gain;
+            RFPower = -power + gain;
+            LFPower = -power - gain;
+            RRPower = -power + gain;
+            LRPower = -power - gain;
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
          }
       }
 
       // STRAFE
       else if(m == mode.STRAFE) {
-         double kP = 0.05;
+         double kP = 0.1;
          double error = 0;
          double gain = error * kP;
          motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
          motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
          double offset = motors.getEncoderCounts(robot, 1);
          imuLib.updateNumbers(robot);
-         double rot = imuLib.getRotation(3);
+         double rot = imuLib.getRotation(2);
          while((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts)) {
             imuLib.updateNumbers(robot);
-            error = imuLib.getRotation(3) - rot;
-            gain = error * kP;
-            RFPower = power - gain;
-            LFPower = -power + gain;
-            RRPower = -power - gain;
-            LRPower = power + gain;
-            motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
-         }
-      }
-
-      // ROTATE
-      else if(m == mode.ROTATE) {
-         double kP = 0.05;
-         double error = 0;
-         double gain = error * kP;
-         motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-         motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-         double offset = imuLib.getRotation(3);
-         imuLib.updateNumbers(robot);
-         double rot = imuLib.getRotation(3);
-         while((imuLib.getRotation(3) - offset) < counts - 2 && (imuLib.getRotation(3) - offset) > (-1 * counts) + 2 ) {
-            imuLib.updateNumbers(robot);
-            error = imuLib.getRotation(3) - rot;
+            error = imuLib.getRotation(2) - rot;
             gain = error * kP;
             RFPower = power + gain;
-            LFPower = power - gain;
-            RRPower = power + gain;
+            LFPower = -power - gain;
+            RRPower = -power + gain;
             LRPower = power - gain;
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
          }
-
       }
+
+//      // ROTATE
+//      else if(m == mode.ROTATE) {
+//         double kP = 0.002;
+//         double error = 10;
+//         double gain = error * kP;
+//         motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//         motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//         imuLib.updateNumbers(robot);
+//         double sum = 0;
+//         double theta = 0;
+//         double lastAng = imuLib.getRotation(2);
+//         double ang;
+//
+//         while (TRUE/*Math.abs(sum) < Math.abs(counts) - 0.5 || Math.abs(sum) > Math.abs(counts) + 0.5*/) {
+//            imuLib.updateNumbers(robot);
+//            ang = imuLib.getRotation(2);
+//            if (Math.signum(lastAng) != Math.signum(ang)) {
+//               if (Math.abs(ang) < 90) {
+//                  theta = Math.signum(ang) * (Math.abs(lastAng) + Math.abs(ang));
+//               } else if (Math.abs(ang) > 90) {
+//                  theta = Math.signum(lastAng) * (360 - (Math.abs(lastAng) + Math.abs(ang)));
+//               }
+//            } else {
+//               theta = ang - lastAng;
+//            }
+//            sum += theta;
+//            theta = 0;
+//            error = counts - sum;
+//
+//            gain = error * kP;
+//            System.out.println("Last " + lastAng + " New " + ang + " Sum " + sum);
+//            //System.out.println("1 " + imuLib.getRotation(1) + " 2 " + imuLib.getRotation(2) + " 3 " + imuLib.getRotation(3));
+//
+//            lastAng = ang;
+//
+//            //motors.setMechPowers(robot, 1, gain, -gain, gain, -gain, 0);
+//            opmode.telemetry.addData("Sum", sum);
+//            opmode.telemetry.update();
+//         }
+//
+//      }
       motors.setMechPowers(robot,1,0,0,0,0,0);
 
-
-
-   }
+      }
 
    void mastMotorMove(CF_Hardware robot, float power, int counts)
    {

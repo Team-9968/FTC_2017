@@ -26,12 +26,14 @@ public class CF_Red_Aim_CC extends OpMode
    //CF_OpenCV_Library cam = new CF_OpenCV_Library();
    //CF_OpenCV_Library.ballColor cam_color = null;
 
+   boolean ArmCenter;
+
    private CF_Pic_Enum Picture = CF_Pic_Enum.INIT;
 
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
    {
-      GRABBLOCK, MOVEMAST, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, PLACEBOX, RELEASEBLOCK, PARK
+      GRABBLOCK, MOVEMAST, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, STRAFETOBOX, GOTOBOX, RELEASEBLOCK, PARK
    }
 
    //Sets current stage of the "List"
@@ -76,7 +78,7 @@ public class CF_Red_Aim_CC extends OpMode
             break;
 
          case PICTURE:
-//            //   if (sees i pic)
+//            //   if (sees 1 pic)
 //         {
 //            Picture = CF_Pic_Enum.ONE;
 //         }
@@ -131,6 +133,7 @@ public class CF_Red_Aim_CC extends OpMode
                   TimeUnit.MILLISECONDS.sleep(500);
                } catch(InterruptedException e) {}
 
+               ArmCenter = true;
                checkTime();
             }
 
@@ -147,6 +150,7 @@ public class CF_Red_Aim_CC extends OpMode
                   TimeUnit.MILLISECONDS.sleep(500);
                } catch(InterruptedException e) {}
 
+               ArmCenter = true;
                checkTime();
             }
 
@@ -166,7 +170,10 @@ public class CF_Red_Aim_CC extends OpMode
                TimeUnit.MILLISECONDS.sleep(100);
             } catch(InterruptedException e) {}
 
-            robot.jewelHitter.setPosition(0.333);
+            if (ArmCenter = true)
+            {
+               robot.jewelHitter.setPosition(0.333);
+            }
             robot.armUp(1.0);
             checkTime();
             Check = checks.MOVEMAST;
@@ -179,26 +186,41 @@ public class CF_Red_Aim_CC extends OpMode
 
          //Drives the robot off of the balance pad
          case PASTBALANCE:
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 1500);
-
-            Check = checks.PLACEBOX;
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 1250);
+            auto.rotate(robot, 0.5f, 685);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 200);
+            Check = checks.RELEASEBLOCK;
             break;
 //
 //         //Drives robot to cryptobox and alignes it
-////         case PLACEBOX:
+////         case STRAFETOBOX:
+         //if (Picture == CF_Pic_Enum.One) //NEAREST SHELF
+//         {
+//
+//         }
+
+         //else if (Picture == CF_Pic_Enum.Two
+//         {
+//
+//         }
+
+         //else if (Picture == CF_Pic_Enum.Three
+//         {
+//
+//         }
 //
 //
 ////            checkTime();
-////            State = states.RELEASEBLOCK;
+////            State = states.GOTOBOX;
 ////            break;
 ////
 //         //Opens claw(s) so the block is dropped in the box
-////         case RELEASEBLOCK:
-////            robot.clamp.setPosition(0.4);
-////            robot.lowerClamp.setPosition(0.6);
-////            checkTime();
-////            State = states.PARK;
-////            break;
+         case RELEASEBLOCK:
+            robot.clamp.setPosition(0.4);
+            robot.lowerClamp.setPosition(0.6);
+            checkTime();
+            Check = checks.PARK;
+            break;
 ////
 //         //Backs robot up slightly so we aren't touching the block, but are still parking
 ////         case PARK:

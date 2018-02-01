@@ -23,9 +23,6 @@ public class CV_OpenCV_OpMode extends OpMode {
 
     @Override
     public void init() {
-        msStuckDetectLoop = 7000;
-
-
 
     }
 

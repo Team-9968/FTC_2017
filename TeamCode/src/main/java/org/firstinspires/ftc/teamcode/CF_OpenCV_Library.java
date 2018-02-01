@@ -1,43 +1,31 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Bitmap;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.robotcontroller.internal.ApplicationContextProvider;
 import org.firstinspires.ftc.robotcontroller.internal.CF_Globals;
 import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
-import org.firstinspires.ftc.robotcore.internal.ftdi.eeprom.FT_EE_232A_Ctrl;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 
-import java.util.ArrayList;
 
 /**
  * Created by Ryley on 1/13/18.
+ * CF_OpenCV_Library
  */
 
 public class CF_OpenCV_Library {
     CF_Globals globals = new CF_Globals();
-    Mat source = null;
+    private Mat source = null;
     double red = 0;
     double blue = 0;
-    double[] ret = new double[3];
-    Mat image = new Mat(FtcRobotControllerActivity.getmRgba().cols(), FtcRobotControllerActivity.getmRgba().rows(), CvType.CV_8UC4);
-    Size kernel = new Size(41, 41);
-    Bitmap map = Bitmap.createBitmap(FtcRobotControllerActivity.getmRgba().width(), FtcRobotControllerActivity.getmRgba().height(), Bitmap.Config.ARGB_8888);
-
-    ArrayList<Integer> redX = new ArrayList<Integer>();
-    ArrayList<Integer> redY = new ArrayList<Integer>();
-
-    ArrayList<Integer> blueX = new ArrayList<Integer>();
-    ArrayList<Integer> blueY = new ArrayList<Integer>();
+    private double[] ret = new double[3];
+    private Mat image = new Mat(FtcRobotControllerActivity.getmRgba().cols(), FtcRobotControllerActivity.getmRgba().rows(), CvType.CV_8UC4);
+    private Bitmap map = Bitmap.createBitmap(FtcRobotControllerActivity.getmRgba().width(), FtcRobotControllerActivity.getmRgba().height(), Bitmap.Config.ARGB_8888);
 
     public enum ballColor {
         RED, BLUE, UNKNOWN
@@ -52,8 +40,6 @@ public class CF_OpenCV_Library {
             blue = 0;
 
             Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
-            Imgproc.GaussianBlur(image, image, kernel, 15);
-
         for (int y = 0; y < image.size().height - 1; y += 2) {
                 for (int x = 0; x < image.size().width - 1; x += 2) {
                     // Original:
@@ -64,12 +50,8 @@ public class CF_OpenCV_Library {
 //                    }
 
                     if (image.get(y, x)[0] > 130 && image.get(y, x)[0] < 238 && image.get(y, x)[2] < 70) {
-                        redX.add(x);
-                        redY.add(y);
                         red += x;
                     } else if (image.get(y, x)[2] > 100 && image.get(y, x)[2] < 192 && image.get(y, x)[0] < 58) {
-                        blueX.add(x);
-                        blueY.add(y);
                         blue += x;
                     }
                 }
@@ -97,9 +79,6 @@ public class CF_OpenCV_Library {
         source = FtcRobotControllerActivity.getmRgba().clone();
 
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
-        if(image != null) {
-            //Imgproc.GaussianBlur(image, image, kernel, 15);
-        }
 
         if(source != null) {
             // 0 = red;
@@ -126,7 +105,6 @@ public class CF_OpenCV_Library {
         red = 0;
         blue = 0;
         Core.rotate(source, image, Core.ROTATE_90_CLOCKWISE);
-        Imgproc.GaussianBlur(image, image, kernel, 15);
         if(image != null) {
             if (image.get(x, y)[0] > 130 && image.get(x, y)[0] < 238 && image.get(x, y)[2] < 70) {
                 red += x;

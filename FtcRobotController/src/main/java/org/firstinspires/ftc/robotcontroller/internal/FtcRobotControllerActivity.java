@@ -178,6 +178,7 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
     Mat source;
     static Mat mRgba;
     static Mat mRgbaT;
+    static Boolean getPic = TRUE;
     Mat mRgbaF;
     Size kernel = new Size(41, 41);
 
@@ -222,21 +223,27 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       }
     }
 
+    public synchronized static Boolean getGetPic() {
+      synchronized (lock) {
+        return getPic;
+      }
+    }
+
+    public synchronized static void setGetPic(Boolean b) {
+      synchronized (lock) {
+        getPic = b;
+      }
+    }
+
     public synchronized static void setmRgba(Mat s) {
       mRgba = s;
     }
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-//      synchronized (lock) {
-//        mRgba = inputFrame.rgba();
-        //Imgproc.GaussianBlur(inputFrame.rgba(), mRgba, kernel, 15);
-      setmRgba(inputFrame.rgba());
+      if(getGetPic()) {
+        setmRgba(inputFrame.rgba());
+      }
         return getmRgba();
-      //}
-     // CF_Globals.setmRgba(null);
-      //CF_Globals.setmRgba(mRgba);
-
-
     }
 
     //////////// End OpenCV code ////////////

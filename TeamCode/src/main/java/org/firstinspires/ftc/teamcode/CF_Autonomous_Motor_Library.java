@@ -63,6 +63,7 @@ public class CF_Autonomous_Motor_Library {
             LFPower = -power;// - gain;
             RRPower = -power;// + gain;
             LRPower = -power;// - gain;
+
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
             System.out.println("Rotation " + imuLib.getRotation(2));
          }

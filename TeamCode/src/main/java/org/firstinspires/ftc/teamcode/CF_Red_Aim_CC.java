@@ -238,7 +238,7 @@ public class CF_Red_Aim_CC extends OpMode
 
          //End state. Does nothing.
          case END:
-            break:
+            break;
       }
    }
 }

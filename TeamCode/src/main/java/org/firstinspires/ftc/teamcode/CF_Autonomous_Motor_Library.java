@@ -4,11 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ThreadPool;
 import com.vuforia.STORAGE_TYPE;
-
-import java.security.cert.CertStoreParameters;
-
-import static java.lang.Boolean.TRUE;
 
 /**
  * Created by Ryley on 10/22/17.
@@ -21,6 +18,9 @@ public class CF_Autonomous_Motor_Library {
    enum mode
    {
       DRIVE, STRAFE, ROTATE
+   }
+   enum wrap {
+      NORMAL, BACKWARDS, FORWARDS
    }
 
    /*
@@ -42,7 +42,7 @@ public class CF_Autonomous_Motor_Library {
 
       if(m == mode.DRIVE) {
          // This is a trial and error value
-         double kP = 0.05;
+         double kP = 0.01;
          // Values for the P controller
          double error = 0;
          double gain = error * kP;
@@ -91,7 +91,7 @@ public class CF_Autonomous_Motor_Library {
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
          }
       }
-
+//       Currently an unused method
 //      // ROTATE
 //      else if(m == mode.ROTATE) {
 //         double kP = 0.002;

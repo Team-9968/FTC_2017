@@ -181,6 +181,20 @@ public class CF_Autonomous_Motor_Library {
       robot.mastMotor.setPower(0);
    }
 
+   void clawMotorMove(CF_Hardware robot, float power, int counts)
+   {
+      // Reset encoders
+      robot.clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      robot.clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+      while(Math.abs(robot.clawMotor.getCurrentPosition()) < Math.abs(counts))
+      {
+         robot.clawMotor.setPower(power);
+      }
+
+      robot.clawMotor.setPower(0);
+   }
+
 
 
 

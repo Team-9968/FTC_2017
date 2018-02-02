@@ -23,10 +23,12 @@ public class CF_Red_Aim_CC extends OpMode
    ElapsedTime runTime = new ElapsedTime();
    CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
-   //CF_OpenCV_Library cam = new CF_OpenCV_Library();
+   CF_OpenCV_Library cam = new CF_OpenCV_Library();
    //CF_OpenCV_Library.ballColor cam_color = null;
 
    boolean ArmCenter;
+
+   CF_OpenCV_Library.ballColor col;
 
    private CF_Pic_Enum Picture = CF_Pic_Enum.INIT;
 
@@ -69,12 +71,14 @@ public class CF_Red_Aim_CC extends OpMode
             robot.lowerClamp.setPosition(0.3);
             checkTime();
             Check = checks.SENSECOLOR;
+            col = cam.getColor();
             break;
 
          case SENSECOLOR:
             //cam_color = cam.getColor();
             checkTime();
             Check = checks.PICTURE;
+
             break;
 
          case PICTURE:
@@ -157,6 +161,30 @@ public class CF_Red_Aim_CC extends OpMode
             else
             {
                telemetry.addData("Ball is", " unknown");
+               if(col == CF_OpenCV_Library.ballColor.BLUE) {
+                  telemetry.addData("Right is"," red - Camera");
+                  robot.jewelHitter.setPosition(0.0);
+
+                  try
+                  {
+                     TimeUnit.MILLISECONDS.sleep(500);
+                  } catch(InterruptedException e) {}
+
+                  ArmCenter = true;
+                  checkTime();
+               }
+               else if(col == CF_OpenCV_Library.ballColor.RED) {
+                  telemetry.addData("Right is"," blue - Camera");
+                  robot.jewelHitter.setPosition(0.7);
+
+                  try
+                  {
+                     TimeUnit.MILLISECONDS.sleep(500);
+                  } catch(InterruptedException e) {}
+
+                  ArmCenter = true;
+                  checkTime();
+               }
                checkTime();
             }
 
@@ -180,7 +208,7 @@ public class CF_Red_Aim_CC extends OpMode
             break;
 
          case MOVEMAST:
-            auto.mastMotorMove(robot, -1.0f, 2000);
+            auto.clawMotorMove(robot, -1.0f, 2000);
             Check = checks.PASTBALANCE;
             break;
 

@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
 
+import org.firstinspires.ftc.teamcode.Enums.CF_Color_Enum;
+import org.firstinspires.ftc.teamcode.Enums.CF_SecondSensorEnum;
+import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
+
 //This OpMode does not show up on the phone
 public class CF_Color_Sensor
 
@@ -16,7 +20,6 @@ public class CF_Color_Sensor
    private CF_SecondSensorEnum wiffleball = CF_SecondSensorEnum.INIT;
    private CF_TypeEnum type = CF_TypeEnum.INIT;
 
-
    //This method runs one of the sensors and determines whether that specific ball is blue, red, or unknown
    //based off of the red and blue values it senses.
    public CF_Color_Enum getColorValues(CF_Hardware robot)   //Sensor on RIGHT side of bot when viewed from back
@@ -25,14 +28,16 @@ public class CF_Color_Sensor
       Color.RGBToHSV((robot.adafruitRGB.red() * 255) / 800, (robot.adafruitRGB.green() * 255) / 800, (robot.adafruitRGB.blue() * 255) / 800, hsvValues);
 
       // Check which color is seen by sensor based on threshold values
-      if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 35)
+      if (robot.adafruitRGB.red() - robot.adafruitRGB.blue() > 10)
       {
          color  = CF_Color_Enum.RED;
       }
-      else if (robot.adafruitRGB.blue() - robot.adafruitRGB.red() > 25)
+
+      else if (robot.adafruitRGB.blue() - robot.adafruitRGB.red() > 15)
       {
          color = CF_Color_Enum.BLUE;
       }
+
       else
       {
          color = CF_Color_Enum.UNKNOWN;
@@ -48,11 +53,11 @@ public class CF_Color_Sensor
       Color.RGBToHSV((robot.adafruitRGBTwo.red() * 255) / 800, (robot.adafruitRGBTwo.green() * 255) / 800, (robot.adafruitRGBTwo.blue() * 255) / 800, secondValues);
 
       // Check which color is seen by the second sensor based on threshold values
-      if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 35)
+      if (robot.adafruitRGBTwo.red() - robot.adafruitRGBTwo.blue() > 10)
       {
          wiffleball  = CF_SecondSensorEnum.RED;
       }
-      else if (robot.adafruitRGBTwo.blue() - robot.adafruitRGBTwo.red() > 25)
+      else if (robot.adafruitRGBTwo.blue() - robot.adafruitRGBTwo.red() > 15)
       {
          wiffleball = CF_SecondSensorEnum.BLUE;
       }

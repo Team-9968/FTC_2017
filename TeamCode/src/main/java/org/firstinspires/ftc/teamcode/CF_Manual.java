@@ -62,8 +62,8 @@ public class CF_Manual extends OpMode {
         robot.init(hardwareMap);
         telemetry.addData("", "init");
         start = robot.clawMotor.getCurrentPosition();
-        robot.jewelHitter.setPosition(1.0);
-        robot.colorArm.setPosition(0.333);
+        robot.jewelHitter.setPosition(0.333);
+        robot.colorArm.setPosition(1.0);
         end = start + 1719;
 
         while(robot.limit.getState()) {

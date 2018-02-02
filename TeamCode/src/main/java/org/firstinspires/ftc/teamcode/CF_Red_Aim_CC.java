@@ -24,7 +24,6 @@ public class CF_Red_Aim_CC extends OpMode
    CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
    CF_Color_Sensor sensor = new CF_Color_Sensor();
    CF_OpenCV_Library cam = new CF_OpenCV_Library();
-   //CF_OpenCV_Library.ballColor cam_color = null;
 
    boolean ArmCenter;
 
@@ -75,7 +74,6 @@ public class CF_Red_Aim_CC extends OpMode
             break;
 
          case SENSECOLOR:
-            //cam_color = cam.getColor();
             checkTime();
             Check = checks.PICTURE;
 
@@ -124,9 +122,9 @@ public class CF_Red_Aim_CC extends OpMode
             sensor.setType(robot);
             CF_TypeEnum classification = sensor.setType(robot);
 
-            if (classification == CF_TypeEnum.RIGHTISBLUE) //&& cam_color == CF_OpenCV_Library.ballColor.BLUE) ||
-               //(classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-               //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
+            if (((classification == CF_TypeEnum.LEFTISBLUE) && (col == CF_OpenCV_Library.ballColor.RED)) ||
+               ((classification == CF_TypeEnum.LEFTISBLUE) && (col == CF_OpenCV_Library.ballColor.UNKNOWN)) ||
+               ((classification == CF_TypeEnum.UNKNOWN) && (col == CF_OpenCV_Library.ballColor.RED)))
 
             {
                telemetry.addData("Right is"," blue");
@@ -141,9 +139,9 @@ public class CF_Red_Aim_CC extends OpMode
                checkTime();
             }
 
-            else if ((classification == CF_TypeEnum.RIGHTISRED)) //&& cam_color == CF_OpenCV_Library.ballColor.RED)// ||
-               //(classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-               //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
+            else if (((classification == CF_TypeEnum.LEFTISRED) && (col == CF_OpenCV_Library.ballColor.BLUE)) ||
+                     ((classification == CF_TypeEnum.LEFTISRED) && (col == CF_OpenCV_Library.ballColor.UNKNOWN)) ||
+                     ((classification == CF_TypeEnum.UNKNOWN) && (col == CF_OpenCV_Library.ballColor.BLUE)))
 
             {
                telemetry.addData("Right is"," red");
@@ -214,9 +212,9 @@ public class CF_Red_Aim_CC extends OpMode
 
          //Drives the robot off of the balance pad
          case PASTBALANCE:
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 1250);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 1220);
             auto.rotate(robot, 0.5f, 685);
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 250);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 280);
             Check = checks.RELEASEBLOCK;
             break;
 //

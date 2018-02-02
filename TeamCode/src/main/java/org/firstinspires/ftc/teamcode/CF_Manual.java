@@ -25,7 +25,7 @@ public class CF_Manual extends OpMode {
     // Instantiates variables
     int mode = 0;
 
-    double positionUpper = 0.0;
+    double positionUpper = 0.41;
     double positionLower = 0.6;
 
     boolean changeDirectionLast = false;
@@ -147,7 +147,7 @@ public class CF_Manual extends OpMode {
                 accessory.setPowerToPower(robot.clawMotor, 1, 3);
                 accessory.setPowerToPower(robot.mastMotor, 1, 3);
                 positionLower = 0.6;
-                positionUpper = 0.0;
+                positionUpper = 0.41;
             }
         }
 
@@ -172,20 +172,20 @@ public class CF_Manual extends OpMode {
         // 0.81 0.41
         // Debouncing for the buttons
         if(!lastY && Y) {
-            if(positionUpper == 0.0) {
-                positionUpper = 0.4;
-            } else if(positionUpper == 0.4) {
-                positionUpper = 0.0;
+            if(positionUpper == 0.41) {
+                positionUpper = 0.81;
+            } else if(positionUpper == 0.81) {
+                positionUpper = 0.41;
             }
         }
 
         if(!lastRB && RB) {
-            positionUpper = 0.0;
+            positionUpper = 0.41;
             positionLower = 0.6;
         }
 
         if(!lastLB && LB) {
-            positionUpper = 0.4;
+            positionUpper = 0.81;
             positionLower = 0.3;
         }
 

@@ -1,0 +1,508 @@
+01-17 16:22:17.260 3889-4285/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:18.536 1761-2252/? D/WifiStateMachine: ===> 137.42,100.15 - 99.83,81.30 - 15558,12004
+01-17 16:22:18.870 4396-4817/com.qualcomm.ftcrobotcontroller V/Robocol: received command: CMD_INIT_OP_MODE(10161) openCV
+01-17 16:22:18.871 4396-4816/com.qualcomm.ftcrobotcontroller I/BatteryChecker: percent remaining: 100 is charging: true
+01-17 16:22:18.874 4396-4829/com.qualcomm.ftcrobotcontroller I/RobotCore: Attempting to switch to op mode openCV
+01-17 16:22:18.878 4396-4829/com.qualcomm.ftcrobotcontroller V/AMSColorSensorImpl: internalInitialize()...
+01-17 16:22:18.878 4396-4829/com.qualcomm.ftcrobotcontroller V/AMSColorSensorImpl: ...internalInitialize()
+01-17 16:22:18.879 4396-4829/com.qualcomm.ftcrobotcontroller V/AMSColorSensorImpl: internalInitialize()...
+01-17 16:22:18.879 4396-4829/com.qualcomm.ftcrobotcontroller V/AMSColorSensorImpl: ...internalInitialize()
+01-17 16:22:18.895 4396-4845/com.qualcomm.ftcrobotcontroller V/Robocol: sending CMD_NOTIFY_INIT_OP_MODE(206), attempt: 0
+01-17 16:22:20.367 356-356/? I/SFPerfTracer:      triggers: (rate: 48:3423) (compose: 0:1) (post: 0:1) (render: 2:36) (0:6089 frames) (1:13629)
+01-17 16:22:20.367 356-356/? D/SFPerfTracer:        layers: (2:10) (FocusedStackFrame (0xb76be6f0): 0:61)* (StatusBar (0xb7631258): 0:844)* (com.android.systemui.ImageWallpaper (0xb767e248): 0:257)* (NavigationBar (0xb76af808): 0:152)* (com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity (0xb76a4a20): 0:66) (SurfaceView (0xb76b0e08): 1:271) 
+01-17 16:22:20.372 4396-4817/com.qualcomm.ftcrobotcontroller V/Robocol: received command: CMD_RUN_OP_MODE(10179) openCV
+01-17 16:22:20.373 4396-4816/com.qualcomm.ftcrobotcontroller I/BatteryChecker: percent remaining: 100 is charging: true
+01-17 16:22:20.415 4396-4845/com.qualcomm.ftcrobotcontroller V/Robocol: sending CMD_NOTIFY_RUN_OP_MODE(230), attempt: 0
+01-17 16:22:21.499 356-1012/? I/SFPerfTracer:      triggers: (rate: 0:0) (0 sw vsyncs) (0 skipped) (0:2292 vsyncs) (1:14185)
+01-17 16:22:21.896 798-857/? D/TCMD: NL - Read 56 bytes from update socket.
+01-17 16:22:21.896 798-857/? D/TCMD: NL - message type is RTM_NEWLINK
+01-17 16:22:21.896 798-857/? D/TCMD: Listening for incoming client connection request
+01-17 16:22:21.904 1761-2252/? D/WifiAutoJoinController: attemptAutoJoin disable when MCC disabled and P2P connected
+01-17 16:22:21.928 1761-2234/? D/BatteryService: uevent={POWER_SUPPLY_TEMP=320, POWER_SUPPLY_STATUS=Full, POWER_SUPPLY_CAPACITY=100, ACTION=change, DEVPATH=/devices/qpnp-charger-e4a05800/power_supply/battery, POWER_SUPPLY_VOLTAGE_OCV=-22, POWER_SUPPLY_ONLINE=1, SUBSYSTEM=power_supply, POWER_SUPPLY_NUM_SYSTEM_TEMP_LEVELS=4, POWER_SUPPLY_INPUT_CURRENT_MAX=500000, POWER_SUPPLY_VOLTAGE_MAX_DESIGN=4350000, POWER_SUPPLY_CHARGE_FULL=2031000, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_VOLTAGE_MIN_DESIGN=4300000, POWER_SUPPLY_VOLTAGE_MIN=4300000, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_CYCLE_COUNT=0, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_TYPE=Fast, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_INPUT_CURRENT_SETTLED=0, POWER_SUPPLY_MODEL_NAME=UNKNOWN, POWER_SUPPLY_VOLTAGE_NOW=4286961, SEQNUM=5508, POWER_SUPPLY_TEMP_WARM=450, POWER_SUPPLY_TEMP_COOL=0, POWER_SUPPLY_CHARGE_FULL_DESIGN=2036000, POWER_SUPPLY_CURRENT_NOW=89378, POWER_SUPPLY_CHARGE_COUNTER=-15541, POWER_SUPPLY_SYSTEM_TEMP_LEVEL=0, POWER_SUPPLY_INPUT_CURRENT_TRIM=29, POWER_SUPPLY_VOLTAGE_EMPTY=3200000, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_INPUT_VOLTAGE_REGULATION=0, POWER_SUPPLY_CHARGING_ENABLED=1}
+01-17 16:22:21.957 4396-4396/com.qualcomm.ftcrobotcontroller I/BatteryChecker: percent remaining: 100 is charging: true
+01-17 16:22:21.994 4396-4396/com.qualcomm.ftcrobotcontroller I/BatteryChecker: percent remaining: 100 is charging: true
+01-17 16:22:23.661 1761-2315/? I/ActivityManager: Process android.process.acore (pid 4303) has died
+01-17 16:22:23.663 354-354/? E/lowmemorykiller: Error writing /proc/3978/oom_score_adj; errno=22
+01-17 16:22:23.665 354-354/? E/lowmemorykiller: Error opening /proc/4202/oom_score_adj; errno=2
+01-17 16:22:23.709 1761-2790/? I/ActivityManager: Process com.google.android.partnersetup (pid 4202) has died
+01-17 16:22:23.735 1761-5049/? I/ActivityManager: Process com.google.process.gapps (pid 3978) has died
+01-17 16:22:23.736 354-354/? E/lowmemorykiller: Error opening /proc/4168/oom_score_adj; errno=2
+01-17 16:22:23.738 4396-4396/com.qualcomm.ftcrobotcontroller V/OnBotJavaService: onTrimMemory()
+01-17 16:22:23.738 4396-4396/com.qualcomm.ftcrobotcontroller V/MTPMonitorService: onTrimMemory()
+01-17 16:22:23.795 1761-1771/? I/ActivityManager: Process com.google.android.googlequicksearchbox:search (pid 4168) has died
+01-17 16:22:23.905 1761-2877/? I/ActivityManager: Process android.process.media (pid 4260) has died
+01-17 16:22:23.935 1761-2876/? I/ActivityManager: Process com.google.android.gms (pid 4134) has died
+01-17 16:22:25.802 388-623/? I/ThermalEngine: Sensor:batt_therm:32000 mC
+01-17 16:22:25.807 388-624/? I/ThermalEngine: Sensor:xo_therm_pu2:39000 mC
+01-17 16:22:25.834 356-356/? I/SFPerfTracer:      triggers: (rate: 48:3459) (compose: 0:1) (post: 0:1) (render: 2:36) (3:6138 frames) (4:13731)
+01-17 16:22:25.834 356-356/? D/SFPerfTracer:        layers: (2:10) (FocusedStackFrame (0xb76be6f0): 0:61)* (StatusBar (0xb7631258): 0:846)* (com.android.systemui.ImageWallpaper (0xb767e248): 0:257)* (NavigationBar (0xb76af808): 0:152)* (com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity (0xb76a4a20): 1:86) (SurfaceView (0xb76b0e08): 3:354) 
+01-17 16:22:26.493 1761-2901/? I/WindowState: WIN DEATH: Window{b348225 u0 com.google.android.googlequicksearchbox/com.google.android.launcher.GEL}
+01-17 16:22:26.493 1761-5049/? D/GraphicsStats: Buffer count: 3
+01-17 16:22:26.613 1761-2892/? I/ActivityManager: Process com.google.android.googlequicksearchbox (pid 4018) has died
+01-17 16:22:26.620 1761-2892/? W/ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.reflection.ReflectionService in 1000ms
+01-17 16:22:26.665 1761-2315/? I/ActivityManager: Process com.motorola.MotGallery2 (pid 4242) has died
+01-17 16:22:26.666 1761-2315/? W/ActivityManager: Scheduling restart of crashed service com.motorola.MotGallery2/com.motorola.blur.service.blur.JobSchedulerService in 1000ms
+01-17 16:22:26.731 1761-2330/? I/ActivityManager: Process com.google.android.talk (pid 3899) has died
+01-17 16:22:26.736 1761-2330/? W/ActivityManager: Scheduling restart of crashed service com.google.android.talk/com.google.android.libraries.hangouts.video.CallService in 10930ms
+01-17 16:22:26.776 355-355/? I/ServiceManager: service 'AtCmdFwd' died
+01-17 16:22:26.776 407-4243/? I/Atfwd_Sendcmd: AtCmdFwd : binderDied
+01-17 16:22:26.777 407-4243/? I/ServiceManager: Waiting for service AtCmdFwd...
+01-17 16:22:26.806 1761-1772/? I/ActivityManager: Process com.qualcomm.telephony (pid 4518) has died
+01-17 16:22:26.806 1761-1772/? W/ActivityManager: Scheduling restart of crashed service com.qualcomm.atfwd/.AtFwdService in 20860ms
+01-17 16:22:26.950 356-1012/? I/SFPerfTracer:      triggers: (rate: 0:0) (0 sw vsyncs) (0 skipped) (0:2293 vsyncs) (1:14286)
+01-17 16:22:27.195 1761-2892/? I/ActivityManager: Process com.google.android.inputmethod.latin (pid 4111) has died
+01-17 16:22:27.197 1761-2892/? W/ActivityManager: Scheduling restart of crashed service com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME in 30469ms
+01-17 16:22:27.544 1761-5349/? I/ActivityManager: Process com.motorola.ccc (pid 3889) has died
+01-17 16:22:27.545 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.notification/com.motorola.blur.service.blur.JobSchedulerService in 40121ms
+01-17 16:22:27.545 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.checkin/com.motorola.blur.service.blur.JobSchedulerService in 50121ms
+01-17 16:22:27.545 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.checkin/com.motorola.blur.service.blur.BlurServiceMother in 60120ms
+01-17 16:22:27.545 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.devicemanagement/com.motorola.blur.service.blur.JobSchedulerService in 60120ms
+01-17 16:22:27.546 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.ota/.env.OtaService in 70119ms
+01-17 16:22:27.546 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.checkin/.CheckinService in 80119ms
+01-17 16:22:27.546 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.devicemanagement/com.motorola.blur.service.blur.BlurServiceMother in 90119ms
+01-17 16:22:27.548 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.notification/com.motorola.blur.service.blur.BlurServiceMother in 100119ms
+01-17 16:22:27.548 1761-5349/? W/ActivityManager: Scheduling restart of crashed service com.motorola.ccc.devicemanagement/.DeviceManagementNotifierService in 100118ms
+01-17 16:22:27.656 1761-1761/? W/InputMethodManagerService: Session failed to close due to remote exception
+                                                            android.os.DeadObjectException
+                                                                at android.os.BinderProxy.transactNative(Native Method)
+                                                                at android.os.BinderProxy.transact(Binder.java:503)
+                                                                at com.android.internal.view.IInputMethodSession$Stub$Proxy.finishSession(IInputMethodSession.java:305)
+                                                                at com.android.server.InputMethodManagerService.finishSessionLocked(InputMethodManagerService.java:1586)
+                                                                at com.android.server.InputMethodManagerService.clearClientSessionLocked(InputMethodManagerService.java:1577)
+                                                                at com.android.server.InputMethodManagerService.clearCurMethodLocked(InputMethodManagerService.java:1603)
+                                                                at com.android.server.InputMethodManagerService.onServiceDisconnected(InputMethodManagerService.java:1622)
+                                                                at android.app.LoadedApk$ServiceDispatcher.doDeath(LoadedApk.java:1228)
+                                                                at android.app.LoadedApk$ServiceDispatcher$RunConnection.run(LoadedApk.java:1242)
+                                                                at android.os.Handler.handleCallback(Handler.java:746)
+                                                                at android.os.Handler.dispatchMessage(Handler.java:95)
+                                                                at android.os.Looper.loop(Looper.java:148)
+                                                                at com.android.server.SystemServer.run(SystemServer.java:288)
+                                                                at com.android.server.SystemServer.main(SystemServer.java:173)
+                                                                at java.lang.reflect.Method.invoke(Native Method)
+                                                                at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:728)
+                                                                at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:618)
+01-17 16:22:27.693 1761-2876/? I/ActivityManager: Start proc 5234:com.motorola.ccc/u0a0 for service com.motorola.ccc.devicemanagement/com.motorola.blur.service.blur.BlurServiceMother
+01-17 16:22:27.756 1761-1775/? I/ActivityManager: Start proc 5239:com.motorola.MotGallery2/u0a26 for service com.motorola.MotGallery2/com.motorola.blur.service.blur.JobSchedulerService
+01-17 16:22:27.778 407-4243/? I/ServiceManager: Waiting for service AtCmdFwd...
+01-17 16:22:28.134 5234-5234/? W/System: ClassLoader referenced unknown path: /system/priv-app/3c_devicemanagement/lib/arm
+01-17 16:22:28.158 5239-5239/? W/System: ClassLoader referenced unknown path: /system/framework/com.motorola.gallery
+01-17 16:22:28.779 407-4243/? I/ServiceManager: Waiting for service AtCmdFwd...
+01-17 16:22:29.159 5234-5234/? W/System: ClassLoader referenced unknown path: /data/app/com.motorola.ccc.notification-1/lib/arm
+01-17 16:22:29.445 5234-5234/? W/System: ClassLoader referenced unknown path: /system/priv-app/3c_checkin/lib/arm
+01-17 16:22:29.779 407-4243/? I/ServiceManager: Waiting for service AtCmdFwd...
+01-17 16:22:30.060 1761-2256/? D/WifiService: Client connection lost with reason: 4
+01-17 16:22:30.076 1761-1761/? V/BackupManagerService: Disconnected from transport ComponentInfo{com.google.android.gms/com.google.android.gms.backup.BackupTransportService}
+01-17 16:22:30.076 1761-1761/? V/BackupManagerService: Registering transport com.google.android.gms/.backup.BackupTransportService::null = null
+01-17 16:22:30.077 1761-3878/? D/GpsStatusListenerHelper: Remote Listener died: android.location.IGpsStatusListener$Stub$Proxy@b713134
+01-17 16:22:30.109 5234-5284/? I/CCECheckinProvider: EventInsertThread started
+01-17 16:22:30.128 1761-5049/? I/ActivityManager: Process com.google.android.gms.persistent (pid 4076) has died
+01-17 16:22:30.165 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/.nearby.messages.service.NearbyMessagesService in 37501ms
+01-17 16:22:30.166 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/.common.stats.GmsCoreStatsService in 47501ms
+01-17 16:22:30.166 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.network.NetworkLocationService in 57501ms
+01-17 16:22:30.166 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.internal.GoogleLocationManagerService in 67501ms
+01-17 16:22:30.167 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService in 77500ms
+01-17 16:22:30.167 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.fused.FusedLocationService in 87500ms
+01-17 16:22:30.168 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.contextmanager.service.ContextManagerService in 97500ms
+01-17 16:22:30.168 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/.backup.BackupTransportService in 107500ms
+01-17 16:22:30.168 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.geocode.GeocodeService in 117500ms
+01-17 16:22:30.168 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.internal.PendingIntentCallbackService in 127500ms
+01-17 16:22:30.172 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/.auth.setup.devicesignals.LockScreenService in 127496ms
+01-17 16:22:30.200 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.geofencer.service.GeofenceProviderService in 137496ms
+01-17 16:22:30.201 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.location.nearby.direct.service.NearbyDirectService in 147467ms
+01-17 16:22:30.201 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/.deviceconnection.service.DeviceConnectionWatcherService in 147466ms
+01-17 16:22:30.202 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.fused.service.FusedProviderService in 157466ms
+01-17 16:22:30.202 1761-5049/? W/ActivityManager: Scheduling restart of crashed service com.google.android.gms/.gcm.GcmService in 167466ms
+01-17 16:22:30.390 1761-2315/? I/ActivityManager: Start proc 5288:android.process.media/u0a12 for content provider com.android.providers.media/.MediaProvider
+01-17 16:22:30.780 407-4243/? I/ServiceManager: Waiting for service AtCmdFwd...
+01-17 16:22:30.911 5234-5234/? I/ECITrigEngPrvd: onCreate called
+01-17 16:22:30.934 5234-5234/? I/ECIProvider: onCreate called
+01-17 16:22:30.958 5288-5288/? W/System: ClassLoader referenced unknown path: /system/priv-app/MediaProvider/lib/arm
+01-17 16:22:31.028 5234-5234/? W/System: ClassLoader referenced unknown path: /system/priv-app/3c_ota/lib/arm
+01-17 16:22:31.064 5288-5288/? W/System: ClassLoader referenced unknown path: /system/priv-app/DownloadProvider/lib/arm
+01-17 16:22:31.132 1761-2330/? D/GraphicsStats: Buffer count: 2
+01-17 16:22:31.136 1761-2928/? I/libprocessgroup: Killing pid 4434 in uid 10098 as part of process group 4396
+01-17 16:22:31.136 1761-2928/? I/libprocessgroup: Killing pid 4436 in uid 10098 as part of process group 4396
+01-17 16:22:31.136 1761-2922/? I/WindowState: WIN DEATH: Window{e67fb5d u0 SurfaceView}
+01-17 16:22:31.136 1761-2256/? D/WifiService: Client connection lost with reason: 4
+01-17 16:22:31.151 380-4709/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -32
+01-17 16:22:31.159 380-4709/? E/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): enqueue_buffer failed, err = -32
+01-17 16:22:31.159 380-4709/? D/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): dequeue_buffer, no free buffer from display now
+01-17 16:22:31.159 380-4709/? D/QCamera2HWI: static void qcamera::QCamera2HardwareInterface::preview_stream_cb_routine(mm_camera_super_buf_t*, qcamera::QCameraStream*, void*): Invalid dequeued buffer index -75 from display
+01-17 16:22:31.159 380-4709/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -32
+01-17 16:22:31.160 380-4709/? E/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): enqueue_buffer failed, err = -32
+01-17 16:22:31.160 380-4709/? D/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): dequeue_buffer, no free buffer from display now
+01-17 16:22:31.160 380-4709/? D/QCamera2HWI: static void qcamera::QCamera2HardwareInterface::preview_stream_cb_routine(mm_camera_super_buf_t*, qcamera::QCameraStream*, void*): Invalid dequeued buffer index -75 from display
+01-17 16:22:31.160 380-4709/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -32
+01-17 16:22:31.160 380-4709/? E/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): enqueue_buffer failed, err = -32
+01-17 16:22:31.160 380-4709/? D/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): dequeue_buffer, no free buffer from display now
+01-17 16:22:31.160 380-4709/? D/QCamera2HWI: static void qcamera::QCamera2HardwareInterface::preview_stream_cb_routine(mm_camera_super_buf_t*, qcamera::QCameraStream*, void*): Invalid dequeued buffer index -75 from display
+01-17 16:22:31.160 380-4709/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -32
+01-17 16:22:31.160 380-4709/? E/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): enqueue_buffer failed, err = -32
+01-17 16:22:31.160 380-4709/? D/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): dequeue_buffer, no free buffer from display now
+01-17 16:22:31.160 380-4709/? D/QCamera2HWI: static void qcamera::QCamera2HardwareInterface::preview_stream_cb_routine(mm_camera_super_buf_t*, qcamera::QCameraStream*, void*): Invalid dequeued buffer index -75 from display
+01-17 16:22:31.160 380-4709/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -32
+01-17 16:22:31.160 380-4709/? E/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): enqueue_buffer failed, err = -32
+01-17 16:22:31.160 380-4709/? D/QCameraHWI_Mem: int qcamera::QCameraGrallocMemory::displayBuffer(int): dequeue_buffer, no free buffer from display now
+01-17 16:22:31.160 380-4709/? D/QCamera2HWI: static void qcamera::QCamera2HardwareInterface::preview_stream_cb_routine(mm_camera_super_buf_t*, qcamera::QCameraStream*, void*): Invalid dequeued buffer index -75 from display
+01-17 16:22:31.171 1761-2901/? D/WifiService: releaseWifiLockLocked: WifiLock{ type=3 binder=android.os.BinderProxy@ff8fc2}
+01-17 16:22:31.177 1761-2241/? W/InputDispatcher: channel '4c3551a com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity (server)' ~ Consumer closed input channel or an error occurred.  events=0x9
+01-17 16:22:31.177 1761-2241/? E/InputDispatcher: channel '4c3551a com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity (server)' ~ Channel is unrecoverably broken and will be disposed!
+01-17 16:22:31.185 1761-2928/? I/ActivityManager: Process com.qualcomm.ftcrobotcontroller (pid 4396) has died
+01-17 16:22:31.187 1761-1771/? D/ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ id=38, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ], android.os.BinderProxy@7ca8cd2)
+01-17 16:22:31.187 1761-1772/? D/ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ id=37, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ], android.os.BinderProxy@f8a2ca0)
+01-17 16:22:31.190 1761-3878/? I/WindowState: WIN DEATH: Window{4c3551a u0 com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity}
+01-17 16:22:31.190 1761-3878/? W/InputDispatcher: Attempted to unregister already unregistered input channel '4c3551a com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity (server)'
+01-17 16:22:31.193 380-380/? I/QCameraHalWatchdog: Starting Watchdog Thread...
+01-17 16:22:31.193 380-4692/? E/QCamera2HWI: static void* qcamera::QCameraCbNotifier::cbNotifyRoutine(void*) : cb message type 16 not enabled!
+01-17 16:22:31.193 1761-2928/? W/ActivityManager: Scheduling restart of crashed service com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcore.internal.opmode.OnBotJavaService in 176475ms
+01-17 16:22:31.193 380-4692/? E/QCamera2HWI: static void* qcamera::QCameraCbNotifier::cbNotifyRoutine(void*) : cb message type 16 not enabled!
+01-17 16:22:31.193 380-4692/? E/QCamera2HWI: static void* qcamera::QCameraCbNotifier::cbNotifyRoutine(void*) : cb message type 16 not enabled!
+01-17 16:22:31.193 380-4692/? E/QCamera2HWI: static void* qcamera::QCameraCbNotifier::cbNotifyRoutine(void*) : cb message type 16 not enabled!
+01-17 16:22:31.193 380-380/? E/QCamera2HWI: [KPI Perf] static void qcamera::QCamera2HardwareInterface::stop_preview(camera_device*): E PROFILE_STOP_PREVIEW
+01-17 16:22:31.193 1761-2928/? W/ActivityManager: Scheduling restart of crashed service com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.ftccommon.internal.FtcRobotControllerWatchdogService in 176474ms
+01-17 16:22:31.193 1761-2928/? W/ActivityManager: Scheduling restart of crashed service com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcore.internal.files.MediaTransferProtocolMonitorService in 176474ms
+01-17 16:22:31.193 380-4661/? D/QCameraParameters: int32_t qcamera::QCameraParameters::setFaceDetection(bool): face process mask not changed, no ops here
+01-17 16:22:31.193 380-4661/? D/QCamera2HWI: int qcamera::QCamera2HardwareInterface::stopPreview(): E
+01-17 16:22:31.195 1761-2928/? W/ActivityManager: Force removing ActivityRecord{972beb2 u0 com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity t74}: app died, no saved state
+01-17 16:22:31.195 1761-2257/? D/ConnectivityService: releasing NetworkRequest NetworkRequest [ id=37, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+01-17 16:22:31.205 408-4684/? E/mm-camera: mct_pipeline_process_set: stream_type = 1
+01-17 16:22:31.218 408-4684/? E/mm-camera-sensor: module_sensor_module_process_event:3169 ide 10004 MCT_EVENT_CONTROL_STREAMOFF
+01-17 16:22:31.231 408-4684/? E/mm-camera: port_isp_mct_ctrl_cmd: E, identity = 0x10004, STREAMOFF
+01-17 16:22:31.246 408-4699/? E/mm-camera: stats_port_event stop sending AEC_UPDATE
+01-17 16:22:31.246 408-4699/? E/mm-camera: stats_port_event stop sending AWB_UPDATE
+01-17 16:22:31.250 356-356/? W/SurfaceFlinger: couldn't log to binary event log: overflow.
+01-17 16:22:31.262 408-4684/? E/mm-camera: c2d_module_handle_streamoff_event:1268, info: doing stream-off for identity 0x10004
+01-17 16:22:31.275 408-4714/? E/mm-camera: cpp_module_send_buf_divert_event:130, stream is off, drop frame and piggy-back ACK
+01-17 16:22:31.282 1761-2928/? I/ActivityManager: moveHomeStack, setupComplete:true
+01-17 16:22:31.287 408-4684/? E/mm-camera: module_faceproc_port_event_func:510] STREAMOFF 0
+01-17 16:22:31.293 408-4684/? E/mm-camera-img: faceproc_comp_abort:608] state 2
+01-17 16:22:31.300 1761-2257/? E/ConnectivityService: RemoteException caught trying to send a callback msg for NetworkRequest [ id=37, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+01-17 16:22:31.300 1761-2257/? D/ConnectivityService: releasing NetworkRequest NetworkRequest [ id=38, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+01-17 16:22:31.302 1761-2928/? I/ActivityManager: Start proc 5313:com.google.android.googlequicksearchbox/u0a36 for activity com.google.android.googlequicksearchbox/com.google.android.launcher.GEL
+01-17 16:22:31.302 1761-2257/? E/ConnectivityService: RemoteException caught trying to send a callback msg for NetworkRequest [ id=38, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+01-17 16:22:31.311 408-4684/? E/mm-camera-img: faceproc_comp_abort:635] X
+01-17 16:22:31.312 408-4684/? E/mm-camera: af_fdprio_process:Motion detected at AF side, set default ROI
+01-17 16:22:31.312 408-4684/? E/mm-camera: c2d_module_handle_streamoff_event:1387, info: stream-off done for identity 0x10004
+01-17 16:22:31.312 408-4684/? E/mm-camera: cpp_module_handle_streamoff_event:2096] iden:0x10004, linked_params:0xb7f64ad0
+01-17 16:22:31.312 408-4684/? E/mm-camera: cpp_hardware_process_streamoff:510] skip_iden:0x10002, duplicate_stream_status:0x0
+01-17 16:22:31.312 408-4699/? E/mm-camera: stats_port_event stop sending AEC_UPDATE
+01-17 16:22:31.312 408-4699/? E/mm-camera: stats_port_event stop sending AWB_UPDATE
+01-17 16:22:31.312 408-4684/? E/mm-camera: isp_streamoff: E, session_id = 1, stream_id = 4, active_count = 1
+01-17 16:22:31.313 408-4678/? E/mm-camera: isp_proc_streamoff: E,session_id = 1, stream_id= 4, stream_type= 1 meta 0
+01-17 16:22:31.314 408-4678/? E/mm-camera: isp_hw_action: last pix stop, pix_cnt = 1, cnt = 1
+01-17 16:22:31.314 408-4716/? E/mm-camera: isp_thread_proc_cmd: start/stop, thread_data = 0xb800cc70, action_code = 2
+01-17 16:22:31.314 408-4716/? E/mm-camera: isp_axi_util_subscribe_v4l2_event: event_type = 0x8000101, is_subscribe = 0
+01-17 16:22:31.314 408-4678/? E/mm-camera: isp_ch_util_streamoff: session_id = 1, vfe_mask = 0x1, async streamoff, rc = 0
+01-17 16:22:31.314 408-4678/? E/mm-camera: isp_hw_action: hw_thread for ack
+01-17 16:22:31.434 408-4716/? E/mm-camera: isp_axi_unreg_buf: session_id = 1, stream_id = 2, buf_handle = 0x10000
+01-17 16:22:31.434 408-4716/? E/mm-camera: stats_action_buf_config: cfg = 0, stats_mask = 0x7b8
+01-17 16:22:31.441 408-4716/? E/mm-camera: isp_thread_proc_cmd: start/stop ack done, thread_data = 0xb800cc70, action_code = 3, rc = 0
+01-17 16:22:31.441 408-4678/? E/mm-camera: isp_ch_util_streamoff: session_id = 1, sync ack done
+01-17 16:22:31.442 408-4684/? E/mm-camera: isp_streamoff: X, session_id = 1, rc = 0
+01-17 16:22:31.442 408-4684/? E/mm-camera: port_isp_mct_ctrl_cmd: X, identity = 0x10004, STREAMOFF, ret = 0
+01-17 16:22:31.448 408-4684/? E/mm-camera: stream id 4, stream num_meta 0
+01-17 16:22:31.499 408-4684/? E/mm-camera: ispif_streamoff: session_id = 1, active_streams = 0
+01-17 16:22:31.499 408-4684/? E/mm-camera-sensor: module_sensor_is_ready_for_stream_off:905 any bundle started 0
+01-17 16:22:31.499 408-4684/? E/mm-camera-sensor: module_sensor_module_process_event:3188 ide 10004 MCT_EVENT_CONTROL_STREAMOFF
+01-17 16:22:31.499 408-4684/? E/mm-camera-sensor: module_sensor_module_process_event: Sending stop bus message
+01-17 16:22:31.500 408-4684/? E/mm-camera: stop_sof_check_thread: Stopping SOF timeout thread
+01-17 16:22:31.503 408-4684/? E/mm-camera: mct_pipeline_process_set: stream_type = 7
+01-17 16:22:31.505 380-4661/? I/QCameraHWI_Mem: deallocate: E 
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: put buffer 0 successfully
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb72ae630
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: put buffer 1 successfully
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb72ae890
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: put buffer 2 successfully
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: put buffer 3 successfully
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb72aed50
+01-17 16:22:31.506 380-4661/? D/QCameraHWI_Mem: put buffer 4 successfully
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb7341360
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: put buffer 5 successfully
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb73414f0
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: put buffer 6 successfully
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb7341750
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: put buffer 7 successfully
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb73419b0
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: put buffer 8 successfully
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: cancel_buffer: hdl =0xb7341c10
+01-17 16:22:31.507 380-4661/? D/QCameraHWI_Mem: put buffer 9 successfully
+01-17 16:22:31.507 380-4661/? I/QCameraHWI_Mem:  deallocate : X 
+01-17 16:22:31.512 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: stream type: 7
+01-17 16:22:31.512 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: linked streams: 0x1a
+01-17 16:22:31.513 408-4684/? E/mm-camera: mct_stream_streamoff: Enter
+01-17 16:22:31.513 408-4684/? E/mm-camera: mct_stream_streamoff: Enter
+01-17 16:22:31.513 408-4684/? E/mm-camera: mct_stream_streamoff: Enter
+01-17 16:22:31.513 408-4684/? E/mm-camera-sensor: port_sensor_unlink_func:220 ide 10004
+01-17 16:22:31.513 408-4684/? E/mm-camera-sensor: port_sensor_caps_unreserve:183 ide 10004
+01-17 16:22:31.513 408-4684/? E/mm-camera: c2d_port_check_caps_unreserve:170, identity=0x10004
+01-17 16:22:31.513 408-4684/? E/mm-camera: c2d_port_check_caps_unreserve:179, identity=0x10004, unreserved
+01-17 16:22:31.514 408-4684/? E/mm-camera: c2d_port_check_caps_unreserve:170, identity=0x10004
+01-17 16:22:31.514 408-4684/? E/mm-camera: c2d_port_check_caps_unreserve:179, identity=0x10004, unreserved
+01-17 16:22:31.514 408-4684/? E/mm-camera-img: faceproc_comp_abort:608] state 1
+01-17 16:22:31.514 408-4684/? E/mm-camera-img: faceproc_save_album:795] Error No album 
+01-17 16:22:31.514 408-4684/? E/mm-camera-img: faceproc_comp_eng_destroy: Album save failed -1
+01-17 16:22:31.517 408-4684/? D/SensorListener: void android::SensorListener::disableSensor(android::SensorListener::sensor_type_t): SensorEventQueue disableSensor(TYPE_DISPLAY_ROTATE)
+01-17 16:22:31.517 1761-1772/? D/bsthal: setDelay, handle: 1598182242 delay: 66667000
+01-17 16:22:31.518 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: stream type: 1
+01-17 16:22:31.518 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: linked streams: 0x18
+01-17 16:22:31.519 408-4684/? E/mm-camera: mct_stream_streamoff: Enter
+01-17 16:22:31.519 408-4684/? E/mm-camera: mct_stream_streamoff: Enter
+01-17 16:22:31.519 408-4684/? E/mm-camera-sensor: port_sensor_unlink_func:220 ide 10002
+01-17 16:22:31.519 408-4684/? E/mm-camera-sensor: port_sensor_caps_unreserve:183 ide 10002
+01-17 16:22:31.519 408-4684/? D/MotISP_VNR: LiveLux destroyed
+01-17 16:22:31.519 408-4684/? E/mm-camera: c2d_port_check_caps_unreserve:170, identity=0x10002
+01-17 16:22:31.519 408-4684/? E/mm-camera: c2d_port_check_caps_unreserve:179, identity=0x10002, unreserved
+01-17 16:22:31.521 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: stream type: 4
+01-17 16:22:31.521 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: linked streams: 0x8
+01-17 16:22:31.523 408-4684/? E/mm-camera: mct_stream_streamoff: Enter
+01-17 16:22:31.523 408-4684/? E/mm-camera-sensor: port_sensor_unlink_func:220 ide 10001
+01-17 16:22:31.523 408-4684/? E/mm-camera-sensor: port_sensor_caps_unreserve:183 ide 10001
+01-17 16:22:31.523 408-4684/? E/mm-camera-img: wd_comp_abort:1382] p_base->mode = 0
+01-17 16:22:31.523 408-4684/? E/mm-camera: q3a_thread_aecawb_stop:346 MSG_STOP_THREAD
+01-17 16:22:31.524 408-4705/? E/mm-camera: is_thread_handler: Exiting IS thread handler
+01-17 16:22:31.524 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: stream type: 3
+01-17 16:22:31.524 408-4684/? D/mm-camera: mct_pipeline_remove_stream_from_linked_streams: linked streams: 0x0
+01-17 16:22:31.525 380-4661/? D/QCamera2HWI: int qcamera::QCamera2HardwareInterface::stopPreview(): CameraKpiTag: PREVIEW_STOP_TIME : 331
+01-17 16:22:31.525 380-4661/? D/QCamera2HWI: int qcamera::QCamera2HardwareInterface::stopPreview(): X
+01-17 16:22:31.525 380-380/? D/QCamera2HWI: [KPI Perf] static void qcamera::QCamera2HardwareInterface::stop_preview(camera_device*): X
+01-17 16:22:31.525 380-380/? I/QCameraHalWatchdog: Stopped Watchdog Thread...
+01-17 16:22:31.525 380-380/? I/QCameraHalWatchdog: Starting Watchdog Thread...
+01-17 16:22:31.525 380-4661/? D/QCameraStateMachine: int32_t qcamera::QCameraStateMachine::procEvtPreviewStoppedState(qcamera::qcamera_sm_evt_enum_t, void*): No ops for evt(20) in state(0)
+01-17 16:22:31.525 380-380/? I/QCameraHalWatchdog: Stopped Watchdog Thread...
+01-17 16:22:31.525 380-380/? I/QCameraHalWatchdog: Starting Watchdog Thread...
+01-17 16:22:31.526 380-380/? I/QCameraHalWatchdog: Stopped Watchdog Thread...
+01-17 16:22:31.526 380-380/? W/CameraClient: native_window_api_disconnect failed: Broken pipe (-32)
+01-17 16:22:31.527 380-380/? I/QCameraHalWatchdog: Starting Watchdog Thread...
+01-17 16:22:31.528 380-380/? I/QCameraHalWatchdog: Stopped Watchdog Thread...
+01-17 16:22:31.528 380-380/? I/CameraFlashlight: Destroying camera 0
+01-17 16:22:31.528 380-380/? I/QCameraHalWatchdog: Starting Watchdog Thread...
+01-17 16:22:31.528 380-380/? D/QCamera2HWI: [KPI Perf] static int qcamera::QCamera2HardwareInterface::close_camera_device(hw_device_t*): E
+01-17 16:22:31.529 380-4662/? D/QCamera2HWI: static void* qcamera::QCamera2HardwareInterface::defferedWorkRoutine(void*): stop data proc
+01-17 16:22:31.552 380-380/? E/qomx_image_core: OMX_Deinit:119] Complete
+01-17 16:22:31.555 380-380/? E/QCameraPostProc: int32_t qcamera::QCameraPostProcessor::deinit(): Jpeg closed, rc = 0, mJpegClientHandle = 2800
+01-17 16:22:31.556 408-4684/? E/mm-camera: mct_pipeline_get_stream: no children
+01-17 16:22:31.556 408-4684/? E/mm-camera: mct_pipeline_process_set:2229: Couldn't find stream
+01-17 16:22:31.557 408-5332/? E/mm-camera-sensor: module_sensor_stop_session:740 session 1
+01-17 16:22:31.558 408-5335/? E/mm-camera: stats_module_stop_session: list =0xb7d4eba8, remove port =0xb7d9af90 name=stats_sink from module=0xb7caa5a0, name=stats
+01-17 16:22:31.559 408-5335/? E/mm-camera: stats_module_stop_session: 1 port =0xb7d9af90 name=stats_sink 
+01-17 16:22:31.559 408-5335/? E/mm-camera: stats_module_stop_session: 2 port =0xb7d9af90 name=stats_sink 
+01-17 16:22:31.559 408-5335/? E/mm-camera-CORE: mot_af_deinit: E
+01-17 16:22:31.559 408-5335/? E/mm-camera: is_module_stop_session: Enter
+01-17 16:22:31.559 408-5335/? E/mm-camera: is_module_stop_session: Exit successful
+01-17 16:22:31.559 408-5335/? E/mm-camera: stats_module_stop_session: 3 port =0xb7d9af90 name=stats_sink 
+01-17 16:22:31.559 380-4661/? D/QCameraStateMachine: static void* qcamera::QCameraStateMachine::smEvtProcRoutine(void*): X
+01-17 16:22:31.559 380-380/? D/QCamera2HWI: [KPI Perf] static int qcamera::QCamera2HardwareInterface::close_camera_device(hw_device_t*): X
+01-17 16:22:31.560 380-380/? I/QCameraHalWatchdog: Stopped Watchdog Thread...
+01-17 16:22:31.561 408-5338/? E/hdr: Session id 0x1 stopped
+01-17 16:22:31.562 408-5336/? E/mm-camera: c2d_module_stop_session:323, info: stopping session 1 ...
+01-17 16:22:31.562 408-4681/? E/mm-camera: c2d_thread_process_pipe_message:716, C2D_THREAD_MSG_ABORT: c2d_thread exiting..
+01-17 16:22:31.564 408-5336/? E/mm-camera: c2d_module_stop_session:365, info: session 1 stopped.
+01-17 16:22:31.614 408-4683/? E/mm-camera-sensor: Got some events
+01-17 16:22:31.614 408-4683/? E/mm-camera-sensor: sensor_thread_func:152 sensor_thread_func:Sensor thread is exiting
+01-17 16:22:31.625 380-380/? I/CameraService: onTorchStatusChangedLocked: Torch status changed for cameraId=0, newStatus=1
+01-17 16:22:31.627 380-380/? I/CameraService: onTorchStatusChangedLocked: Torch status changed for cameraId=0, newStatus=1
+01-17 16:22:31.628 380-380/? I/CameraService: disconnect: Disconnected client for camera 0 for PID 4396
+01-17 16:22:31.633 380-380/? D/NuPlayerDriver: reset(0xb7344258)
+01-17 16:22:31.633 380-380/? D/NuPlayerDriver: notifyListener_l(0xb7344258), (8, 0, 0)
+01-17 16:22:31.654 380-4657/? D/NuPlayerDriver: notifyResetComplete(0xb7344258)
+01-17 16:22:31.654 380-380/? D/NuPlayerDriver: reset(0xb72776d0)
+01-17 16:22:31.654 380-380/? D/NuPlayerDriver: notifyListener_l(0xb72776d0), (8, 0, 0)
+01-17 16:22:31.655 380-4659/? D/NuPlayerDriver: notifyResetComplete(0xb72776d0)
+01-17 16:22:31.655 380-380/? E/CameraService: disconnect: Disconnect called on already disconnected client for device 0
+01-17 16:22:31.655 380-380/? E/CameraService: binderDied: Java client's binder died, removing it from the list of active clients
+01-17 16:22:31.659 5234-5234/? I/CCEUtils: device type: MOTO
+01-17 16:22:31.691 5313-5313/? W/System: ClassLoader referenced unknown path: /system/priv-app/Velvet/lib/arm
+01-17 16:22:31.780 407-4243/? W/Atfwd_Sendcmd: AtCmdFwd service not published, waiting... retryCnt : 1
+01-17 16:22:31.794 5288-5301/? E/DatabaseUtils: Writing exception to parcel
+                                                java.lang.SecurityException: Permission Denial: reading com.android.providers.media.MediaProvider uri content://media/external/images/media from pid=5239, uid=10026 requires android.permission.READ_EXTERNAL_STORAGE, or grantUriPermission()
+                                                    at android.content.ContentProvider.enforceReadPermissionInner(ContentProvider.java:605)
+                                                    at android.content.ContentProvider$Transport.enforceReadPermission(ContentProvider.java:480)
+                                                    at android.content.ContentProvider$Transport.query(ContentProvider.java:211)
+                                                    at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:112)
+                                                    at android.os.Binder.execTransact(Binder.java:453)
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual true
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual true
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.823 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.842 1761-1770/? I/art: Background partial concurrent mark sweep GC freed 21480(1460KB) AllocSpace objects, 1(20KB) LOS objects, 33% free, 18MB/27MB, paused 9.264ms total 429.280ms
+01-17 16:22:31.849 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.849 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.849 2307-2307/? V/QSTileView: setDual false
+01-17 16:22:31.879 355-355/? E/SELinux: avc:  denied  { find } for service=checkin_mot scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:mot_app_service:s0 tclass=service_manager
+01-17 16:22:31.880 5234-5234/? E/util.Log: logging to checkin skipped - no checkin service
+01-17 16:22:32.134 5234-5234/? W/System.err: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+01-17 16:22:32.134 5234-5234/? W/System.err: SLF4J: Defaulting to no-operation (NOP) logger implementation
+01-17 16:22:32.134 5234-5234/? W/System.err: SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+01-17 16:22:32.264 1761-2877/? I/AccountManagerService: getTypesVisibleToCaller: isPermitted? true
+01-17 16:22:32.268 1761-2790/? I/AccountManagerService: getTypesVisibleToCaller: isPermitted? true
+01-17 16:22:32.282 5234-5234/? I/UserAuthService: service started
+01-17 16:22:32.318 5234-5234/? I/MMApiProvisionService: createDeviceIdOrLogin update_device
+01-17 16:22:32.346 5234-5234/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.404 5234-5234/? I/Nonce: getNonce
+01-17 16:22:32.406 5313-5313/? V/Launcher: LauncherAppState inited
+01-17 16:22:32.406 5234-5234/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.409 5234-5234/? I/Nonce: Nonce Request
+01-17 16:22:32.410 5234-5234/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.411 5234-5234/? I/Nonce: execute Request
+01-17 16:22:32.412 5234-5234/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.443 5234-5356/? I/Nonce: Nonce Response
+01-17 16:22:32.445 5234-5356/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.451 5234-5356/? I/MMApiWebService: inspectMMApiResponse(): found an error from a web service response: RadioDownError msg: RadioDownError req: nonce.json
+01-17 16:22:32.456 5234-5356/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.458 5313-5313/? D/Launcher.Model: Old launcher provider: content://com.google.android.launcher.oldhome.settings/favorites?notify=true
+01-17 16:22:32.458 5313-5313/? D/Launcher.Model: Old launcher provider does not exist.
+01-17 16:22:32.462 5234-5356/? I/MMApiBackOffService: connectStatus(): app: MMAPIWebServiceRequest backing off: 5000 ms until next web service attempt
+01-17 16:22:32.464 5234-5356/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.472 5234-5356/? I/MMApiWebService: request will be re-tried again later: nonce.json
+01-17 16:22:32.473 5234-5356/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:32.618 2788-2788/? W/Binder_4: type=1400 audit(0.0:9379): avc: denied { ioctl } for uid=1000 path="socket:[146468]" dev="sockfs" ino=146468 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+01-17 16:22:32.618 2788-2788/? W/Binder_4: type=1400 audit(0.0:9380): avc: denied { ioctl } for uid=1000 path="socket:[146468]" dev="sockfs" ino=146468 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,560 |-WARN in ch.qos.logback.classic.LoggerContext[default] - No config in SD card
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,571 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [AndroidManifest.xml] at [jar:file:/system/priv-app/3c_ota/3c_ota.apk!/AndroidManifest.xml]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,722 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [assets/logback-test.xml]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,727 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [assets/logback.xml] at [jar:file:/system/priv-app/3c_ota/3c_ota.apk!/assets/logback.xml]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,732 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@22e6ac4 - URL [jar:file:/system/priv-app/3c_ota/3c_ota.apk!/assets/logback.xml] is not of type file
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,756 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,756 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.classic.android.LogcatAppender]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,758 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [LOGCAT]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,766 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [tagEncoder] property
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,802 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,812 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [com.motorola.ccc.ota.checkin.CheckinAppender]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,817 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [CHECKIN]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,821 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [tagEncoder] property
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,834 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,845 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to TRACE
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,845 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [LOGCAT] to Logger[ROOT]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,846 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [CHECKIN] to Logger[ROOT]
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,846 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+01-17 16:22:32.851 5234-5234/? I/System.out: 16:22:32,846 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@9e35dad - Registering current configuration as safe fallback point
+01-17 16:22:32.880 5234-5234/? D/OtaApp: debug - Launching ota service
+01-17 16:22:32.904 5234-5234/? D/OtaApp: debug - AndroidPollingManager.init, binding to Polling Manager Service
+01-17 16:22:32.919 5234-5234/? D/OtaApp: debug - CusSM.CusSM: constructing a CusSM object
+01-17 16:22:32.924 5234-5234/? D/OtaApp: debug - SDCardUpgradeSource.SDCardUpgradeSource object is constructed
+01-17 16:22:32.928 5234-5234/? D/OtaApp: debug - TetheredUpgradeSource.TetheredUpgradeSource object is constructed
+01-17 16:22:32.929 5234-5234/? D/OtaApp: debug - FotaUpgradeSource.FotaUpgradeSource object is constructed
+01-17 16:22:32.930 5234-5234/? D/OtaApp: debug - CusAndroidDB.CusAndroidDB
+01-17 16:22:32.955 5234-5234/? D/OtaApp: debug - PollingManagerService()
+01-17 16:22:32.956 5234-5234/? D/OtaApp: debug - PollingManagerService init()
+01-17 16:22:32.969 5234-5234/? D/OtaApp: debug - No need to register for OutofBoxUpdateDetectReceiver
+01-17 16:22:33.132 5313-5357/? W/Launcher: setApplicationContext called twice! old=com.google.android.velvet.VelvetApplication@333213b new=com.google.android.velvet.VelvetApplication@333213b
+01-17 16:22:33.143 5313-5313/? I/GEL: handleIntent(Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000000 cmp=com.google.android.googlequicksearchbox/com.google.android.launcher.GEL })
+01-17 16:22:33.180 1761-2315/? I/ActivityManager: Start proc 5380:com.google.android.gms.persistent/u0a16 for service com.google.android.gms/.clearcut.service.ClearcutLoggerService
+01-17 16:22:33.215 5234-5234/? I/CCEUtils: device type: MOTO
+01-17 16:22:33.258 2788-2788/? W/Binder_4: type=1400 audit(0.0:9381): avc: denied { ioctl } for uid=1000 path="socket:[146496]" dev="sockfs" ino=146496 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+01-17 16:22:33.274 5313-5398/? D/OpenGLRenderer: Use EGL_SWAP_BEHAVIOR_PRESERVED: true
+01-17 16:22:33.258 2788-2788/? W/Binder_4: type=1400 audit(0.0:9382): avc: denied { ioctl } for uid=1000 path="socket:[146496]" dev="sockfs" ino=146496 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+01-17 16:22:33.279 5234-5234/? I/global frequency: service created
+01-17 16:22:33.294 5234-5234/? D/Checkin: publish the event [tag = MOT_CHECKIN event name = LOG]
+01-17 16:22:33.295 5234-5234/? I/global frequency: service started
+01-17 16:22:33.296 5234-5234/? D/Checkin: publish the event [tag = MOT_CHECKIN event name = LOG]
+01-17 16:22:33.329 5234-5234/? D/OtaApp: debug - onBind() called
+01-17 16:22:33.334 5234-5234/? D/OtaApp: debug - PollingMangerService, phone state: 3 3 voice home data home null null null null null null  Unknown Unknown CSS not supported -1 -1 RoamInd=-1 DefRoamInd=-1 EmergOnly=false IsDataRoamingFromRegistration=false
+01-17 16:22:33.343 5234-5401/? D/OtaApp: debug - AndroidClientUpgradeService.handleIntent: com.motorola.ccc.ota.START_ACTION
+01-17 16:22:33.345 5234-5401/? I/OtaApp: info - AndroidClientUpgradeService.handleIntent: starting CusSM
+01-17 16:22:33.347 5234-5401/? D/Checkin: publish the event [tag = MOT_OTA event name = LOG]
+01-17 16:22:33.351 5234-5401/? D/OtaApp: debug - CusSM.onStart
+01-17 16:22:33.362 5234-5401/? D/OtaApp: debug - FotaUpgradeSource.plugin_init: sending Fota Initialization intent
+01-17 16:22:33.366 1761-1771/? W/ActivityManager: Unable to start service Intent { act=com.motorola.android.fota.FOTA_INITIALIZATION pkg=com.motorola.android.fota } U=0: not found
+01-17 16:22:33.381 5234-5401/? D/OtaApp: debug - CusFileUtils.getResultsFile examining /cache/ lost+found
+01-17 16:22:33.385 5234-5401/? D/OtaApp: debug - CusFileUtils.getResultsFile examining /cache/ recovery
+01-17 16:22:33.386 5234-5401/? D/OtaApp: debug - CusFileUtils.getResultsFile examining /cache/ backup
+01-17 16:22:33.387 5234-5401/? I/OtaApp: info - CusSM.checkForUpgradeCompleted: no upgrade result files found
+01-17 16:22:33.389 5234-5401/? D/Checkin: publish the event [tag = MOT_OTA event name = LOG]
+01-17 16:22:33.406 5234-5401/? D/OtaApp: debug - SDCardUpgradeSource.checkForUpdate: path /storage/emulated/0 [AddOnInfo: sdcard initiated on start]
+01-17 16:22:33.408 5234-5401/? D/OtaApp: debug - SDCardUpgradeSource.checkForUpdate: looking for upgrade files in /storage/emulated/0/
+01-17 16:22:33.410 5234-5401/? W/OtaApp: warn - CusFileUtils.getUpgradeFileList failed: list of files is null sdcard not mounted or io error occured
+01-17 16:22:33.411 5234-5401/? D/Checkin: publish the event [tag = MOT_OTA event name = LOG]
+01-17 16:22:33.414 5234-5401/? D/OtaApp: debug - SDCardUpgradeSource.checkForUpdate: no upgrade files found on sd card
+01-17 16:22:33.418 5234-5401/? E/OtaApp: error - CusSM.wifiDiscoverySanityCheck failed: wifi discover time is not set nothing to process
+01-17 16:22:33.419 5234-5401/? D/Checkin: publish the event [tag = MOT_OTA event name = LOG]
+01-17 16:22:33.423 5234-5401/? E/OtaApp: error - CusSM.forceUpgradeTimerSanityCheck failed: force upgrade time is not set nothing to process
+01-17 16:22:33.424 5234-5401/? D/Checkin: publish the event [tag = MOT_OTA event name = LOG]
+01-17 16:22:33.430 5234-5401/? D/OtaApp: debug - ReserveSpace data doesn't exist. Assuming -1
+01-17 16:22:33.434 5234-5401/? D/OtaApp: debug - Setting value spaceValue: -1
+01-17 16:22:33.437 5234-5403/? D/OtaApp: debug - checkAndCreateReserveSpace: Attempting to adjust space with -1 MB
+01-17 16:22:33.439 5234-5401/? D/OtaApp: debug - CusSM.sendUpgradeStatus: no unlogged events.
+01-17 16:22:33.441 5234-5401/? D/OtaApp: debug - Description is null
+01-17 16:22:33.443 5234-5401/? D/OtaApp: debug - CusSM.runStateMachine: no versions found in database
+01-17 16:22:33.448 2790-2790/? W/Binder_5: type=1400 audit(0.0:9383): avc: denied { ioctl } for uid=1000 path="socket:[146522]" dev="sockfs" ino=146522 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+01-17 16:22:33.448 2790-2790/? W/Binder_5: type=1400 audit(0.0:9384): avc: denied { ioctl } for uid=1000 path="socket:[146522]" dev="sockfs" ino=146522 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+01-17 16:22:33.467 5234-5401/? D/OtaApp: debug - FileUtils.cleanupDataFiles, dir : /data/user/0/com.motorola.ccc.ota/app_download
+01-17 16:22:33.481 5234-5234/? W/System.err: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+01-17 16:22:33.481 5234-5234/? W/System.err: SLF4J: Defaulting to no-operation (NOP) logger implementation
+01-17 16:22:33.481 5234-5234/? W/System.err: SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+01-17 16:22:33.547 5313-5398/? I/Adreno-EGL: <qeglDrvAPI_eglInitialize:379>: QUALCOMM Build: 10/09/15, 6cbbf7d, I3193f6e94a
+01-17 16:22:33.548 5313-5398/? E/linker: readlink('/proc/self/fd/33') failed: Permission denied [fd=33]
+01-17 16:22:33.548 5313-5398/? E/linker: warning: unable to get realpath for the library "/vendor/lib/egl/eglsubAndroid.so". Will use given name.
+01-17 16:22:33.554 5313-5398/? I/OpenGLRenderer: Initialized EGL, version 1.4
+01-17 16:22:33.557 5234-5234/? I/MotAcctManagerExt: using API version: 3
+01-17 16:22:33.566 5234-5234/? E/MotAcct.ChangeReceiver: doesn't exist
+01-17 16:22:33.603 1761-2252/? D/WifiStateMachine: ===> 154.71,120.57 - 137.42,100.15 - 15730,12145
+01-17 16:22:33.612 5234-5234/? I/MMApiProvisionService: createDeviceIdOrLogin update_device
+01-17 16:22:33.613 5234-5234/? D/Checkin: publish the event [tag = MOT_CCE event name = LOG]
+01-17 16:22:33.625 5234-5234/? I/global frequency: BcsTimer.setTimer(42577, 21600000)
+01-17 16:22:33.626 5234-5234/? D/Checkin: publish the event [tag = MOT_CHECKIN event name = LOG]
+01-17 16:22:33.747 1761-1857/? I/ActivityManager: Displayed com.google.android.googlequicksearchbox/com.google.android.launcher.GEL: +2s456ms
+01-17 16:22:33.748 1761-3490/? W/InputMethodManagerService: Got RemoteException sending setActive(false) notification to pid 4396 uid 10098
+01-17 16:22:33.752 356-356/? I/SFPerfTracer:      triggers: (rate: 48:3488) (compose: 0:1) (post: 0:1) (render: 2:36) (9:6187 frames) (10:13832)
+01-17 16:22:33.752 356-356/? D/SFPerfTracer:        layers: (1:11) (FocusedStackFrame (0xb76be6f0): 0:63)* (StatusBar (0xb7631258): 0:847)* (com.android.systemui.ImageWallpaper (0xb767e248): 1:259)* (NavigationBar (0xb76af808): 10:163) (com.qualcomm.ftcrobotcontroller/org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity (0xb76a4a20): 0:101)- (SurfaceView (0xb76b0e08): 0:427)- (com.google.android.googlequicksearchbox/com.google.android.launcher.GEL (0xb76a4a20): 10:12)* 
+01-17 16:22:33.763 1761-3490/? I/ActivityManager: Start proc 5412:com.google.android.inputmethod.latin/u0a74 for service com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME
+01-17 16:22:33.764 1761-3490/? V/InputMethodManagerService: Adding window token: android.os.Binder@70ff938
+01-17 16:22:33.799 5380-5380/? I/LoadedApk: No resource references to update in package FFFFFFFFFFFFFFFFFFFFFF
+01-17 16:22:33.812 5234-5400/? D/3CDM.Service: com.motorola.blur.service.blur.Actions.SERVICES_STARTED
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: blur.service.littlesister.reportLevel2
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: blur.service.littlesister.gpsFixWaitTime
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: com.motorola.blur.adminfeed.device_admin_always_allowed
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: com.motorola.ccc.devicemanagement.motocare.url
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: blur.service.mother.sendPersonalInfo
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: blur.service.cred.locationToken
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: com.motorola.ccc.devicemanagement.capabilities
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: com.motorola.ccc.cce.email.marketing.optin.default
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: Device Admin setting: com.motorola.ccc.devicemanagement.protect_phone_setup_enabled
+01-17 16:22:33.813 5234-5400/? D/3CDM.Service: request3CSettings() from CCE
+01-17 16:22:33.826 5234-5234/? D/OtaApp: debug - AndroidPollingManager, successfully bound to Polling Manger Service...
+01-17 16:22:33.839 5234-5400/? D/3CDM.Service: registering for AdminFeed
+01-17 16:22:33.844 1761-2892/? I/ActivityManager: Start proc 5426:com.motorola.context/u0a8 for broadcast com.motorola.context/.ccc.UpdateModelReceiver
+01-17 16:22:33.846 5234-5234/? D/OtaApp: debug - AndroidPollingManager.handleIntent: com.motorola.blur.service.blur.upgrade_poll
+01-17 16:22:33.846 5234-5234/? I/OtaApp: info - Next Polling is scheduled at 218 mins from now
+01-17 16:22:33.848 5234-5234/? D/Checkin: publish the event [tag = MOT_OTA event name = LOG]
+01-17 16:22:33.869 5234-5234/? D/OtaApp: debug - PollingManagerService, registerApp(): cUsPollingService
+01-17 16:22:33.871 5234-5234/? D/OtaApp: debug - PollingManagerService, registerApp(): shortest interval is 13134000
+01-17 16:22:33.872 5234-5234/? D/OtaApp: debug - Polling alarm set to expire at: 15709177 Current Time: 2575180
+01-17 16:22:33.905 5234-5400/? D/3CDM.Service: get 0 notifications for app OCVKVSQ5Q1EYVBX76813UOPTCKGAH4VS
+01-17 16:22:33.910 5234-5400/? D/3CDM.Service: get 0 notifications for app L71KGK4CCWOW658MGESIRYO2428ODW11
+01-17 16:22:33.914 5234-5400/? D/3CDM.Service: get 0 notifications for app LX6TJJI6F2MILF1NPZW6A3HBAKK8W44Z
+01-17 16:22:33.920 5234-5400/? D/3CDM.Service: get 0 notifications for app SZZTNOGZA6O6PRFZH2V3FF14N1J8W3HC
+01-17 16:22:33.927 5234-5400/? D/3CDM.Service: get 0 notifications for app SULIGJDMXLSL7T1DOVYSTVG2KCBHZ5GH
+01-17 16:22:33.932 5234-5400/? D/3CDM.Service: get 0 notifications for app 5LWTCLJBZO4OUDU5BY7ANJI4Y2MHY8OY
+01-17 16:22:33.942 5234-5400/? D/3CDM.Service: get 0 notifications for app 68OUD4VKG23F7BUH6M2QBRXPLIC7IMCO
+01-17 16:22:33.950 5234-5400/? D/3CDM.Service: get 0 notifications for app QZYSBKU4MGE71O1PLTE8HAT11SWL5M6E
+01-17 16:22:33.973 5426-5426/? W/System: ClassLoader referenced unknown path: /system/priv-app/ContextEngineClient/lib/arm
+01-17 16:22:34.023 5313-5398/? E/linker: readlink('/proc/self/fd/44') failed: Permission denied [fd=44]
+01-17 16:22:34.023 5313-5398/? E/linker: warning: unable to get realpath for the library "libRSDriver.so". Will use given name.
+01-17 16:22:34.031 5313-5398/? E/linker: readlink('/proc/self/fd/44') failed: Permission denied [fd=44]
+01-17 16:22:34.031 5313-5398/? E/linker: warning: unable to get realpath for the library "libRSCpuRef.so". Will use given name.
+01-17 16:22:34.037 5313-5398/? E/linker: readlink('/proc/self/fd/33') failed: Permission denied [fd=33]
+01-17 16:22:34.038 5313-5398/? E/linker: warning: unable to get realpath for the library "libblas.so". Will use given name.
+01-17 16:22:34.042 5412-5412/? I/Decoder: createOrResetDecoder
+01-17 16:22:34.043 5412-5412/? I/Decoder: createOrResetDecoder
+01-17 16:22:34.052 5313-5398/? V/RenderScript: 0xb9bdbea8 Launching thread(s), CPUs 4
+01-17 16:22:34.069 5412-5412/? I/LatinIME: Hardware accelerated drawing: true
+01-17 16:22:34.078 1761-2922/? I/ActivityManager: Start proc 5450:com.google.process.gapps/u0a16 for content provider com.google.android.gsf/.gservices.GservicesProvider
+01-17 16:22:34.165 5426-5461/? I/CE-UpdateModelService: checkForUpdate in: 86400000 ms
+01-17 16:22:34.170 5234-5234/? D/Checkin: publish the event [tag = MOT_ENGAGE event name = DUMP]
+01-17 16:22:34.183 5234-5463/? I/PushService: onHandleIntent() received intent = com.motorola.blur.service.blur.Actions.SERVICES_STARTED
+01-17 16:22:34.195 5234-5463/? I/CCEUtils: device type: MOTO
+01-17 16:22:34.195 5234-5234/? I/CCEUtils: device type: MOTO
+01-17 16:22:34.229 5450-5450/? W/System: ClassLoader referenced unknown path: /system/priv-app/GoogleServicesFramework/lib/arm
+01-17 16:22:34.240 5234-5234/? I/ECIStartupRecv: Experience enabled: false isDeviceIdPresent true
+01-17 16:22:34.241 5234-5234/? D/Checkin: publish the event [tag = MOT_ENGAGE event name = EXPERIENCE_ENABLED]
+01-17 16:22:34.242 5234-5234/? I/ECIStartupRecv: Experience not enabled
+01-17 16:22:34.264 5234-5234/? D/GetNotificationsWS: bindWebServices(): registering our AIDL callback...
+01-17 16:22:34.271 5234-5234/? I/CCE: App Checkin requested CCE to send settings
+01-17 16:22:34.279 5234-5469/? I/SundryService: onHandleIntent(): action=com.motorola.notification.REGISTRATION
+01-17 16:22:34.279 5234-5469/? I/SundryService: Received registration

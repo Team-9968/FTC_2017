@@ -98,6 +98,7 @@ public class CF_Hardware
       colorArm.setPosition(0.95);
       jewelHitter.setPosition(0.333);
 
+
       //sets init position of the servo so we stay within 18 inches
 
 

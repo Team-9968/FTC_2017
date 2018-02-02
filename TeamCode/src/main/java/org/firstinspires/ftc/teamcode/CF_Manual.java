@@ -23,6 +23,7 @@ public class CF_Manual extends OpMode {
     CF_Manual_Motor_Library driveMan = new CF_Manual_Motor_Library();
     CF_Accessory_Motor_Library accessory = new CF_Accessory_Motor_Library();
     // Instantiates variables
+    double position = 0.33;
     int mode = 0;
 
     double positionUpper = 0.41;
@@ -64,6 +65,7 @@ public class CF_Manual extends OpMode {
         start = robot.clawMotor.getCurrentPosition();
         robot.jewelHitter.setPosition(0.333);
         robot.colorArm.setPosition(1.0);
+
         end = start + 1719;
 
         while(robot.limit.getState()) {
@@ -83,6 +85,7 @@ public class CF_Manual extends OpMode {
 
         telemetry.clearAll();
         telemetry.addData("Mode", mode);
+        telemetry.addData("Position Side", robot.colorArm.getPosition());
         telemetry.addData("Position Upper", positionUpper);
         telemetry.addData("Position Lower", positionLower);
         telemetry.addData("Position Claw", robot.clawMotor.getCurrentPosition());
@@ -159,6 +162,15 @@ public class CF_Manual extends OpMode {
         Y = gamepad2.y;
         RB = gamepad2.right_bumper;
         LB = gamepad2.left_bumper;
+        B = gamepad2.b;
+        X = gamepad2.x;
+
+        if(X) {
+            position += 0.001;
+        }
+        if(B) {
+            position -= 0.001;
+        }
 
         if(!lastA && A) {
             //0.3
@@ -191,8 +203,13 @@ public class CF_Manual extends OpMode {
 
         robot.clamp.setPosition(positionUpper);
         robot.lowerClamp.setPosition(positionLower);
+       // robot.jewelHitter.setPosition(position);
+        robot.colorArm.setPosition(position);
+
         //lower = 0.386
         //upper = 0.71  0.41
+        lastX = X;
+        lastB = B;
         lastY = Y;
         lastA = A;
         lastRB = RB;

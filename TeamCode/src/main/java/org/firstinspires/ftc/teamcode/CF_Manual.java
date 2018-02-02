@@ -26,7 +26,7 @@ public class CF_Manual extends OpMode {
     double position = 0.33;
     int mode = 0;
 
-    double positionUpper = 0.41;
+    double positionUpper = 0.51;
     double positionLower = 0.6;
 
     boolean changeDirectionLast = false;
@@ -63,17 +63,18 @@ public class CF_Manual extends OpMode {
         robot.init(hardwareMap);
         telemetry.addData("", "init");
         start = robot.clawMotor.getCurrentPosition();
-        robot.jewelHitter.setPosition(0.333);
-        robot.colorArm.setPosition(1.0);
+//        robot.jewelHitter.setPosition(0.333);
+//        robot.colorArm.setPosition(1.0);
 
         end = start + 1719;
 
-        while(robot.limit.getState()) {
-            accessory.setPowerToPower(robot.clawMotor, 1, 3);
-            accessory.setPowerToPower(robot.mastMotor, 1, 3);
-        }
-        accessory.setPowerToPower(robot.clawMotor, 0, 3);
-        accessory.setPowerToPower(robot.mastMotor, 0, 3);
+        // Inits masts to down position
+//        while(robot.limit.getState()) {
+//            accessory.setPowerToPower(robot.clawMotor, 1, 3);
+//            accessory.setPowerToPower(robot.mastMotor, 1, 3);
+//        }
+//        accessory.setPowerToPower(robot.clawMotor, 0, 3);
+//        accessory.setPowerToPower(robot.mastMotor, 0, 3);
     }
 
     public void loop(){
@@ -150,7 +151,7 @@ public class CF_Manual extends OpMode {
                 accessory.setPowerToPower(robot.clawMotor, 1, 3);
                 accessory.setPowerToPower(robot.mastMotor, 1, 3);
                 positionLower = 0.6;
-                positionUpper = 0.41;
+                positionUpper = 0.51;
             }
         }
 
@@ -184,15 +185,15 @@ public class CF_Manual extends OpMode {
         // 0.81 0.41
         // Debouncing for the buttons
         if(!lastY && Y) {
-            if(positionUpper == 0.41) {
+            if(positionUpper == 0.51) {
                 positionUpper = 0.81;
             } else if(positionUpper == 0.81) {
-                positionUpper = 0.41;
+                positionUpper = 0.51;
             }
         }
 
         if(!lastRB && RB) {
-            positionUpper = 0.41;
+            positionUpper = 0.51;
             positionLower = 0.6;
         }
 
@@ -203,11 +204,9 @@ public class CF_Manual extends OpMode {
 
         robot.clamp.setPosition(positionUpper);
         robot.lowerClamp.setPosition(positionLower);
-       // robot.jewelHitter.setPosition(position);
-        robot.colorArm.setPosition(position);
 
         //lower = 0.386
-        //upper = 0.71  0.41
+        //upper = 0.71  0.51
         lastX = X;
         lastB = B;
         lastY = Y;

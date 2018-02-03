@@ -129,7 +129,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static java.lang.Boolean.TRUE;
 
 @SuppressWarnings("WeakerAccess")
-public class FtcRobotControllerActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2
+public class FtcRobotControllerActivity extends Activity /*implements CameraBridgeViewBase.CvCameraViewListener2*/
   {
     public static final String TAG = "RCActivity";
   public String getTag() { return TAG; }
@@ -173,24 +173,24 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
 
 
     //////////// Start OpenCV code ///////////
-    JavaCameraView javaCameraView;
-    CF_Globals globals = new CF_Globals();
-    Mat source;
-    static Mat mRgba;
-    static Mat mRgbaT;
-    static Boolean getPic = TRUE;
-    Mat mRgbaF;
-    Size kernel = new Size(41, 41);
-
-    private static final Object lock = new Object();
-
+//    JavaCameraView javaCameraView;
+//    CF_Globals globals = new CF_Globals();
+//    Mat source;
+//    static Mat mRgba;
+//    static Mat mRgbaT;
+//    static Boolean getPic = TRUE;
+//    Mat mRgbaF;
+//    Size kernel = new Size(41, 41);
+//
+//    private static final Object lock = new Object();
+//
     BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
       @Override
       public void onManagerConnected(int status) {
         super.onManagerConnected(status);
         switch(status) {
           case BaseLoaderCallback.SUCCESS: {
-            javaCameraView.enableView();
+            //javaCameraView.enableView();
             break;
           }
           default: {
@@ -200,51 +200,51 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
         }
       }
     };
-
-    @Override
-    public void onCameraViewStarted(int width, int height) {
-      mRgba =new Mat(height, width, CvType.CV_8UC4);
-      mRgbaT =new Mat(height, width, CvType.CV_8UC4);
-      mRgbaF =new Mat(height, width, CvType.CV_8UC4);
-
-      CF_Globals.setmRgba(new Mat(height, width, CvType.CV_8UC4));
-
-    }
-
-
-    @Override
-    public void onCameraViewStopped() {
-      CF_Globals.releasemRgba();
-    }
-
-    public synchronized static Mat getmRgba() {
-      synchronized (lock) {
-        return mRgba;
-      }
-    }
-
-    public synchronized static Boolean getGetPic() {
-      synchronized (lock) {
-        return getPic;
-      }
-    }
-
-    public synchronized static void setGetPic(Boolean b) {
-      synchronized (lock) {
-        getPic = b;
-      }
-    }
-
-    public synchronized static void setmRgba(Mat s) {
-      mRgba = s;
-    }
-    @Override
-    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-      if(getGetPic()) {
-        setmRgba(inputFrame.rgba());
-      }
-        return getmRgba();
-    }
+//
+//    @Override
+//    public void onCameraViewStarted(int width, int height) {
+//      mRgba =new Mat(height, width, CvType.CV_8UC4);
+//      mRgbaT =new Mat(height, width, CvType.CV_8UC4);
+//      mRgbaF =new Mat(height, width, CvType.CV_8UC4);
+//
+//      CF_Globals.setmRgba(new Mat(height, width, CvType.CV_8UC4));
+//
+//    }
+//
+//
+//    @Override
+//    public void onCameraViewStopped() {
+//      CF_Globals.releasemRgba();
+//    }
+//
+//    public synchronized static Mat getmRgba() {
+//      synchronized (lock) {
+//        return mRgba;
+//      }
+//    }
+//
+//    public synchronized static Boolean getGetPic() {
+//      synchronized (lock) {
+//        return getPic;
+//      }
+//    }
+//
+//    public synchronized static void setGetPic(Boolean b) {
+//      synchronized (lock) {
+//        getPic = b;
+//      }
+//    }
+//
+//    public synchronized static void setmRgba(Mat s) {
+//      mRgba = s;
+//    }
+//    @Override
+//    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
+//      if(getGetPic()) {
+//        setmRgba(inputFrame.rgba());
+//      }
+//        return getmRgba();
+//    }
 
     //////////// End OpenCV code ////////////
 
@@ -404,9 +404,9 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
     logPackageVersions();
 
     ///////// Start OpenCV Code *custom* //////////
-    javaCameraView = (JavaCameraView)findViewById(R.id.java_camera_view);
-    javaCameraView.setVisibility(SurfaceView.VISIBLE);
-    javaCameraView.setCvCameraViewListener(this);
+//    javaCameraView = (JavaCameraView)findViewById(R.id.java_camera_view);
+//    javaCameraView.setVisibility(SurfaceView.VISIBLE);
+//    javaCameraView.setCvCameraViewListener(this);
 
     ///////// End OpenCV Code *custom* /////////
   }
@@ -473,9 +473,9 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
       programmingModeController.stopProgrammingMode();
     }
     ////////// Start OpenCV Code ///////
-    if(javaCameraView != null) {
-      javaCameraView.disableView();
-    }
+//    if(javaCameraView != null) {
+//      javaCameraView.disableView();
+//    }
 
     ////////// End OpenCV Code /////////
   }
@@ -508,9 +508,9 @@ public class FtcRobotControllerActivity extends Activity implements CameraBridge
     RobotLog.cancelWriteLogcatToDisk();
 
     ///////// Start OpenCV Code ////////
-    if(javaCameraView != null) {
-      javaCameraView.disableView();
-    }
+//    if(javaCameraView != null) {
+//      javaCameraView.disableView();
+//    }
 
     ///////// End OpenCV Code //////////
   }

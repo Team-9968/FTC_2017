@@ -6,5 +6,5 @@ package org.firstinspires.ftc.teamcode.Enums;
 
 public enum CF_TypeEnum
 {
-   INIT, RIGHTISBLUE, RIGHTISRED, UNKNOWN
+   INIT, LEFTISBLUE, LEFTISRED, UNKNOWN
 }

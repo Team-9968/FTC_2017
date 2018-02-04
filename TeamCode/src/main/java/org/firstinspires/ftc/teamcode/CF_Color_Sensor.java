@@ -22,7 +22,7 @@ public class CF_Color_Sensor
 
    //This method runs one of the sensors and determines whether that specific ball is blue, red, or unknown
    //based off of the red and blue values it senses.
-   public CF_Color_Enum getColorValues(CF_Hardware robot)   //Sensor on RIGHT side of bot when viewed from back
+   public CF_Color_Enum getColorValues(CF_Hardware robot)   //Sensor on LEFT side of the bot when viewed with from the back of the whale tail
    {
       // convert the RGB values to HSV values.
       Color.RGBToHSV((robot.adafruitRGB.red() * 255) / 800, (robot.adafruitRGB.green() * 255) / 800, (robot.adafruitRGB.blue() * 255) / 800, hsvValues);
@@ -47,7 +47,7 @@ public class CF_Color_Sensor
    }
 
    //This method is the exact same as the one above, except for the other sensor.
-   public CF_SecondSensorEnum getWiffleBallValues(CF_Hardware robot)  //Sensor is  LEFT when viewed from back of robot
+   public CF_SecondSensorEnum getWiffleBallValues(CF_Hardware robot)  //Sensor is  RIGHT side of the robot when viewed from the back of the whale tail
    {
       // convert the RGB values to HSV values.
       Color.RGBToHSV((robot.adafruitRGBTwo.red() * 255) / 800, (robot.adafruitRGBTwo.green() * 255) / 800, (robot.adafruitRGBTwo.blue() * 255) / 800, secondValues);
@@ -80,12 +80,12 @@ public class CF_Color_Sensor
 
       if (color == CF_Color_Enum.RED && wiffleball == CF_SecondSensorEnum.BLUE)
       {
-         type = CF_TypeEnum.RIGHTISRED;
+         type = CF_TypeEnum.LEFTISRED;
       }
 
       else if (color == CF_Color_Enum.BLUE && wiffleball == CF_SecondSensorEnum.RED)
       {
-         type = CF_TypeEnum.RIGHTISBLUE;
+         type = CF_TypeEnum.LEFTISBLUE;
       }
 
       else

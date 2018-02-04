@@ -29,7 +29,7 @@ public class CF_OpenCV_Library {
 //    private Bitmap map = Bitmap.createBitmap(FtcRobotControllerActivity.getmRgba().width(), FtcRobotControllerActivity.getmRgba().height(), Bitmap.Config.ARGB_8888);
 
     public enum ballColor {
-        RED, BLUE, UNKNOWN
+        RIGHTISRED, RIGHTISBLUE, UNKNOWN
     }
     ballColor color;
 
@@ -95,9 +95,9 @@ public class CF_OpenCV_Library {
             }
         }
         if (red > blue + 2500) {
-            color = ballColor.RED;
+            color = ballColor.RIGHTISRED;
         } else if (blue > red + 2500) {
-            color = ballColor.BLUE;
+            color = ballColor.RIGHTISBLUE;
         } else {
             color = ballColor.UNKNOWN;
         }

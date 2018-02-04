@@ -25,7 +25,7 @@ public class CF_Red_Vuforia extends OpMode
 {
     //Allows this file to access pieces of hardware created in other files.
     CF_Hardware robot = new CF_Hardware();
-    ElapsedTime runTime = new ElapsedTime();
+    static ElapsedTime runTime = new ElapsedTime();
     CF_Autonomous_Motor_Library auto = new CF_Autonomous_Motor_Library();
     CF_Color_Sensor sensor = new CF_Color_Sensor();
     CF_OpenCV_Library cam = new CF_OpenCV_Library();
@@ -36,6 +36,8 @@ public class CF_Red_Vuforia extends OpMode
 
     CF_OpenCV_Library.ballColor col;
     RelicRecoveryVuMark pic;
+
+    int counts = 0;
 
     private CF_Pic_Enum Picture = CF_Pic_Enum.INIT;
 
@@ -55,7 +57,7 @@ public class CF_Red_Vuforia extends OpMode
     private void checkTime()
     {
         // Kills the robot if time is over the endTime
-        if(runTime.seconds() >= endTime)
+        if(getRuntime() >= endTime)
         {
             requestOpModeStop();
         }
@@ -75,6 +77,8 @@ public class CF_Red_Vuforia extends OpMode
         switch (Check)
         {
             case GRABBLOCK:
+                resetStartTime();
+                runTime.reset();
                 robot.clamp.setPosition(0.81);
                 robot.lowerClamp.setPosition(0.3);
                 checkTime();
@@ -229,24 +233,35 @@ public class CF_Red_Vuforia extends OpMode
 
             case SENSEPICTURE:
                 vuforia.activate();
-                auto.rotate(robot, -0.25f, 200);
+                auto.rotate(this, robot, -0.25f, 250);
                 try{
-                    TimeUnit.MILLISECONDS.sleep(500);
+                    TimeUnit.MILLISECONDS.sleep(2000);
                 } catch (InterruptedException e) {}
                 pic = vuforia.getMark();
                 try{
                     TimeUnit.MILLISECONDS.sleep(500);
                 } catch (InterruptedException e) {}
-                auto.rotate(robot, 0.25f, 200);
+                auto.rotate(this, robot, 0.25f, 250);
                 telemetry.addData("pic", pic);
                 telemetry.update();
+                //1875 for far
+                //1500 for middle
+                //1250 for near
+                if(pic == RelicRecoveryVuMark.LEFT) {
+                    counts = 1875;
+                } else if (pic == RelicRecoveryVuMark.CENTER) {
+                    counts = 1500;
+                } else {
+                    counts = 1250;
+                }
+
                 Check = checks.PASTBALANCE;
                 break;
 
             //Drives the robot off of the balance pad
             case PASTBALANCE:
-                auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 1250);
-                auto.rotate(robot, 0.5f, 685);
+                auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, counts);
+                auto.rotate(this, robot, 0.5f, 685);
                 auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 250);
                 Check = checks.RELEASEBLOCK;
                 break;
@@ -290,7 +305,7 @@ public class CF_Red_Vuforia extends OpMode
                     TimeUnit.MILLISECONDS.sleep(500);
                 } catch(InterruptedException e) {}
 
-                auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 60);
+                auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
                 checkTime();
                 Check = checks.END;
                 break;

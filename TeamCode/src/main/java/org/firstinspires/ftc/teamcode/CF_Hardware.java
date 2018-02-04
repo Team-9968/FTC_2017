@@ -95,7 +95,7 @@ public class CF_Hardware
       adafruitRGB.enableLed(false);
       adafruitRGBTwo.enableLed(false);
 
-      colorArm.setPosition(0.95);
+      colorArm.setPosition(0.90);
       jewelHitter.setPosition(0.333);
 
 

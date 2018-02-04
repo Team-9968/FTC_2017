@@ -14,6 +14,7 @@ import com.vuforia.STORAGE_TYPE;
 public class CF_Autonomous_Motor_Library {
    CF_Master_Motor_Library motors = new CF_Master_Motor_Library();
    CF_IMU_Library imuLib = new CF_IMU_Library();
+   double exitTime = 29;
 
    enum mode
    {
@@ -66,6 +67,11 @@ public class CF_Autonomous_Motor_Library {
 
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
             System.out.println("Rotation " + imuLib.getRotation(2));
+            if(opmode.getRuntime() > exitTime) {
+               motors.setMechPowers(robot,1,0,0,0,0,0);
+               opmode.requestOpModeStop();
+               break;
+            }
          }
 
       }
@@ -89,6 +95,11 @@ public class CF_Autonomous_Motor_Library {
             RRPower = -power + gain;
             LRPower = power - gain;
             motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+            if(opmode.getRuntime() > exitTime) {
+               motors.setMechPowers(robot,1,0,0,0,0,0);
+               opmode.requestOpModeStop();
+               break;
+            }
          }
       }
 //       Currently an unused method
@@ -137,7 +148,7 @@ public class CF_Autonomous_Motor_Library {
 
       }
 
-   void rotate(CF_Hardware robot, float power, int counts) {
+   void rotate(OpMode opmode, CF_Hardware robot, float power, int counts) {
 
       double RFPower = 0;
       double LFPower = 0;
@@ -160,6 +171,11 @@ public class CF_Autonomous_Motor_Library {
          RRPower = +power;
          LRPower = -power;
          motors.setMechPowers(robot, 1, LFPower, RFPower, LRPower, RRPower, 0);
+         if(opmode.getRuntime() > exitTime) {
+            motors.setMechPowers(robot,1,0,0,0,0,0);
+            opmode.requestOpModeStop();
+            break;
+         }
       }
 
       motors.setMechPowers(robot, 1, 0,0,0,0,0);

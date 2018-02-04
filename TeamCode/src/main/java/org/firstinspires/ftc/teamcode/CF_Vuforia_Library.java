@@ -53,13 +53,14 @@ public class CF_Vuforia_Library {
     }
 
     public Mat getFrame() {
+        System.out.println("Time 1" + System.nanoTime());
         if(pic != null) {
             pic.release();
         }
         System.out.println("FIRST");
 
         try {
-            v.setFrameQueueCapacity(2);
+            v.setFrameQueueCapacity(1);
         frame = v.getFrameQueue().take();
         } catch (InterruptedException e) {
             System.out.println("INterruped Exception");
@@ -69,6 +70,7 @@ public class CF_Vuforia_Library {
 
         long num = frame.getNumImages();
         if(frame != null) {
+            if(frame.getImage(0).getFormat() == PIXEL_FORMAT.RGB565)
             rgb = frame.getImage(0);
         }
         System.out.println("ONE/////////////");
@@ -80,6 +82,7 @@ public class CF_Vuforia_Library {
         pic = new Mat(bm.getWidth(), bm.getHeight(), CvType.CV_8UC4);
         Utils.bitmapToMat(bm, pic);
         frame.close();
+        System.out.println("Time 2" + System.nanoTime());
         return pic;
 
     }

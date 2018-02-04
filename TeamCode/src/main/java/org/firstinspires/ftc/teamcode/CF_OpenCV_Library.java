@@ -85,7 +85,7 @@ public class CF_OpenCV_Library {
         Bitmap map = Bitmap.createBitmap(image.width(), image.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(image, map);
         System.out.println(MediaStore.Images.Media.insertImage(mode.hardwareMap.appContext.getContentResolver(), map, "FTC Pic", "FTC Pic"));
-        for (int y = 0; y < image.size().height - 1; y += 2) {
+        for (int y = (int)(image.size().height - 1); y > (int)(image.size().height * 0.6); y -= 2) {
             for (int x = 0; x < image.size().width - 1; x += 2) {
                 if (image.get(y, x)[0] > 130 && image.get(y, x)[0] < 238 && image.get(y, x)[2] < 70) {
                     red += x;
@@ -104,6 +104,8 @@ public class CF_OpenCV_Library {
 
         CF_Globals.setRed(red);
         CF_Globals.setBlue(blue);
+        System.out.println("Red" + red);
+        System.out.println("Blue" + blue);
 //        } else {
 //            color = ballColor.UNKNOWN;
 //        }

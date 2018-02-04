@@ -44,7 +44,7 @@ public class CF_Red_Vuforia extends OpMode
     //A "checklist" of things this program must do IN ORDER for it to work
     private enum checks
     {
-        GRABBLOCK, MOVEMAST, SENSEPICTURE, SENSECOLOR, PICTURE, JEWELHITTER, PASTBALANCE, STRAFETOBOX, RELEASEBLOCK, PARK, END
+        GRABBLOCK, MOVEMAST, SENSEPICTURE, JEWELHITTER, PASTBALANCE, RELEASEBLOCK, PARK, END
     }
 
     //Sets current stage of the "List"
@@ -82,44 +82,15 @@ public class CF_Red_Vuforia extends OpMode
                 robot.clamp.setPosition(0.81);
                 robot.lowerClamp.setPosition(0.3);
                 checkTime();
-                Check = checks.SENSECOLOR;
+                Check = checks.JEWELHITTER;
                 Mat x = vuforia.getFrame();
-                telemetry.addData("Found pciture", "Found");
+                telemetry.addData("Found picture", "Found");
                 telemetry.update();
                 col = cam.getColor(this, x);
 
                 Bitmap y = vuforia.getMap();
                 cam.save(this, y);
                 break;
-
-            case SENSECOLOR:
-                //cam_color = cam.getColor();
-                checkTime();
-                Check = checks.PICTURE;
-
-                break;
-
-            case PICTURE:
-//            //   if (sees 1 pic)
-//         {
-//            Picture = CF_Pic_Enum.ONE;
-//         }
-//            // else if (sees a different pic)
-//         {
-//            Picture = CF_Pic_Enum.TWO;
-//         }
-//            //
-//            //else if (sees a different picture)
-//         {
-//            Picture = CF_Pic_Enum.THREE;
-//         }
-                //
-                //
-                //
-                checkTime();
-                Check = checks.JEWELHITTER;
-                break;
-
 
             //Decides which color the ball on the right is and uses that to determine which way to strafe
             case JEWELHITTER:
@@ -204,6 +175,7 @@ public class CF_Red_Vuforia extends OpMode
                         ArmCenter = true;
                         checkTime();
                     }
+
                     checkTime();
                 }
 
@@ -265,25 +237,7 @@ public class CF_Red_Vuforia extends OpMode
                 auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 250);
                 Check = checks.RELEASEBLOCK;
                 break;
-//
-//         //Drives robot to cryptobox and alignes it
-////         case STRAFETOBOX:
-            //if (Picture == CF_Pic_Enum.One) //NEAREST SHELF
-//         {
-//
-//         }
 
-            //else if (Picture == CF_Pic_Enum.Two
-//         {
-//
-//         }
-
-            //else if (Picture == CF_Pic_Enum.Three
-//         {
-//
-//         }
-
-//         //Opens claw(s) so the block is dropped in the box
             case RELEASEBLOCK:
 
                 try

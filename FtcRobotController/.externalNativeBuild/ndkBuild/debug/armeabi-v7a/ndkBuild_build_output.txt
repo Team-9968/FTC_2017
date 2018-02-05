@@ -1,8 +1,11 @@
 Android NDK: OpenCV: You should ignore warning about 'non-system libraries in linker flags' and 'opencv_java' library.    
 Android NDK:         'OPENCV_INSTALL_MODULES:=on' can be used to build APK with included OpenCV binaries    
-md "C:\projects\FTC\FTC_2017\FtcRobotController\build\intermediates\ndkBuild\debug\lib\armeabi-v7a" >NUL 2>NUL || rem
-C:/Users/dawso/AppData/Local/Android/sdk/ndk-bundle/build//../prebuilt/windows-x86_64/bin/echo.exe [armeabi-v7a] "Gdbserver      ": "[arm-linux-androideabi] C:\projects\FTC\FTC_2017\FtcRobotController\build\intermediates\ndkBuild\debug\lib/armeabi-v7a/gdbserver"
-copy /b/y "C:\Users\dawso\AppData\Local\Android\sdk\ndk-bundle\build\\..\prebuilt\android-arm\gdbserver\gdbserver" "C:\projects\FTC\FTC_2017\FtcRobotController\build\intermediates\ndkBuild\debug\lib\armeabi-v7a\gdbserver" > NUL
-C:/Users/dawso/AppData/Local/Android/sdk/ndk-bundle/build//../prebuilt/windows-x86_64/bin/echo.exe [armeabi-v7a] "Gdbsetup       ": "C:\projects\FTC\FTC_2017\FtcRobotController\build\intermediates\ndkBuild\debug\lib/armeabi-v7a/gdb.setup"
-C:/Users/dawso/AppData/Local/Android/sdk/ndk-bundle/build//../prebuilt/windows-x86_64/bin/echo.exe "set solib-search-path C:/projects/FTC/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a" > C:\projects\FTC\FTC_2017\FtcRobotController\build\intermediates\ndkBuild\debug\lib/armeabi-v7a/gdb.setup
-C:/Users/dawso/AppData/Local/Android/sdk/ndk-bundle/build//../prebuilt/windows-x86_64/bin/echo.exe "directory C:/Users/dawso/AppData/Local/Android/sdk/ndk-bundle/build//../sysroot C:/Users/dawso/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/system" >> C:\projects\FTC\FTC_2017\FtcRobotController\build\intermediates\ndkBuild\debug\lib/armeabi-v7a/gdb.setup
+rm -f /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/*
+rm -f /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/gdbserver
+rm -f /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/gdb.setup
+mkdir -p /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a
+echo [armeabi-v7a] "Gdbserver      ": "[arm-linux-androideabi] /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/gdbserver"
+install -p /Users/Ryley/Library/Android/sdk/ndk-bundle/prebuilt/android-arm/gdbserver/gdbserver /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/gdbserver
+echo [armeabi-v7a] "Gdbsetup       ": "/Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/gdb.setup"
+echo "set solib-search-path /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a" > /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/gdb.setup
+echo "directory /Users/Ryley/Library/Android/sdk/ndk-bundle/sysroot /Users/Ryley/Library/Android/sdk/ndk-bundle/sources/cxx-stl/system" >> /Users/Ryley/FTC_2017/FtcRobotController/build/intermediates/ndkBuild/debug/lib/armeabi-v7a/gdb.setup

@@ -198,26 +198,28 @@ public class CF_Blue_Vuforia extends OpMode
 
          case SENSEPICTURE:
             vuforia.activate();
-            auto.rotate(this, robot, -0.25f, 250);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
             try{
-               TimeUnit.MILLISECONDS.sleep(2000);
+               TimeUnit.MILLISECONDS.sleep(3000);
             } catch (InterruptedException e) {}
             pic = vuforia.getMark();
             try{
                TimeUnit.MILLISECONDS.sleep(500);
             } catch (InterruptedException e) {}
-            auto.rotate(this, robot, 0.25f, 250);
+            //auto.rotate(this, robot, -0.25f, 225);
             telemetry.addData("pic", pic);
             telemetry.update();
             //1875 for far
             //1500 for middle
             //1250 for near
-            if(pic == RelicRecoveryVuMark.LEFT) {
-               counts = 1250;
-            } else if (pic == RelicRecoveryVuMark.CENTER) {
+            if (pic == RelicRecoveryVuMark.CENTER) {
+               counts = 1200;
+              // counts = 1500;
+            } else if(pic == RelicRecoveryVuMark.RIGHT){
                counts = 1500;
+               //counts = 1875;
             } else {
-               counts = 1875;
+               counts = 850;
             }
 
             Check = checks.PASTBALANCE;
@@ -226,7 +228,7 @@ public class CF_Blue_Vuforia extends OpMode
          //Drives the robot off of the balance pad
          case PASTBALANCE:
             auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, counts);
-            auto.rotate(this, robot, 0.5f, 685);
+            auto.rotate(this, robot, 0.5f, 740);
             auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 250);
             Check = checks.RELEASEBLOCK;
             break;
@@ -253,12 +255,21 @@ public class CF_Blue_Vuforia extends OpMode
             } catch(InterruptedException e) {}
 
             auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
+            try{
+               TimeUnit.MILLISECONDS.sleep(200);
+            } catch(InterruptedException e) {}
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 100);
+            try{
+               TimeUnit.MILLISECONDS.sleep(100);
+            } catch(InterruptedException e) {}
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
             checkTime();
             Check = checks.END;
             break;
 
          //End state. Does nothing.
          case END:
+            requestOpModeStop();
             break;
       }
    }

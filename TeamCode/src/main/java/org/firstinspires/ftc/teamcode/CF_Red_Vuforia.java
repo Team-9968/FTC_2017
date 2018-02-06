@@ -10,10 +10,17 @@ import org.opencv.core.Mat;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by dawso on 1/8/2018.
+ * Created by dawson on 1/8/2018.
  */
 
-//Autonomous mode for starting on the red team, pad nearest the cryptobox in b/w the balancing stones
+//Autonomous mode for starting on the red team, balancing stone nearest the cryptobox in between the balancing stones
+
+
+//Note: This program is only to be used when our team is on the red alliance, however,
+   //it may easily be adapted for blue by switching the motor powers from positive values
+   //to negative ones.
+
+
 @Autonomous(name = "Red Aim Vuforia", group = "Sensor")
 //@Disabled
 public class CF_Red_Vuforia extends OpMode
@@ -69,6 +76,8 @@ public class CF_Red_Vuforia extends OpMode
     {
         switch (Check)
         {
+           //This method grabs the glyph and uses the phone's camera to take a picture
+           //to help determine ball color
             case GRABBLOCK:
                 resetStartTime();
                 runTime.reset();
@@ -85,7 +94,8 @@ public class CF_Red_Vuforia extends OpMode
                 cam.save(this, y);
                 break;
 
-            //Decides which color the ball on the right is and uses that to determine which way to strafe
+            //This method runs the color sensors and determines which jewel is which color
+           //and hits the correct jewel
             case JEWELHITTER:
                 telemetry.addData("Case Jewelpusher", "");
 
@@ -140,6 +150,8 @@ public class CF_Red_Vuforia extends OpMode
                     checkTime();
                 }
 
+                //If the color sensors failed to determine the jewels' colors, this
+                //else statement relies on the camera as a backup.
                 else
                 {
                     telemetry.addData("Ball is", " unknown");
@@ -191,11 +203,15 @@ public class CF_Red_Vuforia extends OpMode
                 Check = checks.MOVEMAST;
                 break;
 
+            //After the jewel has been hit off, this state raises the glyph so
+           //it does not interfere with the robot driving off of the balancing stone.
             case MOVEMAST:
                 auto.clawMotorMove(robot, -1.0f, 2000);
                 Check = checks.SENSEPICTURE;
                 break;
 
+            //This state incorporates Vuforia to look at the the picture attached to the wall.
+           //Based off of the input from Vuforia, the robot willl drive a certain number of encoder counts
             case SENSEPICTURE:
                 vuforia.activate();
                 auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 100);
@@ -222,7 +238,7 @@ public class CF_Red_Vuforia extends OpMode
                 Check = checks.PASTBALANCE;
                 break;
 
-            //Drives the robot off of the balance pad
+            //Turns the robot and drives forward to place the glyph in the cryptobox
             case PASTBALANCE:
                 auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, counts);
                 auto.rotate(this, robot, 0.5f, 740);
@@ -230,6 +246,7 @@ public class CF_Red_Vuforia extends OpMode
                 Check = checks.RELEASEBLOCK;
                 break;
 
+            //This state is fairly self - explanatory. It releases the claws' hold on the glyph.
             case RELEASEBLOCK:
 
                 try

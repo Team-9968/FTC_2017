@@ -10,7 +10,7 @@ import org.opencv.core.Mat;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by dawso on 2/4/2018.
+ * Created by dawson on 2/4/2018.
  */
 
 //Autonomous mode for starting on the red team, pad nearest the cryptobox in b/w the balancing stones

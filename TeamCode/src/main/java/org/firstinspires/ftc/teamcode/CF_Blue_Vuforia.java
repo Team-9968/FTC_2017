@@ -33,6 +33,8 @@ public class CF_Blue_Vuforia extends OpMode
    RelicRecoveryVuMark pic;
 
    int counts = 0;
+   int rot = 0;
+   int forwards = 0;
 
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
@@ -89,7 +91,7 @@ public class CF_Blue_Vuforia extends OpMode
          case JEWELHITTER:
             telemetry.addData("Case Jewelpusher", "");
 
-            robot.armDown(0.14);
+            robot.armDown(0.11);
 
             try
             {
@@ -213,14 +215,22 @@ public class CF_Blue_Vuforia extends OpMode
             //1500 for middle
             //1250 for near
             if (pic == RelicRecoveryVuMark.CENTER) {
-               counts = 1200;
-              // counts = 1500;
-            } else if(pic == RelicRecoveryVuMark.RIGHT){
+               rot = 470;
                counts = 1500;
-               //counts = 1875;
+               forwards = 260;
+              // counts = 1200;
+            } else if(pic == RelicRecoveryVuMark.RIGHT){
+               counts = 1075;
+               rot = 1050;
+               forwards = 260;
+               //counts = 1800;
             } else {
-               counts = 850;
+               rot = 470;
+               counts = 1150;
+               forwards = 260;
+              // counts = 850;
             }
+            vuforia.deactivate();
 
             Check = checks.PASTBALANCE;
             break;
@@ -228,12 +238,24 @@ public class CF_Blue_Vuforia extends OpMode
          //Drives the robot off of the balance pad
          case PASTBALANCE:
             auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, counts);
-            auto.rotate(this, robot, 0.5f, 740);
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 250);
+            try{
+               TimeUnit.MILLISECONDS.sleep(300);
+            } catch (InterruptedException e) {}
+
+            auto.rotate(this, robot, 0.5f, rot);
+
+            try{
+               TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {}
+            //250
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, forwards);
             Check = checks.RELEASEBLOCK;
             break;
 
          case RELEASEBLOCK:
+
+            auto.clawMotorMove(robot, 1.0f, 1500);
+
 
             try
             {
@@ -243,6 +265,7 @@ public class CF_Blue_Vuforia extends OpMode
             robot.clamp.setPosition(0.4);
             robot.lowerClamp.setPosition(0.6);
             checkTime();
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 75);
             Check = checks.PARK;
             break;
 
@@ -254,15 +277,15 @@ public class CF_Blue_Vuforia extends OpMode
                TimeUnit.MILLISECONDS.sleep(500);
             } catch(InterruptedException e) {}
 
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 275);
             try{
                TimeUnit.MILLISECONDS.sleep(200);
             } catch(InterruptedException e) {}
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 100);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 200);
             try{
                TimeUnit.MILLISECONDS.sleep(100);
             } catch(InterruptedException e) {}
-            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
+            auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
             checkTime();
             Check = checks.END;
             break;

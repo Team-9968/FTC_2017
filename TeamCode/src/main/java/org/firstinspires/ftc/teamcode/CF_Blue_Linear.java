@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.google.gson.graph.GraphAdapterBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import android.graphics.Bitmap;
 
@@ -7,7 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.teamcode.Enums.CF_State_Enum;
 import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
+import org.firstinspires.ftc.teamcode.Enums.CF_State_Enum;
 import org.opencv.core.Mat;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +22,7 @@ import static java.lang.Boolean.TRUE;
  */
 
 //Autonomous mode for starting on the red team, pad nearest the cryptobox in b/w the balancing stones
-@Autonomous(name = "Blue Aim Vuforia", group = "Sensor")
+@Autonomous(name = "Blue Aim Vuforia Linear", group = "Sensor")
 //@Disabled
 public class CF_Blue_Linear extends LinearOpMode
 {
@@ -42,13 +45,10 @@ public class CF_Blue_Linear extends LinearOpMode
     int forwards = 0;
 
     //A "checklist" of things this program must do IN ORDER for it to work
-    private enum checks
-    {
-        GRABBLOCK, MOVEMAST, SENSEPICTURE, JEWELHITTER, PASTBALANCE, RELEASEBLOCK, PARK, END
-    }
+
 
     //Sets current stage of the "List"
-    checks Check = checks.GRABBLOCK;
+    static CF_State_Enum Check = CF_State_Enum.GRABBLOCK;
 
     //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
     //a backup method in case the coach forgets to turn on the timer built into the robot app.
@@ -82,7 +82,7 @@ public class CF_Blue_Linear extends LinearOpMode
                     robot.clamp.setPosition(0.81);
                     robot.lowerClamp.setPosition(0.3);
                     checkTime();
-                    Check = checks.JEWELHITTER;
+                    Check = CF_State_Enum.JEWELHITTER;
                     Mat x = vuforia.getFrame();
                     telemetry.addData("Found picture", "Found");
                     telemetry.update();
@@ -195,17 +195,17 @@ public class CF_Blue_Linear extends LinearOpMode
                     }
                     robot.armUp(1.0);
                     checkTime();
-                    Check = checks.MOVEMAST;
+                    Check = CF_State_Enum.MOVEMAST;
                     break;
 
                 case MOVEMAST:
                     auto.clawMotorMove(robot, -1.0f, 2000);
-                    Check = checks.SENSEPICTURE;
+                    Check = CF_State_Enum.SENSEPICTURE;
                     break;
 
                 case SENSEPICTURE:
                     vuforia.activate();
-                    auto.linearEncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 100);
                     try{
                         TimeUnit.MILLISECONDS.sleep(3000);
                     } catch (InterruptedException e) {}
@@ -237,12 +237,12 @@ public class CF_Blue_Linear extends LinearOpMode
                     }
                     vuforia.deactivate();
 
-                    Check = checks.PASTBALANCE;
+                    Check = CF_State_Enum.PASTBALANCE;
                     break;
 
                 //Drives the robot off of the balance pad
                 case PASTBALANCE:
-                    auto.linearEncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, counts);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, counts);
                     try{
                         TimeUnit.MILLISECONDS.sleep(300);
                     } catch (InterruptedException e) {}
@@ -253,8 +253,8 @@ public class CF_Blue_Linear extends LinearOpMode
                         TimeUnit.MILLISECONDS.sleep(100);
                     } catch (InterruptedException e) {}
                     //250
-                    auto.linearEncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, forwards);
-                    Check = checks.RELEASEBLOCK;
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, forwards);
+                    Check = CF_State_Enum.RELEASEBLOCK;
                     break;
 
                 case RELEASEBLOCK:
@@ -270,8 +270,8 @@ public class CF_Blue_Linear extends LinearOpMode
                     robot.clamp.setPosition(0.4);
                     robot.lowerClamp.setPosition(0.6);
                     checkTime();
-                    auto.linearEncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 75);
-                    Check = checks.PARK;
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 75);
+                    Check = CF_State_Enum.PARK;
                     break;
 
                 // Backs robot up slightly so we aren't touching the block, but are still parking
@@ -282,17 +282,17 @@ public class CF_Blue_Linear extends LinearOpMode
                         TimeUnit.MILLISECONDS.sleep(500);
                     } catch(InterruptedException e) {}
 
-                    auto.linearEncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 275);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 275);
                     try{
                         TimeUnit.MILLISECONDS.sleep(200);
                     } catch(InterruptedException e) {}
-                    auto.linearEncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 200);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 200);
                     try{
                         TimeUnit.MILLISECONDS.sleep(100);
                     } catch(InterruptedException e) {}
-                    auto.linearEncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
                     checkTime();
-                    Check = checks.END;
+                    Check = CF_State_Enum.END;
                     break;
 
                 //End state. Does nothing.

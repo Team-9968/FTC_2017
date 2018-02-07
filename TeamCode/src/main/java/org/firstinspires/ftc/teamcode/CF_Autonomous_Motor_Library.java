@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ThreadPool;
 import com.vuforia.STORAGE_TYPE;
 
+import org.firstinspires.ftc.teamcode.Enums.CF_State_Enum;
+
 /**
  * Created by Ryley on 10/22/17.
  */
@@ -72,6 +74,7 @@ public class CF_Autonomous_Motor_Library {
                opmode.requestOpModeStop();
                break;
             }
+            Thread.yield();
             try{
             Thread.sleep(1);
             }
@@ -104,6 +107,7 @@ public class CF_Autonomous_Motor_Library {
                opmode.requestOpModeStop();
                break;
             }
+            Thread.yield();
              try{
                  Thread.sleep(1);
              }
@@ -156,7 +160,7 @@ public class CF_Autonomous_Motor_Library {
 
       }
 
-    void linearEncoderIMUDrive(LinearOpMode opmode, CF_Hardware robot, mode m, float power, int counts) {
+    void linearEncoderIMUDrive(LinearOpMode opmode, CF_Hardware robot, CF_State_Enum state, mode m, float power, int counts) {
         // Enum tells the method what operation it wants the robot to perform
         // DRIVE
         double RFPower = 0;
@@ -195,12 +199,15 @@ public class CF_Autonomous_Motor_Library {
                     opmode.requestOpModeStop();
                     break;
                 }
+                Thread.yield();
                 try{
                     Thread.sleep(1);
                 }
                 catch(InterruptedException e) {}
                 if(opmode.isStopRequested()) {
-                    opmode.requestOpModeStop();
+                    state = CF_State_Enum.END;
+                    motors.setMechPowers(robot,1,0,0,0,0,0);
+                    break;
                 }
             }
 
@@ -235,7 +242,8 @@ public class CF_Autonomous_Motor_Library {
                 }
                 catch(InterruptedException e) {}
                 if(opmode.isStopRequested()) {
-                    opmode.requestOpModeStop();
+                    state = CF_State_Enum.END;
+                    motors.setMechPowers(robot,1,0,0,0,0,0);
                 }
             }
         }
@@ -324,7 +332,7 @@ public class CF_Autonomous_Motor_Library {
 
 
    }
-    void rotateLinear(LinearOpMode opmode, CF_Hardware robot, float power, int counts) {
+    void rotateLinear(LinearOpMode opmode, CF_Hardware robot, CF_State_Enum state, float power, int counts) {
 
         double RFPower = 0;
         double LFPower = 0;
@@ -357,6 +365,8 @@ public class CF_Autonomous_Motor_Library {
             }
             catch(InterruptedException e) {}
             if(opmode.isStopRequested()) {
+                motors.setMechPowers(robot,1,0,0,0,0,0);
+                state = CF_State_Enum.END;
                 opmode.requestOpModeStop();
             }
 

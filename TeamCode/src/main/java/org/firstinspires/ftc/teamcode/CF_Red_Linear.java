@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.teamcode.Enums.CF_State_Enum;
 import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
 import org.opencv.core.Mat;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +25,7 @@ import static java.lang.Boolean.FALSE;
 //to negative ones.
 
 
-@Autonomous(name = "Red Aim Vuforia", group = "Sensor")
+@Autonomous(name = "Red Aim Vuforia Linear", group = "Sensor")
 //@Disabled
 public class CF_Red_Linear extends LinearOpMode {
     //Allows this file to access pieces of hardware created in other files.
@@ -43,13 +44,8 @@ public class CF_Red_Linear extends LinearOpMode {
 
     int counts = 0;
 
-    //A "checklist" of things this program must do IN ORDER for it to work
-    private enum checks {
-        GRABBLOCK, MOVEMAST, SENSEPICTURE, JEWELHITTER, PASTBALANCE, RELEASEBLOCK, PARK, END
-    }
-
     //Sets current stage of the "List"
-    checks Check = checks.GRABBLOCK;
+    static CF_State_Enum Check = CF_State_Enum.GRABBLOCK;
 
     //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
     //a backup method in case the coach forgets to turn on the timer built into the robot app.
@@ -82,7 +78,7 @@ public class CF_Red_Linear extends LinearOpMode {
                     robot.clamp.setPosition(0.81);
                     robot.lowerClamp.setPosition(0.3);
                     checkTime();
-                    Check = checks.JEWELHITTER;
+                    Check = CF_State_Enum.JEWELHITTER;
                     Mat x = vuforia.getFrame();
                     telemetry.addData("Found picture", "Found");
                     telemetry.update();
@@ -193,21 +189,21 @@ public class CF_Red_Linear extends LinearOpMode {
                     }
                     robot.armUp(1.0);
                     checkTime();
-                    Check = checks.MOVEMAST;
+                    Check = CF_State_Enum.MOVEMAST;
                     break;
 
                 //After the jewel has been hit off, this state raises the glyph so
                 //it does not interfere with the robot driving off of the balancing stone.
                 case MOVEMAST:
                     auto.clawMotorMove(robot, -1.0f, 2000);
-                    Check = checks.SENSEPICTURE;
+                    Check = CF_State_Enum.SENSEPICTURE;
                     break;
 
                 //This state incorporates Vuforia to look at the the picture attached to the wall.
                 //Based off of the input from Vuforia, the robot willl drive a certain number of encoder counts
                 case SENSEPICTURE:
                     vuforia.activate();
-                    auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 100);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 100);
                     try {
                         TimeUnit.MILLISECONDS.sleep(2000);
                     } catch (InterruptedException e) {
@@ -232,12 +228,12 @@ public class CF_Red_Linear extends LinearOpMode {
                     vuforia.deactivate();
 
 
-                    Check = checks.PASTBALANCE;
+                    Check = CF_State_Enum.PASTBALANCE;
                     break;
 
                 //Turns the robot and drives forward to place the glyph in the cryptobox
                 case PASTBALANCE:
-                    auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, counts);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, counts);
                     //740
                     try {
                         TimeUnit.MILLISECONDS.sleep(300);
@@ -249,8 +245,8 @@ public class CF_Red_Linear extends LinearOpMode {
                     } catch (InterruptedException e) {
                     }
 
-                    auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 300);
-                    Check = checks.RELEASEBLOCK;
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 300);
+                    Check = CF_State_Enum.RELEASEBLOCK;
                     break;
 
                 //This state is fairly self - explanatory. It releases the claws' hold on the glyph.
@@ -265,7 +261,7 @@ public class CF_Red_Linear extends LinearOpMode {
                     robot.clamp.setPosition(0.4);
                     robot.lowerClamp.setPosition(0.6);
                     checkTime();
-                    Check = checks.PARK;
+                    Check = CF_State_Enum.PARK;
                     break;
 
                 // Backs robot up slightly so we aren't touching the block, but are still parking
@@ -276,24 +272,25 @@ public class CF_Red_Linear extends LinearOpMode {
                     } catch (InterruptedException e) {
                     }
 
-                    auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
                     try {
                         TimeUnit.MILLISECONDS.sleep(200);
                     } catch (InterruptedException e) {
                     }
-                    auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 200);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, 0.2f, 200);
                     try {
                         TimeUnit.MILLISECONDS.sleep(100);
                     } catch (InterruptedException e) {
                     }
-                    auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
+                    auto.linearEncoderIMUDrive(this, robot, Check, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
 
                     checkTime();
-                    Check = checks.END;
+                    Check = CF_State_Enum.END;
                     break;
 
                 //End state. Does nothing.
                 case END:
+                    requestOpModeStop();
                     break;
             }
         }

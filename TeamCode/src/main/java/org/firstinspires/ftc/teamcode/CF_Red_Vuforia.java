@@ -116,10 +116,7 @@ public class CF_Red_Vuforia extends OpMode
                 sensor.setType(robot);
                 CF_TypeEnum classification = sensor.setType(robot);
 
-                if (classification == CF_TypeEnum.LEFTISBLUE) //&& cam_color == CF_OpenCV_Library.ballColor.BLUE) ||
-                //(classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-                //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
-
+                if (classification == CF_TypeEnum.LEFTISBLUE)
                 {
                     telemetry.addData("Right is"," blue");
                     robot.jewelHitter.setPosition(0.7);
@@ -133,10 +130,7 @@ public class CF_Red_Vuforia extends OpMode
                     checkTime();
                 }
 
-                else if ((classification == CF_TypeEnum.LEFTISRED)) //&& cam_color == CF_OpenCV_Library.ballColor.RED)// ||
-                //(classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-                //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
-
+                else if ((classification == CF_TypeEnum.LEFTISRED))
                 {
                     telemetry.addData("Right is"," red");
                     robot.jewelHitter.setPosition(0.0);

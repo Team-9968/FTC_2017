@@ -122,10 +122,10 @@ public class CF_Blue_Vuforia extends OpMode
 
          //Decides which color the ball on the right is and uses that to determine which way to strafe
          case JEWELHITTER:
-            switch (jewelHitter) {
-               case ARMDOWN:
-
-            }
+//            switch (jewelHitter) {
+//               case ARMDOWN:
+//
+//            }
             telemetry.addData("Case Jewelpusher", "");
 
             robot.armDown(0.11);

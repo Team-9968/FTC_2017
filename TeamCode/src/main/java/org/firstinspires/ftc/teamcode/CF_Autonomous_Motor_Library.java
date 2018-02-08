@@ -9,6 +9,9 @@ import com.vuforia.STORAGE_TYPE;
 
 import org.firstinspires.ftc.teamcode.Enums.CF_State_Enum;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 /**
  * Created by Ryley on 10/22/17.
  */
@@ -159,6 +162,16 @@ public class CF_Autonomous_Motor_Library {
       motors.setMechPowers(robot,1,0,0,0,0,0);
 
       }
+
+    boolean ifDone(CF_Hardware robot, double offset, int counts)
+    {
+        if((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts))
+        {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
 
     void linearEncoderIMUDrive(LinearOpMode opmode, CF_Hardware robot, CF_State_Enum state, mode m, float power, int counts) {
         // Enum tells the method what operation it wants the robot to perform

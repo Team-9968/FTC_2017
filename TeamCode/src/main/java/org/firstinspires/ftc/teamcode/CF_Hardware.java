@@ -11,6 +11,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 
 /**
  * Created by Ryley on 9/15/17.
@@ -113,6 +116,14 @@ public class CF_Hardware
       imu = hwMap.get(BNO055IMU.class, "imu");
       imu.initialize(parameters);
 
+   }
+
+   public boolean isArmDown(float targetPos) {
+       if(colorArm.getPosition() < targetPos) {
+           return TRUE;
+       } else {
+           return FALSE;
+       }
    }
 
    public void armDown (double targetPos)

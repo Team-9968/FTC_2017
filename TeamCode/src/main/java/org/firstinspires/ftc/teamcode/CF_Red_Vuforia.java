@@ -279,7 +279,7 @@ public class CF_Red_Vuforia extends OpMode
                     TimeUnit.MILLISECONDS.sleep(500);
                 } catch(InterruptedException e) {}
 
-                auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 200);
+                auto.EncoderIMUDrive(this, robot, CF_Autonomous_Motor_Library.mode.DRIVE, -0.2f, 275);
                 try{
                     TimeUnit.MILLISECONDS.sleep(200);
                 } catch(InterruptedException e) {}

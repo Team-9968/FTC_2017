@@ -126,6 +126,14 @@ public class CF_Hardware
        }
    }
 
+   public boolean isArmUp(float targetPos) {
+       if(colorArm.getPosition() > targetPos) {
+           return TRUE;
+       } else {
+           return FALSE;
+       }
+   }
+
    public void armDown (double targetPos)
    {
       double currentPos = colorArm.getPosition();

@@ -47,7 +47,7 @@ public class CF_Blue_Vuforia extends OpMode
 
    private enum jewelHitterState
    {
-      ARMDOWN, CHECKCOL, ARMUP, END
+      ARMDOWN, CHECKCOL, ARMUP, OTHERSTUFF, ARMUP2, END
    }
 
    private enum picSenseState
@@ -122,112 +122,130 @@ public class CF_Blue_Vuforia extends OpMode
 
          //Decides which color the ball on the right is and uses that to determine which way to strafe
          case JEWELHITTER:
-//            switch (jewelHitter) {
-//               case ARMDOWN:
-//
-//            }
             telemetry.addData("Case Jewelpusher", "");
+            switch (jewelHitter) {
+               case ARMDOWN:
+                  robot.colorArm.setPosition(robot.colorArm.getPosition() - 0.0009);
+                  if(robot.isArmDown(0.11f)) {
+                     jewelHitter = jewelHitterState.CHECKCOL;
+                  }
+                  break;
+               case CHECKCOL:
+                  try
+                  {
+                     TimeUnit.MILLISECONDS.sleep(300);
+                  } catch(InterruptedException e) {}
 
-            robot.armDown(0.11);
-
-            try
-            {
-               TimeUnit.MILLISECONDS.sleep(300);
-            } catch(InterruptedException e) {}
-
-            robot.tailLight.setPower(1);
-
-            try
-            {
-               TimeUnit.MILLISECONDS.sleep(700);
-            } catch(InterruptedException e) {}
-
-            sensor.setType(robot);
-            CF_TypeEnum classification = sensor.setType(robot);
-
-            if (classification == CF_TypeEnum.LEFTISBLUE) //&& cam_color == CF_OpenCV_Library.ballColor.BLUE) ||
-            //(classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-            //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
-
-            {
-               telemetry.addData("Right is"," blue");
-               robot.jewelHitter.setPosition(0.0);
-
-               try
-               {
-                  TimeUnit.MILLISECONDS.sleep(500);
-               } catch(InterruptedException e) {}
-
-               ArmCenter = true;
-               checkTime();
-            }
-
-            else if ((classification == CF_TypeEnum.LEFTISRED)) //&& cam_color == CF_OpenCV_Library.ballColor.RED)// ||
-            //(classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-            //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
-
-            {
-               telemetry.addData("Right is"," red");
-               robot.jewelHitter.setPosition(0.7);
-
-               try
-               {
-                  TimeUnit.MILLISECONDS.sleep(500);
-               } catch(InterruptedException e) {}
-
-               ArmCenter = true;
-               checkTime();
-            }
-
-            else
-            {
-               telemetry.addData("Ball is", " unknown");
-
-               if(col == CF_OpenCV_Library.ballColor.RIGHTISBLUE) {
-                  telemetry.addData("Right is"," blue - Camera");
-                  robot.jewelHitter.setPosition(0.7);
+                  robot.tailLight.setPower(1);
 
                   try
                   {
-                     TimeUnit.MILLISECONDS.sleep(500);
+                     TimeUnit.MILLISECONDS.sleep(700);
                   } catch(InterruptedException e) {}
 
-                  ArmCenter = true;
-                  checkTime();
-               }
-               else if(col == CF_OpenCV_Library.ballColor.RIGHTISRED) {
-                  telemetry.addData("Right is"," red - Camera");
-                  robot.jewelHitter.setPosition(0.0);
+                  sensor.setType(robot);
+                  CF_TypeEnum classification = sensor.setType(robot);
+
+                  if (classification == CF_TypeEnum.LEFTISBLUE) //&& cam_color == CF_OpenCV_Library.ballColor.BLUE) ||
+                  //(classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
+                  //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
+
+                  {
+                     telemetry.addData("Right is"," blue");
+                     robot.jewelHitter.setPosition(0.0);
+
+                     try
+                     {
+                        TimeUnit.MILLISECONDS.sleep(500);
+                     } catch(InterruptedException e) {}
+
+                     ArmCenter = true;
+                     checkTime();
+                  }
+
+                  else if ((classification == CF_TypeEnum.LEFTISRED)) //&& cam_color == CF_OpenCV_Library.ballColor.RED)// ||
+                  //(classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
+                  //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
+
+                  {
+                     telemetry.addData("Right is"," red");
+                     robot.jewelHitter.setPosition(0.7);
+
+                     try
+                     {
+                        TimeUnit.MILLISECONDS.sleep(500);
+                     } catch(InterruptedException e) {}
+
+                     ArmCenter = true;
+                     checkTime();
+                  }
+
+                  else
+                  {
+                     telemetry.addData("Ball is", " unknown");
+
+                     if(col == CF_OpenCV_Library.ballColor.RIGHTISBLUE) {
+                        telemetry.addData("Right is"," blue - Camera");
+                        robot.jewelHitter.setPosition(0.7);
+
+                        try
+                        {
+                           TimeUnit.MILLISECONDS.sleep(500);
+                        } catch(InterruptedException e) {}
+
+                        ArmCenter = true;
+                        checkTime();
+                     }
+                     else if(col == CF_OpenCV_Library.ballColor.RIGHTISRED) {
+                        telemetry.addData("Right is"," red - Camera");
+                        robot.jewelHitter.setPosition(0.0);
+
+                        try
+                        {
+                           TimeUnit.MILLISECONDS.sleep(500);
+                        } catch(InterruptedException e) {}
+
+                        ArmCenter = true;
+                        checkTime();
+                     }
+
+                     checkTime();
+                  }
+
+                  telemetry.update();
+                  robot.tailLight.setPower(0.0);
+                  jewelHitter = jewelHitterState.ARMUP;
+                  break;
+               case ARMUP:
+                  robot.colorArm.setPosition(robot.colorArm.getPosition() + 0.001);
+                  if(robot.isArmUp(0.45f)) {
+                     jewelHitter = jewelHitterState.OTHERSTUFF;
+                  }
+                  break;
+               case OTHERSTUFF:
+                  robot.jewelHitter.setPosition(0.15);
 
                   try
                   {
-                     TimeUnit.MILLISECONDS.sleep(500);
+                     TimeUnit.MILLISECONDS.sleep(100);
                   } catch(InterruptedException e) {}
 
-                  ArmCenter = true;
-                  checkTime();
-               }
-
-               checkTime();
+                  if (ArmCenter = true)
+                  {
+                     robot.jewelHitter.setPosition(0.333);
+                  }
+                  jewelHitter = jewelHitterState.ARMUP2;
+                  break;
+               case ARMUP2:
+                  robot.colorArm.setPosition(robot.colorArm.getPosition() + 0.0009);
+                  if(robot.isArmUp(0.99f)) {
+                     jewelHitter = jewelHitterState.END;
+                  }
+                  break;
+               case END:
+                  Check = checks.MOVEMAST;
+                  break;
             }
-
-            telemetry.update();
-            robot.tailLight.setPower(0.0);
-            robot.armUp(0.45);
-            robot.jewelHitter.setPosition(0.15);
-
-            try
-            {
-               TimeUnit.MILLISECONDS.sleep(100);
-            } catch(InterruptedException e) {}
-
-            if (ArmCenter = true)
-            {
-               robot.jewelHitter.setPosition(0.333);
-            }
-            robot.armUp(1.0);
-            checkTime();
-            Check = checks.MOVEMAST;
             break;
 
          case MOVEMAST:

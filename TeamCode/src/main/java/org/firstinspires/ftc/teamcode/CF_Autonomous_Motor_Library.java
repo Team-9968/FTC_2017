@@ -38,6 +38,31 @@ public class CF_Autonomous_Motor_Library {
    Negative motor power makes it strafe left or drive backwards;
 
     */
+
+   boolean encoderDriveState(CF_Hardware robot, float power, int counts, double offset) {
+       motors.setMechPowers(robot, -1, power, power, power, power, 0);
+       if((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts))
+       {
+           return FALSE;
+       } else {
+           return TRUE;
+       }
+   }
+   boolean encoderRotateState(CF_Hardware robot, float power, int counts, double offset) {
+       motors.setMechPowers(robot, -1, power, -power, power, -power, 0);
+       if((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts))
+       {
+           return FALSE;
+       } else {
+           return TRUE;
+       }
+   }
+   double resetEncoders(CF_Hardware robot) {
+       motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+       return motors.getEncoderCounts(robot, 1);
+
+   }
    void EncoderIMUDrive(OpMode opmode, CF_Hardware robot, mode m, float power, int counts) {
       // Enum tells the method what operation it wants the robot to perform
       // DRIVE

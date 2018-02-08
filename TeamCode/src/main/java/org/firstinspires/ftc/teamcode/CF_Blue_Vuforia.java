@@ -37,6 +37,7 @@ public class CF_Blue_Vuforia extends OpMode
    int counts = 0;
    int rot = 0;
    int forwards = 0;
+   int nudge = 0;
    double offset;
 
    //A "checklist" of things this program must do IN ORDER for it to work
@@ -81,6 +82,8 @@ public class CF_Blue_Vuforia extends OpMode
    //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
    //a backup method in case the coach forgets to turn on the timer built into the robot app.
    int endTime = 29;
+   double servoIncrement = 0;
+
 
    private void checkTime()
    {
@@ -118,6 +121,7 @@ public class CF_Blue_Vuforia extends OpMode
 
             Bitmap y = vuforia.getMap();
             cam.save(this, y);
+            servoIncrement = robot.colorArm.getPosition();
             break;
 
          //Decides which color the ball on the right is and uses that to determine which way to strafe
@@ -125,7 +129,8 @@ public class CF_Blue_Vuforia extends OpMode
             telemetry.addData("Case Jewelpusher", "");
             switch (jewelHitter) {
                case ARMDOWN:
-                  robot.colorArm.setPosition(robot.colorArm.getPosition() - 0.0009);
+                  servoIncrement -= 0.001;
+                  robot.colorArm.setPosition(servoIncrement);
                   if(robot.isArmDown(0.11f)) {
                      jewelHitter = jewelHitterState.CHECKCOL;
                   }
@@ -214,10 +219,12 @@ public class CF_Blue_Vuforia extends OpMode
 
                   telemetry.update();
                   robot.tailLight.setPower(0.0);
+                  servoIncrement = robot.colorArm.getPosition();
                   jewelHitter = jewelHitterState.ARMUP;
                   break;
                case ARMUP:
-                  robot.colorArm.setPosition(robot.colorArm.getPosition() + 0.001);
+                  servoIncrement += 0.001;
+                  robot.colorArm.setPosition(servoIncrement);
                   if(robot.isArmUp(0.45f)) {
                      jewelHitter = jewelHitterState.OTHERSTUFF;
                   }
@@ -234,10 +241,12 @@ public class CF_Blue_Vuforia extends OpMode
                   {
                      robot.jewelHitter.setPosition(0.333);
                   }
+                  servoIncrement = robot.colorArm.getPosition();
                   jewelHitter = jewelHitterState.ARMUP2;
                   break;
                case ARMUP2:
-                  robot.colorArm.setPosition(robot.colorArm.getPosition() + 0.0009);
+                  servoIncrement += 0.001;
+                  robot.colorArm.setPosition(servoIncrement);
                   if(robot.isArmUp(0.99f)) {
                      jewelHitter = jewelHitterState.END;
                   }
@@ -257,16 +266,12 @@ public class CF_Blue_Vuforia extends OpMode
             switch(picSense) {
                case INITVUFORIA:
                   vuforia.activate();
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
-
+                  offset = auto.resetEncoders(robot);
                   picSense = picSenseState.DRIVEENCODERS;
                   break;
 
                case DRIVEENCODERS:
-                  motors.setMechPowers(robot, -1, -0.2f, -0.2f, -0.2f, -0.2f, 0);
-                  if(auto.ifDone(robot, offset, 100)){
+                  if(auto.encoderDriveState(robot, -0.2f, 100, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      picSense = picSenseState.SENSEPICTURE;
                   }
@@ -289,16 +294,19 @@ public class CF_Blue_Vuforia extends OpMode
                      rot = 575;
                      counts = 1500;
                      forwards = 240;
+                     nudge = 0;
                      // counts = 1200;
                   } else if(pic == RelicRecoveryVuMark.RIGHT){
                      counts = 1075;
                      rot = 1150;
                      forwards = 250;
+                     nudge = 75;
                      //counts = 1800;
                   } else {
                      rot = 575;
                      counts = 1150;
                      forwards = 260;
+                     nudge = 0;
                      // counts = 850;
                   }
                   vuforia.deactivate();
@@ -316,40 +324,31 @@ public class CF_Blue_Vuforia extends OpMode
          case PASTBALANCE:
             switch (pastBalance){
                case RESETENCODERS:
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
+                  offset = auto.resetEncoders(robot);
                   pastBalance = pastBalanceState.DRIVE;
                   break;
                case DRIVE:
-                  motors.setMechPowers(robot, 1, 0.2f, 0.2f, 0.2f, 0.2f, 0);
-                  if(auto.ifDone(robot, offset, counts)){
+                  if(auto.encoderDriveState(robot, -0.2f, counts, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      pastBalance = pastBalanceState.RESETENCODERS2;
                   }
                   break;
                case RESETENCODERS2:
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
+                  offset = auto.resetEncoders(robot);
                   pastBalance = pastBalanceState.ROTATE;
                   break;
                case ROTATE:
-                  motors.setMechPowers(robot, 1, -0.4f, 0.4f, -0.4f, 0.4f, 0);
-                  if(auto.ifDone(robot, offset, rot)){
+                  if(auto.encoderRotateState(robot, 0.4f, rot, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      pastBalance = pastBalanceState.RESETENCODERS3;
                   }
                   break;
                case RESETENCODERS3:
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
+                  offset = auto.resetEncoders(robot);
                   pastBalance = pastBalanceState.DRIVE2;
                   break;
                case DRIVE2:
-                  motors.setMechPowers(robot, 1, -0.2f, -0.2f, -0.2f, -0.2f, 0);
-                  if(auto.ifDone(robot, offset, forwards)){
+                  if(auto.encoderDriveState(robot, 0.2f, forwards, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      pastBalance = pastBalanceState.END;
                   }
@@ -385,14 +384,11 @@ public class CF_Blue_Vuforia extends OpMode
                   releaseBlock = releaseBlockState.RESETENCODERS;
                   break;
                case RESETENCODERS:
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
-                  releaseBlock = releaseBlockState.END;
+                  offset = auto.resetEncoders(robot);
+                  releaseBlock = releaseBlockState.DRIVE;
                   break;
                case DRIVE:
-                  motors.setMechPowers(robot, 1, -0.2f, -0.2f, -0.2f, -0.2f, 0);
-                  if(auto.ifDone(robot, offset, 75)){
+                  if(auto.encoderDriveState(robot, 0.2f, nudge, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      releaseBlock = releaseBlockState.END;
                   }
@@ -409,9 +405,7 @@ public class CF_Blue_Vuforia extends OpMode
 
             switch(park) {
                case RESETENCODERS1:
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
+                  offset = auto.resetEncoders(robot);
                   try
                   {
                      TimeUnit.MILLISECONDS.sleep(500);
@@ -419,16 +413,13 @@ public class CF_Blue_Vuforia extends OpMode
                   park = parkState.DRIVE1;
                   break;
                case DRIVE1:
-                  motors.setMechPowers(robot, 1, 0.2f, 0.2f, 0.2f, 0.2f, 0);
-                  if(auto.ifDone(robot, offset, 275)){
+                  if(auto.encoderDriveState(robot, -0.2f, 275, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      park = parkState.RESETENCODERS2;
                   }
                   break;
                case RESETENCODERS2:
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
+                  offset = auto.resetEncoders(robot);
                   try
                   {
                      TimeUnit.MILLISECONDS.sleep(200);
@@ -436,16 +427,13 @@ public class CF_Blue_Vuforia extends OpMode
                   park = parkState.DRIVE2;
                   break;
                case DRIVE2:
-                  motors.setMechPowers(robot, 1, -0.2f, -0.2f, -0.2f, -0.2f, 0);
-                  if(auto.ifDone(robot, offset, 200)){
+                  if(auto.encoderDriveState(robot, 0.2f, 200, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      park = parkState.RESETENCODERS3;
                   }
                   break;
                case RESETENCODERS3:
-                  motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                  motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                  offset = motors.getEncoderCounts(robot, 1);
+                  offset = auto.resetEncoders(robot);
                   try
                   {
                      TimeUnit.MILLISECONDS.sleep(100);
@@ -453,8 +441,7 @@ public class CF_Blue_Vuforia extends OpMode
                   park = parkState.DRIVE3;
                   break;
                case DRIVE3:
-                  motors.setMechPowers(robot, 1, 0.2f, 0.2f, 0.2f, 0.2f, 0);
-                  if(auto.ifDone(robot, offset, 200)){
+                  if(auto.encoderDriveState(robot, -0.2f, 200, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      park = parkState.END;
                   }

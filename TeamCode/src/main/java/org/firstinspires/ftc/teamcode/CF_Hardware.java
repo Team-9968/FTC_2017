@@ -140,4 +140,32 @@ public class CF_Hardware
          }
       }
    }
+
+
+
+   public void armLeft (double aimPos)
+   {
+      double currentPosition = jewelHitter.getPosition();
+
+      while (currentPosition > aimPos)
+      {
+         {
+            currentPosition = jewelHitter.getPosition();
+            jewelHitter.setPosition(currentPosition - 0.05);
+         }
+      }
+   }
+
+   public void armRight (double aimPos)
+   {
+      double currentPosition = jewelHitter.getPosition();
+
+      while (currentPosition < aimPos)
+      {
+         {
+            currentPosition = jewelHitter.getPosition();
+            jewelHitter.setPosition(currentPosition + 0.05);
+         }
+      }
+   }
 }

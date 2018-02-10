@@ -129,8 +129,6 @@ public class CF_Blue_Vuforia extends OpMode
             telemetry.addData("Case Jewelpusher", "");
             switch (jewelHitter) {
                case ARMDOWN:
-                  vuforia.activate();
-                  pic = vuforia.getMark();
                   servoIncrement -= 0.001;
                   robot.colorArm.setPosition(servoIncrement);
                   if(robot.isArmDown(0.11f)) {
@@ -267,13 +265,13 @@ public class CF_Blue_Vuforia extends OpMode
          case SENSEPICTURE:
             switch(picSense) {
                case INITVUFORIA:
-                  //vuforia.activate();
+                  vuforia.activate();
                   offset = auto.resetEncoders(robot);
                   picSense = picSenseState.DRIVEENCODERS;
                   break;
 
                case DRIVEENCODERS:
-                  if(auto.encoderDriveState(robot, -0.2f, 100, offset)){
+                  if(auto.encoderDriveState(robot, 0.2f, 100, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      picSense = picSenseState.SENSEPICTURE;
                   }
@@ -282,7 +280,7 @@ public class CF_Blue_Vuforia extends OpMode
                   try{
                      TimeUnit.MILLISECONDS.sleep(3000);
                   } catch (InterruptedException e) {}
-                  //pic = vuforia.getMark();
+                  pic = vuforia.getMark();
                   try{
                      TimeUnit.MILLISECONDS.sleep(500);
                   } catch (InterruptedException e) {}
@@ -294,19 +292,19 @@ public class CF_Blue_Vuforia extends OpMode
                   //1250 for near
                   if (pic == RelicRecoveryVuMark.CENTER) {
                      rot = 575;
-                     counts = 1500;
+                     counts = 1700;
                      forwards = 240;
                      nudge = 0;
                      // counts = 1200;
                   } else if(pic == RelicRecoveryVuMark.RIGHT){
-                     counts = 1075;
+                     counts = 1275;
                      rot = 1150;
                      forwards = 250;
                      nudge = 75;
                      //counts = 1800;
                   } else {
                      rot = 575;
-                     counts = 1150;
+                     counts = 1350;
                      forwards = 260;
                      nudge = 0;
                      // counts = 850;

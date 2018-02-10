@@ -53,7 +53,7 @@ public class CF_Blue_Vuforia extends OpMode
 
    private enum picSenseState
    {
-      INITVUFORIA, DRIVEENCODERS, SENSEPICTURE, END
+      INITVUFORIA, RESETENCODERS1, ROTATE1, RESETENCODERS2, ROTATE2, DRIVEENCODERS, SENSEPICTURE, END
    }
 
    private enum pastBalanceState
@@ -271,7 +271,7 @@ public class CF_Blue_Vuforia extends OpMode
                   break;
 
                case DRIVEENCODERS:
-                  if(auto.encoderDriveState(robot, 0.2f, 100, offset)){
+                  if(auto.encoderRotateState(robot, -0.2f, 100, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      picSense = picSenseState.SENSEPICTURE;
                   }
@@ -292,25 +292,35 @@ public class CF_Blue_Vuforia extends OpMode
                   //1250 for near
                   if (pic == RelicRecoveryVuMark.CENTER) {
                      rot = 575;
-                     counts = 1700;
+                     counts = 1500;
                      forwards = 240;
                      nudge = 0;
                      // counts = 1200;
                   } else if(pic == RelicRecoveryVuMark.RIGHT){
-                     counts = 1275;
+                     counts = 1075;
                      rot = 1150;
                      forwards = 250;
                      nudge = 75;
                      //counts = 1800;
                   } else {
                      rot = 575;
-                     counts = 1350;
+                     counts = 1150;
                      forwards = 260;
                      nudge = 0;
                      // counts = 850;
                   }
                   vuforia.deactivate();
-                  picSense = picSenseState.END;
+                  picSense = picSenseState.RESETENCODERS1;
+                  break;
+               case RESETENCODERS1:
+                  offset = auto.resetEncoders(robot);
+                  picSense = picSenseState.ROTATE1;
+                  break;
+               case ROTATE1:
+                  if(auto.encoderRotateState(robot, 0.2f, 100, offset)){
+                     motors.setMechPowers(robot, 1,0,0,0,0,0);
+                     picSense = picSenseState.END;
+                  }
                   break;
                case END:
                   Check = checks.PASTBALANCE;

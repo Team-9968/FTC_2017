@@ -129,6 +129,8 @@ public class CF_Blue_Vuforia extends OpMode
             telemetry.addData("Case Jewelpusher", "");
             switch (jewelHitter) {
                case ARMDOWN:
+                  vuforia.activate();
+                  pic = vuforia.getMark();
                   servoIncrement -= 0.001;
                   robot.colorArm.setPosition(servoIncrement);
                   if(robot.isArmDown(0.11f)) {
@@ -265,7 +267,7 @@ public class CF_Blue_Vuforia extends OpMode
          case SENSEPICTURE:
             switch(picSense) {
                case INITVUFORIA:
-                  vuforia.activate();
+                  //vuforia.activate();
                   offset = auto.resetEncoders(robot);
                   picSense = picSenseState.DRIVEENCODERS;
                   break;
@@ -280,7 +282,7 @@ public class CF_Blue_Vuforia extends OpMode
                   try{
                      TimeUnit.MILLISECONDS.sleep(3000);
                   } catch (InterruptedException e) {}
-                  pic = vuforia.getMark();
+                  //pic = vuforia.getMark();
                   try{
                      TimeUnit.MILLISECONDS.sleep(500);
                   } catch (InterruptedException e) {}

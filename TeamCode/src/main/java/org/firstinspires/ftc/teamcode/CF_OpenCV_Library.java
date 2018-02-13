@@ -85,11 +85,11 @@ public class CF_OpenCV_Library {
         Bitmap map = Bitmap.createBitmap(image.width(), image.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(image, map);
         System.out.println(MediaStore.Images.Media.insertImage(mode.hardwareMap.appContext.getContentResolver(), map, "FTC Pic", "FTC Pic"));
-        for (int y = (int)(image.size().height - 1); y > (int)(image.size().height * 0.6); y -= 2) {
+        for (int y = (int)((image.size().height - 1) * 0.85); y > (int)(image.size().height * 0.55); y -= 2) {
             for (int x = 0; x < image.size().width - 1; x += 2) {
-                if (image.get(y, x)[0] > 130 && image.get(y, x)[0] < 238 && image.get(y, x)[2] < 70) {
+                if (image.get(y, x)[0] > 150 && image.get(y, x)[0] < 255 && image.get(y, x)[2] < 70 && image.get(y, x)[1] < 100) {
                     red += x;
-                } else if (image.get(y, x)[2] > 100 && image.get(y, x)[2] < 192 && image.get(y, x)[0] < 58) {
+                } else if (image.get(y, x)[2] > 150 && image.get(y, x)[2] < 255 && image.get(y, x)[0] < 58) {
                     blue += x;
                 }
             }

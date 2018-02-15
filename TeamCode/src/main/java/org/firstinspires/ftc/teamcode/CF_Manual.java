@@ -57,6 +57,9 @@ public class CF_Manual extends OpMode {
     boolean down = false;
     boolean lastDown = false;
 
+    boolean up = false;
+    boolean lastUp = false;
+
     double start = 0;
     double end = 0;
 
@@ -167,6 +170,7 @@ public class CF_Manual extends OpMode {
         LB = gamepad2.left_bumper;
         B = gamepad2.b;
         X = gamepad2.x;
+        up = gamepad2.dpad_up;
 
         if(X) {
             position += 0.001;
@@ -204,6 +208,11 @@ public class CF_Manual extends OpMode {
             positionLower = 0.3;
         }
 
+        if(!lastUp && up) {
+            positionUpper = 0.68;
+            positionLower = 0.42;
+        }
+
         robot.clamp.setPosition(positionUpper);
         robot.lowerClamp.setPosition(positionLower);
 
@@ -215,5 +224,6 @@ public class CF_Manual extends OpMode {
         lastA = A;
         lastRB = RB;
         lastLB = LB;
+        lastUp = up;
     }
 }

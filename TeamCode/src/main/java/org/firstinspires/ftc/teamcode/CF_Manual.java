@@ -125,7 +125,7 @@ public class CF_Manual extends OpMode {
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
         // Mode for tank mode
         if (mode == 1) {
@@ -134,12 +134,12 @@ public class CF_Manual extends OpMode {
         // Mode for half power forward mechanum
         if (mode == 2) {
             driveMan.changeDirectonAndPower(0.5);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
         // Mode for full power backwards mechanum
         if (mode == 3) {
             driveMan.changeDirectonAndPower(-1);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
         changeDirectionLast = changeDirection;
     }

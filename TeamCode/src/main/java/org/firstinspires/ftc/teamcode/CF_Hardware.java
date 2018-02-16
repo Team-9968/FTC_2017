@@ -34,8 +34,8 @@ public class CF_Hardware
 
    public DcMotor tailLight = null;
 
-   public ColorSensor adafruitRGB = null;   //right when viewed from back of robot
-   public ColorSensor adafruitRGBTwo = null;  //left when viewed from back
+   public ColorSensor adafruitRGB = null;   //on the left when viewed with the lifter on the left
+   public ColorSensor adafruitRGBTwo = null;  //on the right with the lifter on the left
 
    BNO055IMU imu = null;
 
@@ -52,7 +52,6 @@ public class CF_Hardware
    public void init(HardwareMap ahwMap)
    {
       hwMap = ahwMap;
-
 
       //Sets motor directions and gives the names (In purple) of what each piece will be
       //named in the configuration file. If these names are off by even one letter, that piece of hardware
@@ -94,15 +93,13 @@ public class CF_Hardware
       limit = hwMap.get(DigitalChannel.class, "limit");
 
 
-      //makes sure the LEDS on the sensors are off to be polite to the drivers
+      //makes sure the LEDS on the sensors are off so we don't blind the drivers
       adafruitRGB.enableLed(false);
       adafruitRGBTwo.enableLed(false);
 
+      //sets init position of the servos so we stay within 18 inches
       colorArm.setPosition(0.90);
       jewelHitter.setPosition(0.333);
-
-
-      //sets init position of the servo so we stay within 18 inches
 
 
       BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

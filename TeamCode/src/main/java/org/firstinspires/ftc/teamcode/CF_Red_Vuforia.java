@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+//Pulls in variables and methods written in other files so we can use them in this one.
 import android.graphics.Bitmap;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -13,8 +14,7 @@ import java.util.concurrent.TimeUnit;
  * Created by dawson on 1/8/2018.
  */
 
-//Autonomous mode for starting on the red team, balancing stone nearest the cryptobox in between the balancing stones
-
+//Autonomous mode for starting on the red team, balancing stone nearest the cryptobox that is in between the balancing stones
 
 //Note: This program is only to be used when our team is on the red alliance, however,
    //it may easily be adapted for blue by switching the motor powers from positive values
@@ -46,7 +46,7 @@ public class CF_Red_Vuforia extends OpMode
     int nudge = 0;
     double offset;
 
-    //A "checklist" of things this program must do IN ORDER for it to work
+    //A list of all of the steps in this program
     private enum checks
     {
         GRABBLOCK, MOVEMAST, SENSEPICTURE, JEWELHITTER, PASTBALANCE, RELEASEBLOCK, PARK, END
@@ -77,7 +77,7 @@ public class CF_Red_Vuforia extends OpMode
         RESETENCODERS1, DRIVE1, RESETENCODERS2, DRIVE2, RESETENCODERS3, DRIVE3, END
     }
 
-    //Sets current stage of the "List"
+    //Sets current stages of the "List"
     checks Check = checks.GRABBLOCK;
     jewelHitterState jewelHitter = jewelHitterState.ARMDOWN;
     picSenseState picSense = picSenseState.INITVUFORIA;
@@ -132,7 +132,7 @@ public class CF_Red_Vuforia extends OpMode
                 break;
 
             //This method runs the color sensors and determines which jewel is which color
-           //and hits the correct jewel
+           //and uses that info to hit the correct jewel
             case JEWELHITTER:
                 telemetry.addData("Case Jewelpusher", "");
                 switch (jewelHitter) {
@@ -159,9 +159,7 @@ public class CF_Red_Vuforia extends OpMode
                         sensor.setType(robot);
                         CF_TypeEnum classification = sensor.setType(robot);
 
-                        if (classification == CF_TypeEnum.LEFTISBLUE) //&& cam_color == CF_OpenCV_Library.ballColor.BLUE) ||
-                        //(classification == CF_TypeEnum.RIGHTISBLUE && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-                        //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.BLUE))
+                        if (classification == CF_TypeEnum.LEFTISBLUE)
 
                         {
                             telemetry.addData("Right is"," blue");
@@ -176,9 +174,7 @@ public class CF_Red_Vuforia extends OpMode
                             checkTime();
                         }
 
-                        else if ((classification == CF_TypeEnum.LEFTISRED)) //&& cam_color == CF_OpenCV_Library.ballColor.RED)// ||
-                        //(classification == CF_TypeEnum.RIGHTISRED && cam_color == CF_OpenCV_Library.ballColor.UNKNOWN) ||
-                        //(classification == CF_TypeEnum.UNKNOWN && cam_color == CF_OpenCV_Library.ballColor.RED))
+                        else if ((classification == CF_TypeEnum.LEFTISRED))
 
                         {
                             telemetry.addData("Right is"," red");
@@ -199,6 +195,7 @@ public class CF_Red_Vuforia extends OpMode
                         {
                             telemetry.addData("Ball is", " unknown");
 
+                           //if the ball on the right is blue, the arm will move to knock off that ball.
                             if(col == CF_OpenCV_Library.ballColor.RIGHTISBLUE) {
                                 telemetry.addData("Right is"," blue - Camera");
                                 robot.jewelHitter.setPosition(0.0);
@@ -211,6 +208,8 @@ public class CF_Red_Vuforia extends OpMode
                                 ArmCenter = true;
                                 checkTime();
                             }
+
+                            //if the ball on the right is red, the arm will hit the blue ball.
                             else if(col == CF_OpenCV_Library.ballColor.RIGHTISRED) {
                                 telemetry.addData("Right is"," red - Camera");
                                 robot.jewelHitter.setPosition(0.7);
@@ -232,6 +231,7 @@ public class CF_Red_Vuforia extends OpMode
                         servoIncrement = robot.colorArm.getPosition();
                         jewelHitter = jewelHitterState.ARMUP;
                         break;
+
                     case ARMUP:
                         servoIncrement += 0.001;
                         robot.colorArm.setPosition(servoIncrement);
@@ -255,6 +255,7 @@ public class CF_Red_Vuforia extends OpMode
                         jewelHitter = jewelHitterState.ARMUP2;
                         servoIncrement = robot.colorArm.getPosition();
                         break;
+
                     case ARMUP2:
                         servoIncrement += 0.001;
                         robot.colorArm.setPosition(servoIncrement);
@@ -262,6 +263,7 @@ public class CF_Red_Vuforia extends OpMode
                             jewelHitter = jewelHitterState.END;
                         }
                         break;
+
                     case END:
                         Check = checks.MOVEMAST;
                         break;
@@ -280,7 +282,7 @@ public class CF_Red_Vuforia extends OpMode
                 break;
 
             //This state incorporates Vuforia to look at the the picture attached to the wall.
-           //Based off of the input from Vuforia, the robot willl drive a certain number of encoder counts
+           //Based off of the input from Vuforia, the robot will drive a certain number of encoder counts
             case SENSEPICTURE:
                 switch (picSense) {
                     case INITVUFORIA:

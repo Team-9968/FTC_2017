@@ -84,6 +84,8 @@ public class CF_Blue_Vuforia extends OpMode
    int endTime = 29;
    double servoIncrement = 0;
 
+   RelicRecoveryVuMark markIn = RelicRecoveryVuMark.UNKNOWN;
+
 
    private void checkTime()
    {
@@ -122,11 +124,16 @@ public class CF_Blue_Vuforia extends OpMode
             Bitmap y = vuforia.getMap();
             cam.save(this, y);
             servoIncrement = robot.colorArm.getPosition();
+            vuforia.activate();
             break;
 
          //Decides which color the ball on the right is and uses that to determine which way to strafe
          case JEWELHITTER:
             telemetry.addData("Case Jewelpusher", "");
+            markIn = vuforia.getMark();
+            if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+               pic = markIn;
+            }
             switch (jewelHitter) {
                case ARMDOWN:
                   servoIncrement -= 0.001;
@@ -258,14 +265,21 @@ public class CF_Blue_Vuforia extends OpMode
             break;
 
          case MOVEMAST:
+            markIn = vuforia.getMark();
+            if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+               pic = markIn;
+            }
             auto.clawMotorMove(robot, -1.0f, 2000);
             Check = checks.SENSEPICTURE;
             break;
 
          case SENSEPICTURE:
+            markIn = vuforia.getMark();
+            if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+               pic = markIn;
+            }
             switch(picSense) {
                case INITVUFORIA:
-                  vuforia.activate();
                   offset = auto.resetEncoders(robot);
                   picSense = picSenseState.DRIVEENCODERS;
                   break;
@@ -277,13 +291,10 @@ public class CF_Blue_Vuforia extends OpMode
                   }
                   break;
                case SENSEPICTURE:
-                  try{
-                     TimeUnit.MILLISECONDS.sleep(3000);
-                  } catch (InterruptedException e) {}
-                  pic = vuforia.getMark();
-                  try{
-                     TimeUnit.MILLISECONDS.sleep(500);
-                  } catch (InterruptedException e) {}
+                  markIn = vuforia.getMark();
+                  if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+                     pic = markIn;
+                  }
                   //auto.rotate(this, robot, -0.25f, 225);
                   telemetry.addData("pic", pic);
                   telemetry.update();

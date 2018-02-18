@@ -45,6 +45,23 @@ public class CF_Manual_Motor_Library {
         motors.setMechPowers(bot, DirectionPower, LFPower, RFPower, LRPower, RRPower, -rotate);
     }
 
+    // This runs the mech wheels.  The signs are appropriate to drive in the correct direction.  The exponent multiplies
+    // the control inputs to make it less sensitive.
+    void runMechWheels(CF_Hardware bot, double drive, double strafe, double rotate, int exp) {
+        strafe = Math.pow(strafe, exp);
+        drive = Math.pow(drive, exp);
+        rotate = Math.pow(rotate, exp);
+
+        // Sets the individual powers to the individual motors
+        LFPower = -strafe + drive;
+        RFPower = +strafe + drive;
+        LRPower = +strafe + drive;
+        RRPower = -strafe + drive;
+
+        // Sets the mechanum powers
+        motors.setMechPowers(bot, DirectionPower, LFPower, RFPower, LRPower, RRPower, -rotate);
+    }
+
     // This is just a mutator method to set the directionpower variable
     void changeDirectonAndPower(double power) {
         DirectionPower = power;

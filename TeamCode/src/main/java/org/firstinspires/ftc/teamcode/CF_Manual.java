@@ -57,8 +57,19 @@ public class CF_Manual extends OpMode {
     boolean down = false;
     boolean lastDown = false;
 
+    boolean up = false;
+    boolean lastUp = false;
+
     double start = 0;
     double end = 0;
+
+    double startTime = 0;
+
+    enum mastDown {
+        START, STOP, STANDBY
+    }
+
+    mastDown mDown = mastDown.STANDBY;
 
     public void init() {
         // Inits robot
@@ -122,7 +133,7 @@ public class CF_Manual extends OpMode {
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
         // Mode for tank mode
         if (mode == 1) {
@@ -131,12 +142,12 @@ public class CF_Manual extends OpMode {
         // Mode for half power forward mechanum
         if (mode == 2) {
             driveMan.changeDirectonAndPower(0.5);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
         // Mode for full power backwards mechanum
         if (mode == 3) {
             driveMan.changeDirectonAndPower(-1);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
         changeDirectionLast = changeDirection;
     }
@@ -148,15 +159,29 @@ public class CF_Manual extends OpMode {
         accessory.setPowerToPower(robot.mastMotor, gamepad2.left_stick_y, 3);
         down = gamepad2.dpad_down;
 
-        if(down && !lastDown) {
-            while(robot.limit.getState()) {
+        switch(mDown) {
+            case STANDBY:
+                if (down && !lastDown) {
+                    mDown = mastDown.START;
+                    startTime = getRuntime();
+                }
+                break;
+            case START:
                 accessory.setPowerToPower(robot.clawMotor, 1, 3);
                 accessory.setPowerToPower(robot.mastMotor, 1, 3);
+                // Implemented 5 second timeout
+                if (!robot.limit.getState() || getRuntime() - startTime > 5000) {
+                    mDown = mastDown.STOP;
+                }
+                break;
+            case STOP:
+                accessory.setPowerToPower(robot.clawMotor, 0, 3);
+                accessory.setPowerToPower(robot.mastMotor, 0, 3);
                 positionLower = 0.6;
                 positionUpper = 0.51;
-            }
+                mDown = mastDown.STANDBY;
+                break;
         }
-
     }
 
     // Clamps the block
@@ -167,6 +192,7 @@ public class CF_Manual extends OpMode {
         LB = gamepad2.left_bumper;
         B = gamepad2.b;
         X = gamepad2.x;
+        up = gamepad2.dpad_up;
 
         if(X) {
             position += 0.001;
@@ -204,6 +230,11 @@ public class CF_Manual extends OpMode {
             positionLower = 0.3;
         }
 
+        if(!lastUp && up) {
+            positionUpper = 0.68;
+            positionLower = 0.42;
+        }
+
         robot.clamp.setPosition(positionUpper);
         robot.lowerClamp.setPosition(positionLower);
 
@@ -215,5 +246,6 @@ public class CF_Manual extends OpMode {
         lastA = A;
         lastRB = RB;
         lastLB = LB;
+        lastUp = up;
     }
 }

@@ -63,6 +63,12 @@ public class CF_Manual extends OpMode {
     double start = 0;
     double end = 0;
 
+    enum mastDown {
+        START, STOP, STANDBY
+    }
+
+    mastDown mDown = mastDown.STANDBY;
+
     public void init() {
         // Inits robot
         robot.init(hardwareMap);
@@ -151,15 +157,27 @@ public class CF_Manual extends OpMode {
         accessory.setPowerToPower(robot.mastMotor, gamepad2.left_stick_y, 3);
         down = gamepad2.dpad_down;
 
-        if(down && !lastDown) {
-            while(robot.limit.getState()) {
+        switch(mDown) {
+            case STANDBY:
+                if (down && !lastDown) {
+                    mDown = mastDown.START;
+                }
+                break;
+            case START:
                 accessory.setPowerToPower(robot.clawMotor, 1, 3);
                 accessory.setPowerToPower(robot.mastMotor, 1, 3);
+                if (!robot.limit.getState()) {
+                    mDown = mastDown.STOP;
+                }
+                break;
+            case STOP:
+                accessory.setPowerToPower(robot.clawMotor, 0, 3);
+                accessory.setPowerToPower(robot.mastMotor, 0, 3);
                 positionLower = 0.6;
                 positionUpper = 0.51;
-            }
+                mDown = mastDown.STANDBY;
+                break;
         }
-
     }
 
     // Clamps the block

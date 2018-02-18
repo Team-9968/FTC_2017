@@ -12,6 +12,8 @@ import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by Ryley on 1/13/18.
@@ -22,9 +24,14 @@ public class CF_OpenCV_Library {
     CF_Globals globals = new CF_Globals();
     double red = 0;
     double blue = 0;
+    double redSize = 0;
+    double blueSize = 0;
+    double redMean = 0;
+    double blueMean = 0;
     private double[] ret = new double[3];
     Mat source;
     Mat image;
+
 //    private Mat image = new Mat(FtcRobotControllerActivity.getmRgba().cols(), FtcRobotControllerActivity.getmRgba().rows(), CvType.CV_8UC4);
 //    private Bitmap map = Bitmap.createBitmap(FtcRobotControllerActivity.getmRgba().width(), FtcRobotControllerActivity.getmRgba().height(), Bitmap.Config.ARGB_8888);
 
@@ -79,6 +86,10 @@ public class CF_OpenCV_Library {
     public ballColor getColor(OpMode mode, Mat input) {
         red = 0;
         blue = 0;
+        redSize = 0;
+        blueSize = 0;
+        redMean = 0;
+        blueMean = 0;
 
         Mat image = new Mat(input.cols(), input.rows(), CvType.CV_8UC4);
         Core.rotate(input, image, Core.ROTATE_90_CLOCKWISE);
@@ -89,27 +100,28 @@ public class CF_OpenCV_Library {
             for (int x = 0; x < image.size().width - 1; x += 2) {
                 if (image.get(y, x)[0] > 150 && image.get(y, x)[0] < 255 && image.get(y, x)[2] < 70 && image.get(y, x)[1] < 100) {
                     red += x;
+                    redSize ++;
                 } else if (image.get(y, x)[2] > 150 && image.get(y, x)[2] < 255 && image.get(y, x)[0] < 58) {
                     blue += x;
+                    blueSize++;
                 }
             }
         }
-        if (red > blue + 2500) {
+        redMean = red / redSize;
+        blueMean = blue / blueSize;
+
+        if (redMean > blueMean + 100) {
             color = ballColor.RIGHTISRED;
-        } else if (blue > red + 2500) {
+        } else if (blueMean > redMean + 100) {
             color = ballColor.RIGHTISBLUE;
         } else {
             color = ballColor.UNKNOWN;
         }
 
-        CF_Globals.setRed(red);
-        CF_Globals.setBlue(blue);
-        System.out.println("Red" + red);
-        System.out.println("Blue" + blue);
-//        } else {
-//            color = ballColor.UNKNOWN;
-//        }
-
+        //CF_Globals.setRed(red);
+        //CF_Globals.setBlue(blue);
+        System.out.println("Red" + redMean);
+        System.out.println("Blue" + blueMean);
         return color;
 
     }

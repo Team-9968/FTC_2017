@@ -90,6 +90,8 @@ public class CF_Red_Vuforia extends OpMode
     int endTime = 29;
     double servoIncrement = 0;
 
+    RelicRecoveryVuMark markIn = RelicRecoveryVuMark.UNKNOWN;
+
     private void checkTime()
     {
         // Kills the robot if time is over the endTime
@@ -275,7 +277,7 @@ public class CF_Red_Vuforia extends OpMode
             //After the jewel has been hit off, this state raises the glyph so
            //it does not interfere with the robot driving off of the balancing stone.
             case MOVEMAST:
-                auto.clawMotorMove(robot, -1.0f, 2000);
+                auto.clawMotorMove(robot, -1.0f, 500);
                 Check = checks.SENSEPICTURE;
                 break;
 
@@ -289,6 +291,10 @@ public class CF_Red_Vuforia extends OpMode
                         picSense = picSenseState.DRIVEENCODERS;
                         break;
                     case DRIVEENCODERS:
+                        markIn = vuforia.getMark();
+                        if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+                            pic = markIn;
+                        }
                         if(auto.encoderDriveState(robot, 0.2f, 130, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
@@ -298,7 +304,10 @@ public class CF_Red_Vuforia extends OpMode
                         try{
                             TimeUnit.MILLISECONDS.sleep(2000);
                         } catch (InterruptedException e) {}
-                        pic = vuforia.getMark();
+                        markIn = vuforia.getMark();
+                        if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+                            pic = vuforia.getMark();
+                        }
                         try{
                             TimeUnit.MILLISECONDS.sleep(500);
                         } catch (InterruptedException e) {}
@@ -377,7 +386,7 @@ public class CF_Red_Vuforia extends OpMode
 
                 switch(releaseBlock) {
                     case RELEASEBLOCK:
-                        auto.clawMotorMove(robot, 1.0f, 1500);
+                        auto.clawMotorMove(robot, 1.0f, 250);
                         try
                         {
                             TimeUnit.MILLISECONDS.sleep(500);

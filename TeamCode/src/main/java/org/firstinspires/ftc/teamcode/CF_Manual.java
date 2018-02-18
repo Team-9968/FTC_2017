@@ -63,6 +63,8 @@ public class CF_Manual extends OpMode {
     double start = 0;
     double end = 0;
 
+    double startTime = 0;
+
     enum mastDown {
         START, STOP, STANDBY
     }
@@ -161,12 +163,14 @@ public class CF_Manual extends OpMode {
             case STANDBY:
                 if (down && !lastDown) {
                     mDown = mastDown.START;
+                    startTime = getRuntime();
                 }
                 break;
             case START:
                 accessory.setPowerToPower(robot.clawMotor, 1, 3);
                 accessory.setPowerToPower(robot.mastMotor, 1, 3);
-                if (!robot.limit.getState()) {
+                // Implemented 5 second timeout
+                if (!robot.limit.getState() || getRuntime() - startTime > 5000) {
                     mDown = mastDown.STOP;
                 }
                 break;

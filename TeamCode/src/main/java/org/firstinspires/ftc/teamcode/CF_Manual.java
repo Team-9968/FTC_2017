@@ -80,6 +80,10 @@ public class CF_Manual extends OpMode {
 //        robot.colorArm.setPosition(1.0);
 
         end = start + 1719;
+        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Inits masts to down position
 //        while(robot.limit.getState()) {
@@ -207,6 +211,8 @@ public class CF_Manual extends OpMode {
                 positionLower = 0.3;
             } else if(positionLower == 0.3) {
                 positionLower = 0.6;
+            } else if(positionLower == 0.46) {
+                positionLower = 0.6;
             }
         }
 
@@ -216,6 +222,8 @@ public class CF_Manual extends OpMode {
             if(positionUpper == 0.51) {
                 positionUpper = 0.81;
             } else if(positionUpper == 0.81) {
+                positionUpper = 0.51;
+            } else if(positionUpper == 0.64) {
                 positionUpper = 0.51;
             }
         }
@@ -231,8 +239,8 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastUp && up) {
-            positionUpper = 0.68;
-            positionLower = 0.42;
+            positionUpper = 0.64;
+            positionLower = 0.46;
         }
 
         robot.clamp.setPosition(positionUpper);

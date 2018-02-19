@@ -269,7 +269,7 @@ public class CF_Blue_Vuforia extends OpMode
             if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                pic = markIn;
             }
-            auto.clawMotorMove(robot, -1.0f, 2000);
+            auto.clawMotorMove(robot, -1.0f, 500);
             Check = checks.SENSEPICTURE;
             break;
 
@@ -291,6 +291,7 @@ public class CF_Blue_Vuforia extends OpMode
                   }
                   break;
                case SENSEPICTURE:
+                  try{TimeUnit.MILLISECONDS.sleep(2000);} catch (InterruptedException e){}
                   markIn = vuforia.getMark();
                   if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                      pic = markIn;
@@ -381,7 +382,7 @@ public class CF_Blue_Vuforia extends OpMode
 
             switch(releaseBlock) {
                case RELEASEBLOCK:
-                  auto.clawMotorMove(robot, 1.0f, 1500);
+                  auto.clawMotorMove(robot, 1.0f, 250);
 
 
                   try

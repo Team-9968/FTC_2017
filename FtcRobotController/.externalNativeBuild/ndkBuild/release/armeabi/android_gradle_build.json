@@ -1,6 +1,6 @@
 {
   "buildFiles": [
-    "/Users/Ryley/FTC_2017/FtcRobotController/src/main/jniLibs/OpenCV.mk"
+    "C:\\projects\\FTC\\FTC_2017\\FtcRobotController\\src\\main\\jniLibs\\OpenCV.mk"
   ],
   "cleanCommands": [],
   "libraries": {},

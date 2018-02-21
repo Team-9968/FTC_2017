@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 //Autonomous mode for starting on the red team, pad nearest the cryptobox in b/w the balancing stones
 @Autonomous(name = "Blue Aim Vuforia", group = "Sensor")
 //@Disabled
-public class CF_Blue_Vuforia extends OpMode
+public class CF_Blue_Straight extends OpMode
 {
    //Allows this file to access pieces of hardware created in other files.
    CF_Hardware robot = new CF_Hardware();

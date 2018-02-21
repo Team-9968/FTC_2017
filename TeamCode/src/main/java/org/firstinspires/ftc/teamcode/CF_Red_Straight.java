@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 @Autonomous(name = "Red Aim Vuforia", group = "Sensor")
 //@Disabled
-public class CF_Red_Vuforia extends OpMode
+public class CF_Red_Straight extends OpMode
 {
     //Allows this file to access pieces of hardware created in other files.
     CF_Hardware robot = new CF_Hardware();

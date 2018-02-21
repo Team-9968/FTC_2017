@@ -50,7 +50,7 @@ public class CF_Manual_Motor_Library {
     void runMechWheels(CF_Hardware bot, double drive, double strafe, double rotate, int exp) {
         strafe = Math.pow(strafe, exp);
         drive = Math.pow(drive, exp);
-        rotate = 0.5 * Math.pow(rotate, exp);
+        rotate = 0.80 * Math.pow(rotate, exp);
 
         // Sets the individual powers to the individual motors
         LFPower = -strafe + drive;

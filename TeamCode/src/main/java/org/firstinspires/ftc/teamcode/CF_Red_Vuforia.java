@@ -44,6 +44,8 @@ public class CF_Red_Vuforia extends OpMode
     int rot = 0;
     int forwards = 0;
     int nudge = 0;
+    double jewelHitterPos = 0.333;
+    double jewelHitterIncrememt = 0;
     double offset;
 
     //A "checklist" of things this program must do IN ORDER for it to work
@@ -54,7 +56,7 @@ public class CF_Red_Vuforia extends OpMode
 
     private enum jewelHitterState
     {
-        ARMDOWN, CHECKCOL, ARMUP, OTHERSTUFF, ARMUP2, END
+        ARMDOWN, CHECKCOL, HITBALL, ARMUP, CENTERARM, OTHERSTUFF, ARMUP2, END
     }
 
     private enum picSenseState
@@ -139,7 +141,7 @@ public class CF_Red_Vuforia extends OpMode
                 telemetry.addData("Case Jewelpusher", "");
                 switch (jewelHitter) {
                     case ARMDOWN:
-                        servoIncrement -= 0.001;
+                        servoIncrement -= 0.0025;
                         robot.colorArm.setPosition(servoIncrement);
                         if(robot.isArmDown(0.11f)) {
                             jewelHitter = jewelHitterState.CHECKCOL;
@@ -167,7 +169,7 @@ public class CF_Red_Vuforia extends OpMode
 
                         {
                             telemetry.addData("Right is"," blue");
-                            robot.jewelHitter.setPosition(0.7);
+                            jewelHitterPos = 0.7;
 
                             try
                             {
@@ -184,7 +186,7 @@ public class CF_Red_Vuforia extends OpMode
 
                         {
                             telemetry.addData("Right is"," red");
-                            robot.jewelHitter.setPosition(0.0);
+                            jewelHitterPos = 0.0;
 
                             try
                             {
@@ -203,7 +205,7 @@ public class CF_Red_Vuforia extends OpMode
 
                             if(col == CF_OpenCV_Library.ballColor.RIGHTISBLUE) {
                                 telemetry.addData("Right is"," blue - Camera");
-                                robot.jewelHitter.setPosition(0.0);
+                                jewelHitterPos = 0.0;
 
                                 try
                                 {
@@ -215,7 +217,7 @@ public class CF_Red_Vuforia extends OpMode
                             }
                             else if(col == CF_OpenCV_Library.ballColor.RIGHTISRED) {
                                 telemetry.addData("Right is"," red - Camera");
-                                robot.jewelHitter.setPosition(0.7);
+                                jewelHitterPos = 0.7;
 
                                 try
                                 {
@@ -232,18 +234,41 @@ public class CF_Red_Vuforia extends OpMode
                         telemetry.update();
                         robot.tailLight.setPower(0.0);
                         servoIncrement = robot.colorArm.getPosition();
-                        jewelHitter = jewelHitterState.ARMUP;
+                        jewelHitterIncrememt = robot.jewelHitter.getPosition();
+                        jewelHitter = jewelHitterState.HITBALL;
+                        break;
+                    case HITBALL:
+                        if(jewelHitterPos < 0.33) {
+                            jewelHitterIncrememt -= 0.001;
+                        } else if(jewelHitterPos > 0.33) {
+                            jewelHitterIncrememt += 0.001;
+                        }
+                        robot.jewelHitter.setPosition(jewelHitterIncrememt);
+                        if(robot.isJewelHitterAtPos((float)jewelHitterPos)) {
+                            jewelHitter = jewelHitterState.ARMUP;
+                        }
                         break;
                     case ARMUP:
-                        servoIncrement += 0.001;
+                        servoIncrement += 0.0025;
                         robot.colorArm.setPosition(servoIncrement);
                         if (robot.isArmUp(0.45f)) {
 
+                            jewelHitter = jewelHitterState.CENTERARM;
+                        }
+                        jewelHitterIncrememt = robot.jewelHitter.getPosition();
+                        break;
+                    case CENTERARM:
+                        if(jewelHitterPos < 0.33) {
+                            jewelHitterIncrememt += 0.001;
+                        } else if(jewelHitterPos > 0.33) {
+                            jewelHitterIncrememt -= 0.001;
+                        }
+                        robot.jewelHitter.setPosition(jewelHitterIncrememt);
+                        if(robot.isJewelHitterAtPos(0.333f)) {
                             jewelHitter = jewelHitterState.OTHERSTUFF;
                         }
                         break;
                     case OTHERSTUFF:
-                        robot.jewelHitter.setPosition(0.15);
 
                         try
                         {
@@ -258,7 +283,7 @@ public class CF_Red_Vuforia extends OpMode
                         servoIncrement = robot.colorArm.getPosition();
                         break;
                     case ARMUP2:
-                        servoIncrement += 0.001;
+                        servoIncrement += 0.0025;
                         robot.colorArm.setPosition(servoIncrement);
                         if(robot.isArmUp(0.99f)) {
                             jewelHitter = jewelHitterState.END;
@@ -277,7 +302,9 @@ public class CF_Red_Vuforia extends OpMode
             //After the jewel has been hit off, this state raises the glyph so
            //it does not interfere with the robot driving off of the balancing stone.
             case MOVEMAST:
-                auto.clawMotorMove(robot, -1.0f, 500);
+                robot.clawMotor.setPower(-1.0f);
+                try {TimeUnit.MILLISECONDS.sleep(400);} catch (InterruptedException e) {}
+                robot.clawMotor.setPower(0.0f);
                 Check = checks.SENSEPICTURE;
                 break;
 
@@ -386,7 +413,9 @@ public class CF_Red_Vuforia extends OpMode
 
                 switch(releaseBlock) {
                     case RELEASEBLOCK:
-                        auto.clawMotorMove(robot, 1.0f, 250);
+                        robot.clawMotor.setPower(1.0f);
+                        try {TimeUnit.MILLISECONDS.sleep(200);} catch (InterruptedException e) {}
+                        robot.clawMotor.setPower(0.0f);
                         try
                         {
                             TimeUnit.MILLISECONDS.sleep(500);

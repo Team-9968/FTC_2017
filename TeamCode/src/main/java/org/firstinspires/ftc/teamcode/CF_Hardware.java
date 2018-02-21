@@ -134,6 +134,14 @@ public class CF_Hardware
        }
    }
 
+   public boolean isJewelHitterAtPos(float targetPos){
+      if(jewelHitter.getPosition() + 0.01 > targetPos && jewelHitter.getPosition() - 0.01 < targetPos) {
+         return TRUE;
+      } else {
+         return FALSE;
+      }
+   }
+
    public void armDown (double targetPos)
    {
       double currentPos = colorArm.getPosition();

@@ -438,6 +438,7 @@ public class CF_Autonomous_Motor_Library {
       while(Math.abs(robot.clawMotor.getCurrentPosition()) < Math.abs(counts))
       {
          robot.clawMotor.setPower(power);
+          System.out.println("Position " + robot.clawMotor.getCurrentPosition());
       }
 
       robot.clawMotor.setPower(0);

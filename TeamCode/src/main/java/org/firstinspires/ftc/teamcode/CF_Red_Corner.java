@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * Created by dawson on 2/18/2018.
  */
 
-@Autonomous(name = "Red 2", group = "Sensor")
+@Autonomous(name = "Red Auto Corner", group = "Sensor")
 //@Disabled
 public class CF_Red_Corner extends OpMode
 {
@@ -307,7 +307,7 @@ public class CF_Red_Corner extends OpMode
                   picSense = picSenseState.DRIVEENCODERS;
                   break;
                case DRIVEENCODERS:
-                  if(auto.encoderDriveState(robot, 0.2f, 400, offset)) {
+                  if(auto.encoderDriveState(robot, 0.2f, 600, offset)) {
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      picSense = picSenseState.SENSEPICTURE;
                   }
@@ -345,6 +345,7 @@ public class CF_Red_Corner extends OpMode
                case END:
                   Check = checks.PASTBALANCE;
                   motors.setMechPowers(robot, 1,0,0,0,0,0);
+                  break;
             }
             break;
 

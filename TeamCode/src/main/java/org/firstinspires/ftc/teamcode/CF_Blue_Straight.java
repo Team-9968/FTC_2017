@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 //Autonomous mode for starting on the red team, pad nearest the cryptobox in b/w the balancing stones
-@Autonomous(name = "Blue Aim Vuforia", group = "Sensor")
+@Autonomous(name = "Blue Auto Straight", group = "Sensor")
 //@Disabled
 public class CF_Blue_Straight extends OpMode
 {
@@ -230,7 +230,6 @@ public class CF_Blue_Straight extends OpMode
                   servoIncrement = robot.colorArm.getPosition();
                   jewelHitterIncrement = robot.jewelHitter.getPosition();
                   jewelHitter = jewelHitterState.HITBALL;
-                  jewelHitterIncrement = robot.jewelHitter.getPosition();
                   break;
                case HITBALL:
                   if(jewelHitterPos < 0.33) {
@@ -242,23 +241,29 @@ public class CF_Blue_Straight extends OpMode
                   if(robot.isJewelHitterAtPos((float)jewelHitterPos)) {
                      jewelHitter = jewelHitterState.ARMUP;
                   }
-                  break;
-               case ARMUP:
-                  servoIncrement += 0.025;
-                  robot.colorArm.setPosition(servoIncrement);
-                  if(robot.isArmUp(0.45f)) {
-                     jewelHitter = jewelHitterState.CENTERARM;
-                  }
+                  servoIncrement = robot.colorArm.getPosition();
                   jewelHitterIncrement = robot.jewelHitter.getPosition();
                   break;
-               case CENTERARM:
-                  if(jewelHitterPos < 0.33) {
-                     jewelHitterIncrement += 0.001;
-                  } else if(jewelHitterPos > 0.33) {
-                     jewelHitterIncrement -= 0.001;
+               case ARMUP:
+                  if(robot.isArmUp(0.99f)) {
+                     servoIncrement += 0;
+                  } else {
+                     servoIncrement += 0.0025;
                   }
-                  robot.jewelHitter.setPosition(jewelHitterIncrement);
                   if(robot.isJewelHitterAtPos(0.333f)) {
+                     jewelHitterIncrement += 0;
+                  } else {
+                     if(jewelHitterPos < 0.33) {
+                        jewelHitterIncrement += 0.015;
+                     } else if(jewelHitterPos > 0.33) {
+                        jewelHitterIncrement -= 0.015;
+                     }
+                  }
+
+                  robot.colorArm.setPosition(servoIncrement);
+                  robot.jewelHitter.setPosition(jewelHitterIncrement);
+
+                  if(robot.isArmUp(0.99f) && robot.isJewelHitterAtPos(0.333f)) {
                      jewelHitter = jewelHitterState.OTHERSTUFF;
                   }
                   break;
@@ -274,14 +279,7 @@ public class CF_Blue_Straight extends OpMode
                      robot.jewelHitter.setPosition(0.333);
                   }
                   servoIncrement = robot.colorArm.getPosition();
-                  jewelHitter = jewelHitterState.ARMUP2;
-                  break;
-               case ARMUP2:
-                  servoIncrement += 0.0025;
-                  robot.colorArm.setPosition(servoIncrement);
-                  if(robot.isArmUp(0.99f)) {
-                     jewelHitter = jewelHitterState.END;
-                  }
+                  jewelHitter = jewelHitterState.END;
                   break;
                case END:
                   Check = checks.MOVEMAST;
@@ -339,7 +337,7 @@ public class CF_Blue_Straight extends OpMode
                      counts = 1075;
                      rot = 1150;
                      forwards = 250;
-                     nudge = 75;
+                     nudge = 100;
                      //counts = 1800;
                   } else {
                      rot = 575;

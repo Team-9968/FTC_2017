@@ -38,6 +38,8 @@ public class CF_Red_Corner extends OpMode
    int forwards = 0;
    int nudge = 0;
    int rotate = 0;
+   double jewelHitterPos = 0.333;
+   double jewelHitterIncrememt = 0;
    double offset;
 
    //A list of all of the steps in this program
@@ -48,7 +50,7 @@ public class CF_Red_Corner extends OpMode
 
    private enum jewelHitterState
    {
-      ARMDOWN, CHECKCOL, ARMUP, OTHERSTUFF, ARMUP2, END
+      ARMDOWN, CHECKCOL, HITBALL, ARMUP, CENTERARM, OTHERSTUFF, END
    }
 
    private enum picSenseState
@@ -131,7 +133,7 @@ public class CF_Red_Corner extends OpMode
             telemetry.addData("Case Jewelpusher", "");
             switch (jewelHitter) {
                case ARMDOWN:
-                  servoIncrement -= 0.001;
+                  servoIncrement -= 0.0025;
                   robot.colorArm.setPosition(servoIncrement);
                   if(robot.isArmDown(0.11f)) {
                      jewelHitter = jewelHitterState.CHECKCOL;
@@ -157,7 +159,7 @@ public class CF_Red_Corner extends OpMode
 
                   {
                      telemetry.addData("Right is"," blue");
-                     robot.jewelHitter.setPosition(0.7);
+                     jewelHitterPos = 0.7;
 
                      try
                      {
@@ -172,7 +174,7 @@ public class CF_Red_Corner extends OpMode
 
                   {
                      telemetry.addData("Right is"," red");
-                     robot.jewelHitter.setPosition(0.0);
+                     jewelHitterPos = 0.0;
 
                      try
                      {
@@ -192,7 +194,7 @@ public class CF_Red_Corner extends OpMode
                      //if the ball on the right is blue, the arm will move to knock off that ball.
                      if(col == CF_OpenCV_Library.ballColor.RIGHTISBLUE) {
                         telemetry.addData("Right is"," blue - Camera");
-                        robot.jewelHitter.setPosition(0.0);
+                        jewelHitterPos = 0.0;
 
                         try
                         {
@@ -206,7 +208,7 @@ public class CF_Red_Corner extends OpMode
                      //if the ball on the right is red, the arm will hit the blue ball.
                      else if(col == CF_OpenCV_Library.ballColor.RIGHTISRED) {
                         telemetry.addData("Right is"," red - Camera");
-                        robot.jewelHitter.setPosition(0.7);
+                        jewelHitterPos = 0.7;
 
                         try
                         {
@@ -223,19 +225,47 @@ public class CF_Red_Corner extends OpMode
                   telemetry.update();
                   robot.tailLight.setPower(0.0);
                   servoIncrement = robot.colorArm.getPosition();
-                  jewelHitter = jewelHitterState.ARMUP;
+                  jewelHitterIncrememt = robot.jewelHitter.getPosition();
+                  jewelHitter = jewelHitterState.HITBALL;
+                  break;
+               case HITBALL:
+                  if(jewelHitterPos < 0.33) {
+                     jewelHitterIncrememt -= 0.001;
+                  } else if(jewelHitterPos > 0.33) {
+                     jewelHitterIncrememt += 0.001;
+                  }
+                  robot.jewelHitter.setPosition(jewelHitterIncrememt);
+                  if(robot.isJewelHitterAtPos((float)jewelHitterPos)) {
+                     jewelHitter = jewelHitterState.ARMUP;
+                  }
+                  servoIncrement = robot.colorArm.getPosition();
+                  jewelHitterIncrememt = robot.jewelHitter.getPosition();
                   break;
 
                case ARMUP:
-                  servoIncrement += 0.001;
-                  robot.colorArm.setPosition(servoIncrement);
-                  if (robot.isArmUp(0.45f)) {
+                  if(robot.isArmUp(0.99f)) {
+                     servoIncrement += 0;
+                  } else {
+                     servoIncrement += 0.0025;
+                  }
+                  if(robot.isJewelHitterAtPos(0.333f)) {
+                     jewelHitterIncrememt += 0;
+                  } else {
+                     if(jewelHitterPos < 0.33) {
+                        jewelHitterIncrememt += 0.015;
+                     } else if(jewelHitterPos > 0.33) {
+                        jewelHitterIncrememt -= 0.015;
+                     }
+                  }
 
+                  robot.colorArm.setPosition(servoIncrement);
+                  robot.jewelHitter.setPosition(jewelHitterIncrememt);
+
+                  if(robot.isArmUp(0.99f) && robot.isJewelHitterAtPos(0.333f)) {
                      jewelHitter = jewelHitterState.OTHERSTUFF;
                   }
                   break;
                case OTHERSTUFF:
-                  robot.jewelHitter.setPosition(0.15);
 
                   try
                   {
@@ -246,18 +276,9 @@ public class CF_Red_Corner extends OpMode
                   {
                      robot.jewelHitter.setPosition(0.333);
                   }
-                  jewelHitter = jewelHitterState.ARMUP2;
+                  jewelHitter = jewelHitterState.END;
                   servoIncrement = robot.colorArm.getPosition();
                   break;
-
-               case ARMUP2:
-                  servoIncrement += 0.001;
-                  robot.colorArm.setPosition(servoIncrement);
-                  if(robot.isArmUp(0.99f)) {
-                     jewelHitter = jewelHitterState.END;
-                  }
-                  break;
-
                case END:
                   Check = checks.MOVEMAST;
                   break;

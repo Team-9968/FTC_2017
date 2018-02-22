@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
    //to negative ones.
 
 
-@Autonomous(name = "Red Aim Vuforia", group = "Sensor")
+@Autonomous(name = "Red Auto Straight", group = "Sensor")
 //@Disabled
 public class CF_Red_Straight extends OpMode
 {
@@ -56,7 +56,7 @@ public class CF_Red_Straight extends OpMode
 
     private enum jewelHitterState
     {
-        ARMDOWN, CHECKCOL, HITBALL, ARMUP, CENTERARM, OTHERSTUFF, ARMUP2, END
+        ARMDOWN, CHECKCOL, HITBALL, ARMUP, CENTERARM, OTHERSTUFF, END
     }
 
     private enum picSenseState
@@ -246,25 +246,30 @@ public class CF_Red_Straight extends OpMode
                         if(robot.isJewelHitterAtPos((float)jewelHitterPos)) {
                             jewelHitter = jewelHitterState.ARMUP;
                         }
+                        servoIncrement = robot.colorArm.getPosition();
+                        jewelHitterIncrememt = robot.jewelHitter.getPosition();
                         break;
 
                     case ARMUP:
-                        servoIncrement += 0.0025;
-                        robot.colorArm.setPosition(servoIncrement);
-                        if (robot.isArmUp(0.45f)) {
-
-                            jewelHitter = jewelHitterState.CENTERARM;
+                        if(robot.isArmUp(0.99f)) {
+                            servoIncrement += 0;
+                        } else {
+                            servoIncrement += 0.0025;
                         }
-                        jewelHitterIncrememt = robot.jewelHitter.getPosition();
-                        break;
-                    case CENTERARM:
-                        if(jewelHitterPos < 0.33) {
-                            jewelHitterIncrememt += 0.001;
-                        } else if(jewelHitterPos > 0.33) {
-                            jewelHitterIncrememt -= 0.001;
-                        }
-                        robot.jewelHitter.setPosition(jewelHitterIncrememt);
                         if(robot.isJewelHitterAtPos(0.333f)) {
+                            jewelHitterIncrememt += 0;
+                        } else {
+                            if(jewelHitterPos < 0.33) {
+                                jewelHitterIncrememt += 0.015;
+                            } else if(jewelHitterPos > 0.33) {
+                                jewelHitterIncrememt -= 0.015;
+                            }
+                        }
+
+                        robot.colorArm.setPosition(servoIncrement);
+                        robot.jewelHitter.setPosition(jewelHitterIncrememt);
+
+                        if(robot.isArmUp(0.99f) && robot.isJewelHitterAtPos(0.333f)) {
                             jewelHitter = jewelHitterState.OTHERSTUFF;
                         }
                         break;
@@ -279,18 +284,9 @@ public class CF_Red_Straight extends OpMode
                         {
                             robot.jewelHitter.setPosition(0.333);
                         }
-                        jewelHitter = jewelHitterState.ARMUP2;
+                        jewelHitter = jewelHitterState.END;
                         servoIncrement = robot.colorArm.getPosition();
                         break;
-
-                    case ARMUP2:
-                        servoIncrement += 0.0025;
-                        robot.colorArm.setPosition(servoIncrement);
-                        if(robot.isArmUp(0.99f)) {
-                            jewelHitter = jewelHitterState.END;
-                        }
-                        break;
-
                     case END:
                         Check = checks.MOVEMAST;
                         break;
@@ -352,7 +348,7 @@ public class CF_Red_Straight extends OpMode
                             nudge = 50;
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
                             counts = 850;
-                            rot = 520;
+                            rot = 530;
                             forwards = 260;
                             nudge = 50;
                         } else {

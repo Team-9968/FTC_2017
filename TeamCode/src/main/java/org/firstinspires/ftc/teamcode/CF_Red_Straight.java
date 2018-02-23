@@ -133,12 +133,17 @@ public class CF_Red_Straight extends OpMode
                 Bitmap y = vuforia.getMap();
                 cam.save(this, y);
                 servoIncrement = robot.colorArm.getPosition();
+                vuforia.activate();
                 break;
 
             //This method runs the color sensors and determines which jewel is which color
            //and uses that info to hit the correct jewel
             case JEWELHITTER:
                 telemetry.addData("Case Jewelpusher", "");
+                markIn = vuforia.getMark();
+                if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+                    pic = markIn;
+                }
                 switch (jewelHitter) {
                     case ARMDOWN:
                         servoIncrement -= 0.0025;
@@ -300,6 +305,10 @@ public class CF_Red_Straight extends OpMode
             //After the jewel has been hit off, this state raises the glyph so
            //it does not interfere with the robot driving off of the balancing stone.
             case MOVEMAST:
+                markIn = vuforia.getMark();
+                if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
+                    pic = markIn;
+                }
                 robot.clawMotor.setPower(-1.0f);
                 try {TimeUnit.MILLISECONDS.sleep(400);} catch (InterruptedException e) {}
                 robot.clawMotor.setPower(0.0f);
@@ -311,7 +320,6 @@ public class CF_Red_Straight extends OpMode
             case SENSEPICTURE:
                 switch (picSense) {
                     case INITVUFORIA:
-                        vuforia.activate();
                         offset = auto.resetEncoders(robot);
                         picSense = picSenseState.DRIVEENCODERS;
                         break;

@@ -66,7 +66,7 @@ public class CF_Red_Turn extends OpMode
 
     private enum pastBalanceState
     {
-        RESETENCODERS, ROTATE, RESETENCODERS2, ROTATE2, RESETENCODERS3, DRIVE, END
+        RESETENCODERS, STRAFE, RESETENCODERS2, ROTATE, RESETENCODERS3, DRIVE, END
     }
 
     private enum releaseBlockState
@@ -320,7 +320,7 @@ public class CF_Red_Turn extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, 0.2f, 1200, offset)) {
+                        if(auto.encoderDriveState(robot, 0.2f, 1150, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -342,20 +342,20 @@ public class CF_Red_Turn extends OpMode
                         //1500 for middle
                         //1250 for near
                         if(pic == RelicRecoveryVuMark.LEFT) {
-                            strafe = 1200;
-                            rot = 600;
-                            forwards = 600;
-                            nudge = 50;
+                            strafe = 760;
+                            rot = 165;
+                            forwards = 100;
+                            nudge = 0;
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
-                            strafe = 850;
-                            rot = 400;
-                            forwards = 400;
-                            nudge = 50;
+                            strafe = 375;
+                            rot = 165;
+                            forwards = 100;
+                            nudge = 0;
                         } else {
-                            strafe = 600;
-                            rot = 200;
-                            forwards = 200;
-                            nudge = 100;
+                            strafe = 0;
+                            rot = 125;
+                            forwards = 150;
+                            nudge = 0;
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;
@@ -371,20 +371,20 @@ public class CF_Red_Turn extends OpMode
                 switch(pastBalance) {
                     case RESETENCODERS:
                         offset = auto.resetEncoders(robot);
-                        pastBalance = pastBalanceState.ROTATE;
+                        pastBalance = pastBalanceState.STRAFE;
                         break;
-                    case ROTATE:
-                        if(auto.encoderRotateState(robot, -0.4f, rot, offset)) {
+                    case STRAFE:
+                        if(auto.encoderStrafeState(robot, -0.6f, strafe, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
-                            pastBalance = pastBalanceState.RESETENCODERS3;
+                            pastBalance = pastBalanceState.RESETENCODERS2;
                         }
                         break;
                     case RESETENCODERS2:
                         offset = auto.resetEncoders(robot);
-                        pastBalance = pastBalanceState.ROTATE2;
+                        pastBalance = pastBalanceState.ROTATE;
                         break;
-                    case ROTATE2:
-                        if(auto.encoderRotateState(robot, 0.4f, rot, offset)) {
+                    case ROTATE:
+                        if(auto.encoderRotateState(robot, -0.4f, rot, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             pastBalance = pastBalanceState.RESETENCODERS3;
                         }
@@ -394,7 +394,7 @@ public class CF_Red_Turn extends OpMode
                         pastBalance = pastBalanceState.DRIVE;
                         break;
                     case DRIVE:
-                        if(auto.encoderDriveState(robot, 0.2f, forwards, offset)) {
+                        if(auto.encoderDriveState(robot, 1.0f, forwards, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             pastBalance = pastBalanceState.END;
                         }

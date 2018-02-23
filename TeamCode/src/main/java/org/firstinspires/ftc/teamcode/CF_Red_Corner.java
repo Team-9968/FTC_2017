@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Autonomous(name = "Red Auto Corner", group = "Sensor")
-//@Disabled
+@Disabled
 public class CF_Red_Corner extends OpMode
 {
    //Allows this file to access pieces of hardware created in other files.

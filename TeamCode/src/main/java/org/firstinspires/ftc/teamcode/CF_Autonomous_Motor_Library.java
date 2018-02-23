@@ -59,8 +59,12 @@ public class CF_Autonomous_Motor_Library {
    }
    boolean encoderStrafeState(CF_Hardware robot, float power, int counts, double offset) {
        motors.setMechPowers(robot, -1, power, -power, -power, power, 0);
-       if((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts)) {
-           return FALSE;
+       if(counts != 0) {
+           if ((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts)) {
+               return FALSE;
+           } else {
+               return TRUE;
+           }
        } else {
            return TRUE;
        }

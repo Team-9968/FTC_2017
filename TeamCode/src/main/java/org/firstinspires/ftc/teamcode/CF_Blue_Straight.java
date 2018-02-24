@@ -102,7 +102,12 @@ public class CF_Blue_Straight extends OpMode
    {
       msStuckDetectLoop = 15000;
       robot.init(hardwareMap);
+      robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+      robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+      robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+      robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
       vuforia.init(this);
+
    }
 
    @Override

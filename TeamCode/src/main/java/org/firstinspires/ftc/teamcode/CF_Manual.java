@@ -161,31 +161,31 @@ public class CF_Manual extends OpMode {
         //To get rid of the quick lift method, comment out everything in this method except for the top two lines.
         accessory.setPowerToPower(robot.clawMotor, gamepad2.right_stick_y, 3);
         accessory.setPowerToPower(robot.mastMotor, gamepad2.left_stick_y, 3);
-        down = gamepad2.dpad_down;
+ //       down = gamepad2.dpad_down;
 
-        switch(mDown) {
-            case STANDBY:
-                if (down && !lastDown) {
-                    mDown = mastDown.START;
-                    startTime = getRuntime();
-                }
-                break;
-            case START:
-                accessory.setPowerToPower(robot.clawMotor, 1, 3);
-                accessory.setPowerToPower(robot.mastMotor, 1, 3);
-                // Implemented 5 second timeout
-                if (!robot.limit.getState() || getRuntime() - startTime > 5000) {
-                    mDown = mastDown.STOP;
-                }
-                break;
-            case STOP:
-                accessory.setPowerToPower(robot.clawMotor, 0, 3);
-                accessory.setPowerToPower(robot.mastMotor, 0, 3);
-                positionLower = 0.6;
-                positionUpper = 0.51;
-                mDown = mastDown.STANDBY;
-                break;
-        }
+//        switch(mDown) {
+//            case STANDBY:
+//                if (down && !lastDown) {
+//                    mDown = mastDown.START;
+//                    startTime = getRuntime();
+//                }
+//                break;
+//            case START:
+//                accessory.setPowerToPower(robot.clawMotor, 1, 3);
+//                accessory.setPowerToPower(robot.mastMotor, 1, 3);
+//                // Implemented 5 second timeout
+//                if (!robot.limit.getState() || getRuntime() - startTime > 5000) {
+//                    mDown = mastDown.STOP;
+//                }
+//                break;
+//            case STOP:
+//                accessory.setPowerToPower(robot.clawMotor, 0, 3);
+//                accessory.setPowerToPower(robot.mastMotor, 0, 3);
+//                positionLower = 0.6;
+//                positionUpper = 0.51;
+//                mDown = mastDown.STANDBY;
+//                break;
+//        }
     }
 
     // Clamps the block

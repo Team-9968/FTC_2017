@@ -18,13 +18,13 @@ import java.util.concurrent.TimeUnit;
 //Autonomous mode for starting on the red team, balancing stone nearest the cryptobox that is in between the balancing stones
 
 //Note: This program is only to be used when our team is on the red alliance, however,
-   //it may easily be adapted for blue by switching the motor powers from positive values
-   //to negative ones.
+//it may easily be adapted for blue by switching the motor powers from positive values
+//to negative ones.
 
 
-@Autonomous(name = "Red Auto Straight", group = "Sensor")
+@Autonomous(name = "Blue Auto Turn", group = "Sensor")
 //@Disabled
-public class CF_Red_Straight extends OpMode
+public class CF_Blue_Turn extends OpMode
 {
     //Allows this file to access pieces of hardware created in other files.
     CF_Hardware robot = new CF_Hardware();
@@ -41,7 +41,7 @@ public class CF_Red_Straight extends OpMode
     CF_OpenCV_Library.ballColor col;
     RelicRecoveryVuMark pic;
 
-    int counts = 0;
+    int strafe = 0;
     int rot = 0;
     int forwards = 0;
     int nudge = 0;
@@ -67,7 +67,7 @@ public class CF_Red_Straight extends OpMode
 
     private enum pastBalanceState
     {
-        RESETENCODERS, DRIVE, RESETENCODERS2, ROTATE, RESETENCODERS3, DRIVE2, END
+        RESETENCODERS, ROTATE, RESETENCODERS2, STRAFE, RESETENCODERS3, ROTATE2, RESETENCODERS4, DRIVE, END
     }
 
     private enum releaseBlockState
@@ -121,10 +121,11 @@ public class CF_Red_Straight extends OpMode
     {
         switch (Check)
         {
-           //This method grabs the glyph and uses the phone's camera to take a picture
-           //to help determine ball color
+            //This method grabs the glyph and uses the phone's camera to take a picture
+            //to help determine ball color
             case GRABBLOCK:
                 resetStartTime();
+                vuforia.activate();
                 runTime.reset();
                 robot.clamp.setPosition(0.81);
                 robot.lowerClamp.setPosition(0.3);
@@ -138,11 +139,10 @@ public class CF_Red_Straight extends OpMode
                 Bitmap y = vuforia.getMap();
                 cam.save(this, y);
                 servoIncrement = robot.colorArm.getPosition();
-                vuforia.activate();
                 break;
 
             //This method runs the color sensors and determines which jewel is which color
-           //and uses that info to hit the correct jewel
+            //and uses that info to hit the correct jewel
             case JEWELHITTER:
                 telemetry.addData("Case Jewelpusher", "");
                 markIn = vuforia.getMark();
@@ -173,7 +173,7 @@ public class CF_Red_Straight extends OpMode
                         sensor.setType(robot);
                         CF_TypeEnum classification = sensor.setType(robot);
 
-                        if (classification == CF_TypeEnum.LEFTISBLUE)
+                        if (classification == CF_TypeEnum.LEFTISRED)
 
                         {
                             telemetry.addData("Right is"," blue");
@@ -188,7 +188,7 @@ public class CF_Red_Straight extends OpMode
                             checkTime();
                         }
 
-                        else if ((classification == CF_TypeEnum.LEFTISRED))
+                        else if ((classification == CF_TypeEnum.LEFTISBLUE))
 
                         {
                             telemetry.addData("Right is"," red");
@@ -209,8 +209,8 @@ public class CF_Red_Straight extends OpMode
                         {
                             telemetry.addData("Ball is", " unknown");
 
-                           //if the ball on the right is blue, the arm will move to knock off that ball.
-                            if(col == CF_OpenCV_Library.ballColor.RIGHTISBLUE) {
+                            //if the ball on the right is blue, the arm will move to knock off that ball.
+                            if(col == CF_OpenCV_Library.ballColor.RIGHTISRED) {
                                 telemetry.addData("Right is"," blue - Camera");
                                 jewelHitterPos = 0.0;
 
@@ -224,7 +224,7 @@ public class CF_Red_Straight extends OpMode
                             }
 
                             //if the ball on the right is red, the arm will hit the blue ball.
-                            else if(col == CF_OpenCV_Library.ballColor.RIGHTISRED) {
+                            else if(col == CF_OpenCV_Library.ballColor.RIGHTISBLUE) {
                                 telemetry.addData("Right is"," red - Camera");
                                 jewelHitterPos = 0.7;
 
@@ -308,7 +308,7 @@ public class CF_Red_Straight extends OpMode
                 break;
 
             //After the jewel has been hit off, this state raises the glyph so
-           //it does not interfere with the robot driving off of the balancing stone.
+            //it does not interfere with the robot driving off of the balancing stone.
             case MOVEMAST:
                 markIn = vuforia.getMark();
                 if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
@@ -321,7 +321,7 @@ public class CF_Red_Straight extends OpMode
                 break;
 
             //This state incorporates Vuforia to look at the the picture attached to the wall.
-           //Based off of the input from Vuforia, the robot will drive a certain number of encoder counts
+            //Based off of the input from Vuforia, the robot will drive a certain number of encoder counts
             case SENSEPICTURE:
                 switch (picSense) {
                     case INITVUFORIA:
@@ -333,7 +333,7 @@ public class CF_Red_Straight extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, 0.2f, 130, offset)) {
+                        if(auto.encoderDriveState(robot, 0.2f, -1150, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -355,20 +355,20 @@ public class CF_Red_Straight extends OpMode
                         //1500 for middle
                         //1250 for near
                         if(pic == RelicRecoveryVuMark.LEFT) {
-                            counts = 1200;
-                            rot = 510;
-                            forwards = 240;
-                            nudge = 50;
+                            strafe = 760;
+                            rot = 165;
+                            forwards = 100;
+                            nudge = 0;
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
-                            counts = 850;
-                            rot = 530;
-                            forwards = 260;
-                            nudge = 50;
+                            strafe = 375;
+                            rot = 165;
+                            forwards = 100;
+                            nudge = 0;
                         } else {
-                            counts = 1150;
-                            rot = 1000;
-                            forwards = 240;
-                            nudge = 100;
+                            strafe = 0;
+                            rot = 125;
+                            forwards = 150;
+                            nudge = 0;
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;
@@ -384,30 +384,39 @@ public class CF_Red_Straight extends OpMode
                 switch(pastBalance) {
                     case RESETENCODERS:
                         offset = auto.resetEncoders(robot);
-                        pastBalance = pastBalanceState.DRIVE;
+                        pastBalance = pastBalanceState.ROTATE;
                         break;
-                    case DRIVE:
-                        if(auto.encoderDriveState(robot, 0.2f, counts, offset)) {
-                            motors.setMechPowers(robot, 1,0,0,0,0,0);
+                    case ROTATE:
+                        if(auto.encoderRotateState(robot, -0.5f, 600, offset)) {
                             pastBalance = pastBalanceState.RESETENCODERS2;
                         }
                         break;
                     case RESETENCODERS2:
                         offset = auto.resetEncoders(robot);
-                        pastBalance = pastBalanceState.ROTATE;
+                        pastBalance = pastBalanceState.STRAFE;
                         break;
-                    case ROTATE:
-                        if(auto.encoderRotateState(robot, 0.4f, rot, offset)) {
+                    case STRAFE:
+                        if(auto.encoderStrafeState(robot, 0.6f, strafe, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             pastBalance = pastBalanceState.RESETENCODERS3;
                         }
                         break;
                     case RESETENCODERS3:
                         offset = auto.resetEncoders(robot);
-                        pastBalance = pastBalanceState.DRIVE2;
+                        pastBalance = pastBalanceState.ROTATE2;
                         break;
-                    case DRIVE2:
-                        if(auto.encoderDriveState(robot, 0.2f, forwards, offset)) {
+                    case ROTATE2:
+                        if(auto.encoderRotateState(robot, 0.4f, rot, offset)) {
+                            motors.setMechPowers(robot, 1,0,0,0,0,0);
+                            pastBalance = pastBalanceState.RESETENCODERS4;
+                        }
+                        break;
+                    case RESETENCODERS4:
+                        offset = auto.resetEncoders(robot);
+                        pastBalance = pastBalanceState.DRIVE;
+                        break;
+                    case DRIVE:
+                        if(auto.encoderDriveState(robot, 1.0f, forwards, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             pastBalance = pastBalanceState.END;
                         }

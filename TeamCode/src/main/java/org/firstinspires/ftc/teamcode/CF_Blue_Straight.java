@@ -111,6 +111,7 @@ public class CF_Blue_Straight extends OpMode
                }
                break;
             case END:
+               Check = checks.END;
                requestOpModeStop();
                break;
 

@@ -72,6 +72,11 @@ public class CF_Blue_Straight extends OpMode
       RESETENCODERS1, DRIVE1, RESETENCODERS2, DRIVE2, RESETENCODERS3, DRIVE3, END
    }
 
+   private enum endState
+   {
+      RESETENCODERS, DRIVE, END
+   }
+
    //Sets current stage of the "List"
    checks Check = checks.GRABBLOCK;
    jewelHitterState jewelHitter = jewelHitterState.ARMDOWN;
@@ -79,10 +84,11 @@ public class CF_Blue_Straight extends OpMode
    pastBalanceState pastBalance = pastBalanceState.RESETENCODERS;
    releaseBlockState releaseBlock = releaseBlockState.RELEASEBLOCK;
    parkState park = parkState.RESETENCODERS1;
+   endState end = endState.RESETENCODERS;
 
    //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
    //a backup method in case the coach forgets to turn on the timer built into the robot app.
-   int endTime = 29;
+   int endTime = 27;
    double servoIncrement = 0;
 
    RelicRecoveryVuMark markIn = RelicRecoveryVuMark.UNKNOWN;
@@ -93,7 +99,22 @@ public class CF_Blue_Straight extends OpMode
       // Kills the robot if time is over the endTime
       if(getRuntime() >= endTime)
       {
-         requestOpModeStop();
+         switch(end) {
+            case RESETENCODERS:
+               offset = auto.resetEncoders(robot);
+               end = endState.DRIVE;
+               break;
+            case DRIVE:
+               if(auto.encoderDriveState(robot, -0.2f, 100, offset)){
+                  motors.setMechPowers(robot, 1,0,0,0,0,0);
+                  end = endState.END;
+               }
+               break;
+            case END:
+               requestOpModeStop();
+               break;
+
+         }
       }
    }
 

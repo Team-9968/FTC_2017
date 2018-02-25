@@ -96,7 +96,7 @@ public class CF_Red_Straight extends OpMode
 
     //Ensures that we do not go over thirty seconds of runtime. This endtime variable is
     //a backup method in case the coach forgets to turn on the timer built into the robot app.
-    int endTime = 29;
+    int endTime = 27;
     double servoIncrement = 0;
 
     RelicRecoveryVuMark markIn = RelicRecoveryVuMark.UNKNOWN;
@@ -112,7 +112,7 @@ public class CF_Red_Straight extends OpMode
                     end = endState.DRIVE;
                     break;
                 case DRIVE:
-                    if(auto.encoderDriveState(robot, -0.2f, 100, offset)){
+                    if(auto.encoderDriveState(robot, -0.2f, 50, offset)){
                         motors.setMechPowers(robot, 1,0,0,0,0,0);
                         end = endState.END;
                     }
@@ -378,14 +378,14 @@ public class CF_Red_Straight extends OpMode
                         //1250 for near
                         if(pic == RelicRecoveryVuMark.LEFT) {
                             counts = 1200;
-                            rot = 510;
+                            rot = 525;
                             forwards = 240;
                             nudge = 50;
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
                             counts = 850;
                             rot = 530;
                             forwards = 260;
-                            nudge = 50;
+                            nudge = 0;
                         } else {
                             counts = 1150;
                             rot = 1000;

@@ -105,7 +105,7 @@ public class CF_Blue_Straight extends OpMode
                end = endState.DRIVE;
                break;
             case DRIVE:
-               if(auto.encoderDriveState(robot, -0.2f, 100, offset)){
+               if(auto.encoderDriveState(robot, -0.2f, 50, offset)){
                   motors.setMechPowers(robot, 1,0,0,0,0,0);
                   end = endState.END;
                }
@@ -355,19 +355,19 @@ public class CF_Blue_Straight extends OpMode
                   //1500 for middle
                   //1250 for near
                   if (pic == RelicRecoveryVuMark.CENTER) {
-                     rot = 575;
+                     rot = 515;
                      counts = 1500;
                      forwards = 240;
                      nudge = 0;
                      // counts = 1200;
                   } else if(pic == RelicRecoveryVuMark.RIGHT){
                      counts = 1075;
-                     rot = 1150;
+                     rot = 1070;
                      forwards = 250;
-                     nudge = 100;
+                     nudge = 0;
                      //counts = 1800;
                   } else {
-                     rot = 575;
+                     rot = 540;
                      counts = 1150;
                      forwards = 260;
                      nudge = 0;

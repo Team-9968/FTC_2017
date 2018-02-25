@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 //Pulls in variables and methods written in other files so we can use them in this one.
 import android.graphics.Bitmap;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Autonomous(name = "Blue Auto Turn", group = "Sensor")
-//@Disabled
+@Disabled
 public class CF_Blue_Turn extends OpMode
 {
     //Allows this file to access pieces of hardware created in other files.

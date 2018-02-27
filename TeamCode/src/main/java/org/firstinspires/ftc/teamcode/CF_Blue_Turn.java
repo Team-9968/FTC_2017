@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Autonomous(name = "Blue Auto Turn", group = "Sensor")
-@Disabled
+//@Disabled
 public class CF_Blue_Turn extends OpMode
 {
     //Allows this file to access pieces of hardware created in other files.
@@ -134,7 +134,6 @@ public class CF_Blue_Turn extends OpMode
                 Check = checks.JEWELHITTER;
                 Mat x = vuforia.getFrame();
                 telemetry.addData("Found picture", "Found");
-                telemetry.update();
                 col = cam.getColor(this, x);
 
                 Bitmap y = vuforia.getMap();
@@ -241,7 +240,6 @@ public class CF_Blue_Turn extends OpMode
                             checkTime();
                         }
 
-                        telemetry.update();
                         robot.tailLight.setPower(0.0);
                         servoIncrement = robot.colorArm.getPosition();
                         jewelHitterIncrememt = robot.jewelHitter.getPosition();
@@ -311,6 +309,7 @@ public class CF_Blue_Turn extends OpMode
             //After the jewel has been hit off, this state raises the glyph so
             //it does not interfere with the robot driving off of the balancing stone.
             case MOVEMAST:
+                telemetry.addData("Move Mast", "");
                 markIn = vuforia.getMark();
                 if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                     pic = markIn;
@@ -324,6 +323,7 @@ public class CF_Blue_Turn extends OpMode
             //This state incorporates Vuforia to look at the the picture attached to the wall.
             //Based off of the input from Vuforia, the robot will drive a certain number of encoder counts
             case SENSEPICTURE:
+                telemetry.addData("Sense Picture", picSense);
                 switch (picSense) {
                     case INITVUFORIA:
                         offset = auto.resetEncoders(robot);
@@ -334,7 +334,7 @@ public class CF_Blue_Turn extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, 0.2f, -1150, offset)) {
+                        if(auto.encoderDriveState(robot, -0.2f, 1050, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -347,22 +347,16 @@ public class CF_Blue_Turn extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = vuforia.getMark();
                         }
-                        try{
-                            TimeUnit.MILLISECONDS.sleep(500);
-                        } catch (InterruptedException e) {}
                         telemetry.addData("pic", pic);
-                        telemetry.update();
-                        //1875 for far
-                        //1500 for middle
-                        //1250 for near
-                        if(pic == RelicRecoveryVuMark.LEFT) {
+
+                        if(pic == RelicRecoveryVuMark.RIGHT) {
                             strafe = 760;
                             rot = 165;
                             forwards = 100;
                             nudge = 0;
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
-                            strafe = 375;
-                            rot = 165;
+                            strafe = 325;
+                            rot = 150;
                             forwards = 100;
                             nudge = 0;
                         } else {
@@ -388,7 +382,7 @@ public class CF_Blue_Turn extends OpMode
                         pastBalance = pastBalanceState.ROTATE;
                         break;
                     case ROTATE:
-                        if(auto.encoderRotateState(robot, -0.5f, 600, offset)) {
+                        if(auto.encoderRotateState(robot, -0.2f, 1530, offset)) {
                             pastBalance = pastBalanceState.RESETENCODERS2;
                         }
                         break;
@@ -417,7 +411,7 @@ public class CF_Blue_Turn extends OpMode
                         pastBalance = pastBalanceState.DRIVE;
                         break;
                     case DRIVE:
-                        if(auto.encoderDriveState(robot, 1.0f, forwards, offset)) {
+                        if(auto.encoderDriveState(robot, 0.75f, forwards, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             pastBalance = pastBalanceState.END;
                         }
@@ -519,5 +513,6 @@ public class CF_Blue_Turn extends OpMode
                 break;
         }
         checkTime();
+        telemetry.update();
     }
 }

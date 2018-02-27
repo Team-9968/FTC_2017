@@ -48,9 +48,9 @@ public class CF_Manual_Motor_Library {
     // This runs the mech wheels.  The signs are appropriate to drive in the correct direction.  The exponent multiplies
     // the control inputs to make it less sensitive.
     void runMechWheels(CF_Hardware bot, double drive, double strafe, double rotate, int exp) {
-        strafe = Math.pow(strafe, exp);
-        drive = Math.pow(drive, exp);
-        rotate = 0.80 * Math.pow(rotate, exp);
+        strafe = 0.33 * Math.pow(strafe, exp);
+        drive = 0.33 * Math.pow(drive, exp);
+        rotate = 0.33 * Math.pow(rotate, exp); // 0.8
 
         // Sets the individual powers to the individual motors
         LFPower = -strafe + drive;

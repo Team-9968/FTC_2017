@@ -50,6 +50,8 @@ public class CF_Blue_Turn extends OpMode
     double jewelHitterIncrememt = 0;
     double offset;
 
+    double multiplier = 16/45;
+
     //A list of all of the steps in this program
     private enum checks
     {

@@ -125,6 +125,12 @@ public class CF_OpenCV_Library {
         System.out.println("BlueMean" + blueMean);
         return color;
 
+
+
+    }
+
+    public void getPosition(Mat input) {
+
     }
 
 //    public double[] getRGB(int x, int y) {

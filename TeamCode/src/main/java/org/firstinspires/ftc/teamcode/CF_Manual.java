@@ -30,6 +30,8 @@ public class CF_Manual extends OpMode {
 
     double positionUpper = 0.51;
     double positionLower = 0.6;
+    double topRightClawPos = 0.5;
+    double topLeftClawPos = 0.5;
 
     boolean changeDirectionLast = false;
     boolean changeDirection = false;
@@ -60,6 +62,9 @@ public class CF_Manual extends OpMode {
     boolean up = false;
     boolean lastUp = false;
 
+    boolean left = false;
+    boolean lastLeft = false;
+
     double start = 0;
     double end = 0;
 
@@ -69,7 +74,12 @@ public class CF_Manual extends OpMode {
         START, STOP, STANDBY
     }
 
+    enum runClaws{
+        STOP, FORWARDS, BACKWARDS
+    }
+
     mastDown mDown = mastDown.STANDBY;
+    runClaws claws = runClaws.STOP;
 
     public void init() {
         // Inits robot
@@ -197,6 +207,32 @@ public class CF_Manual extends OpMode {
         B = gamepad2.b;
         X = gamepad2.x;
         up = gamepad2.dpad_up;
+        left = gamepad2.dpad_left;
+
+        if(left && !lastLeft) {
+            if(claws == runClaws.STOP) {
+                claws = runClaws.FORWARDS;
+            } else if(claws == runClaws.FORWARDS){
+                claws = runClaws.BACKWARDS;
+            } else if(claws == runClaws.BACKWARDS) {
+                claws = runClaws.STOP;
+            }
+        }
+
+        switch(claws) {
+            case STOP:
+                topRightClawPos = 0.5;
+                topLeftClawPos = 0.5;
+                break;
+            case FORWARDS:
+                topRightClawPos = 0.9;
+                topLeftClawPos = 0.1;
+                break;
+            case BACKWARDS:
+                topRightClawPos = 0.1;
+                topLeftClawPos = 0.9;
+                break;
+        }
 
         if(X) {
             position += 0.001;
@@ -245,6 +281,8 @@ public class CF_Manual extends OpMode {
 
         robot.clamp.setPosition(positionUpper);
         robot.lowerClamp.setPosition(positionLower);
+        robot.topRightClaw.setPosition(topRightClawPos);
+        robot.topLeftClaw.setPosition(topLeftClawPos);
 
         //lower = 0.386
         //upper = 0.71  0.51
@@ -255,5 +293,6 @@ public class CF_Manual extends OpMode {
         lastRB = RB;
         lastLB = LB;
         lastUp = up;
+        lastLeft = left;
     }
 }

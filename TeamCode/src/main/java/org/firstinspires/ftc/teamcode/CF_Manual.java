@@ -28,7 +28,7 @@ public class CF_Manual extends OpMode {
     double position = 0.33;
     int mode = 0;
 
-    double positionUpper = 0.51;
+    double positionUpper = 0.81;
     double positionLower = 0.6;
     double topRightClawPos = 0.5;
     double topLeftClawPos = 0.5;
@@ -64,6 +64,9 @@ public class CF_Manual extends OpMode {
 
     boolean left = false;
     boolean lastLeft = false;
+
+    boolean aDriver = false;
+    boolean lastADriver = false;
 
     double start = 0;
     double end = 0;
@@ -106,7 +109,7 @@ public class CF_Manual extends OpMode {
 
     public void loop(){
         // Calls appropriate methods to run the robot.  These 3 methods do everything that the robot does, excepting telemetry
-        //updateMode();
+        updateMode();
         drive();
         lift();
         clamp();
@@ -123,18 +126,16 @@ public class CF_Manual extends OpMode {
 
     // Updates drive mode.  0 = normal mech, 1 = tank, 2 = slow mech, 3 = backwards mech
     public void updateMode() {
-        if(gamepad1.a) {
-            if(mode == 3) {
+        aDriver = gamepad1.a;
+        if(aDriver && !lastADriver) {
+            if(mode == 1) {
                 mode = 0;
             }
-            else if(mode < 3) {
-                mode++;
+            else if(mode == 0) {
+                mode = 1;
             }
-
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (Exception e) {}
         }
+        lastADriver = aDriver;
     }
     // Implements the drive modes
     public void drive() {
@@ -147,11 +148,11 @@ public class CF_Manual extends OpMode {
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3, 7);
         }
-        // Mode for tank mode
+        // Mode for slow mode
         if (mode == 1) {
-            driveMan.tankMode(robot, invert * gamepad1.left_stick_y, invert * gamepad1.right_stick_y);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3, 7, 0.6);
         }
         // Mode for half power forward mechanum
         if (mode == 2) {
@@ -163,6 +164,7 @@ public class CF_Manual extends OpMode {
             driveMan.changeDirectonAndPower(-1);
             driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
+        telemetry.addData("mode", mode);
         changeDirectionLast = changeDirection;
     }
 
@@ -265,12 +267,12 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastRB && RB) {
-            positionUpper = 0.51;
+            positionUpper = 0.81;
             positionLower = 0.6;
         }
 
         if(!lastLB && LB) {
-            positionUpper = 0.81;
+            positionUpper = 0.51;
             positionLower = 0.3;
         }
 

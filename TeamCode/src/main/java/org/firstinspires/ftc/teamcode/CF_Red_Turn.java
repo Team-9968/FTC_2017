@@ -136,10 +136,10 @@ public class CF_Red_Turn extends OpMode
     {
         msStuckDetectLoop = 15000;
         robot.init(hardwareMap);
-        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         vuforia.init(this);
     }
 
@@ -376,7 +376,7 @@ public class CF_Red_Turn extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, 0.2f, (int)(1150 * multiplier), offset)) {
+                        if(auto.encoderDriveState(robot, 0.2f, (int)(1000 * multiplier), offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -401,17 +401,17 @@ public class CF_Red_Turn extends OpMode
                             strafe = (int)(760 * multiplier);
                             rot = (int)(165 * multiplier);
                             forwards = (int)(100 * multiplier);
-                            nudge = (int)(0 * multiplier);
+                            nudge = (int)(50 * multiplier);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
                             strafe = (int)(375 * multiplier);
                             rot = (int)(165 * multiplier);
                             forwards = (int)(100 * multiplier);
-                            nudge = (int)(0 * multiplier);
+                            nudge = (int)(100 * multiplier);
                         } else {
                             strafe = (int)(0 * multiplier);
-                            rot = (int)(125 * multiplier);
+                            rot = (int)(175 * multiplier);
                             forwards = (int)(150 * multiplier);
-                            nudge = (int)(0 * multiplier);
+                            nudge = (int)(150 * multiplier);
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;
@@ -482,9 +482,13 @@ public class CF_Red_Turn extends OpMode
                     case RESETENCODERS:
                         offset = auto.resetEncoders(robot);
                         releaseBlock = releaseBlockState.DRIVE;
+                        try
+                        {
+                            TimeUnit.MILLISECONDS.sleep(1000);
+                        } catch(InterruptedException e) {}
                         break;
                     case DRIVE:
-                        if(auto.encoderDriveState(robot, 0.2f, nudge, offset)) {
+                        if(auto.encoderDriveState(robot, 0.8f, nudge, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             releaseBlock = releaseBlockState.END;
                         }

@@ -49,7 +49,7 @@ public class CF_Red_Straight extends OpMode
     double jewelHitterIncrememt = 0;
     double offset;
 
-    double multiplier = 16/45;
+    double multiplier = 0.355;
 
     //A list of all of the steps in this program
     private enum checks
@@ -133,10 +133,10 @@ public class CF_Red_Straight extends OpMode
     {
         msStuckDetectLoop = 15000;
         robot.init(hardwareMap);
-        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         vuforia.init(this);
     }
 
@@ -382,17 +382,17 @@ public class CF_Red_Straight extends OpMode
                             counts = (int)(1200 * multiplier);
                             rot = (int)(525 * multiplier);
                             forwards = (int)(240 * multiplier);
-                            nudge = (int)(50 * multiplier);
+                            nudge = (int)(150 * multiplier);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
                             counts = (int)(850 * multiplier);
-                            rot = (int)(530 * multiplier);
+                            rot = (int)(545 * multiplier);
                             forwards = (int)(260 * multiplier);
-                            nudge = (int)(0 * multiplier);
+                            nudge = (int)(150 * multiplier);
                         } else {
                             counts = (int)(1150 * multiplier);
                             rot = (int)(1000 * multiplier);
                             forwards = (int)(240 * multiplier);
-                            nudge = (int)(100 * multiplier);
+                            nudge = (int)(200 * multiplier);
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;
@@ -465,7 +465,7 @@ public class CF_Red_Straight extends OpMode
                         releaseBlock = releaseBlockState.DRIVE;
                         break;
                     case DRIVE:
-                        if(auto.encoderDriveState(robot, 0.2f, nudge, offset)) {
+                        if(auto.encoderDriveState(robot, 0.8f, nudge, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             releaseBlock = releaseBlockState.END;
                         }

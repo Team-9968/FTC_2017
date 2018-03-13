@@ -142,7 +142,7 @@ public class CF_Manual extends OpMode {
         // Implements Owen's switchy thingamajigger
         changeDirection = gamepad1.y;
         if(!changeDirectionLast && changeDirection) {
-            //Invert is the multiplyer to switch the gizmo
+            //Invert is the multiplier to switch the gizmo
             invert = -1 * invert;
         }
         // Mode to drive mechanum wheels forward at 100 percent power
@@ -194,7 +194,7 @@ public class CF_Manual extends OpMode {
 //                accessory.setPowerToPower(robot.clawMotor, 0, 3);
 //                accessory.setPowerToPower(robot.mastMotor, 0, 3);
 //                positionLower = 0.6;
-//                positionUpper = 0.51;
+//                positionUpper = 0.41;
 //                mDown = mastDown.STANDBY;
 //                break;
 //        }
@@ -244,10 +244,10 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastA && A) {
-            //0.3
+            //0.2
             if(positionLower == 0.6) {
-                positionLower = 0.3;
-            } else if(positionLower == 0.3) {
+                positionLower = 0.2;
+            } else if(positionLower == 0.2) {
                 positionLower = 0.6;
             } else if(positionLower == 0.46) {
                 positionLower = 0.6;
@@ -257,12 +257,12 @@ public class CF_Manual extends OpMode {
         // 0.81 0.41
         // Debouncing for the buttons
         if(!lastY && Y) {
-            if(positionUpper == 0.51) {
+            if(positionUpper == 0.41) {
                 positionUpper = 0.81;
             } else if(positionUpper == 0.81) {
-                positionUpper = 0.51;
+                positionUpper = 0.41;
             } else if(positionUpper == 0.64) {
-                positionUpper = 0.51;
+                positionUpper = 0.41;
             }
         }
 
@@ -272,8 +272,8 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastLB && LB) {
-            positionUpper = 0.51;
-            positionLower = 0.3;
+            positionUpper = 0.41;
+            positionLower = 0.2;
         }
 
         if(!lastUp && up) {
@@ -287,7 +287,7 @@ public class CF_Manual extends OpMode {
         robot.topLeftClaw.setPosition(topLeftClawPos);
 
         //lower = 0.386
-        //upper = 0.71  0.51
+        //upper = 0.71  0.41
         lastX = X;
         lastB = B;
         lastY = Y;

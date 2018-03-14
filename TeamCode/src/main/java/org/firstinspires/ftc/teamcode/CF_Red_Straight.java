@@ -49,7 +49,7 @@ public class CF_Red_Straight extends OpMode
     double jewelHitterIncrememt = 0;
     double offset;
 
-    double multiplier = 0.355;
+    double multiplier = 0.75;
 
     //A list of all of the steps in this program
     private enum checks
@@ -357,7 +357,8 @@ public class CF_Red_Straight extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, 0.2f, (int)(130 * multiplier), offset)) {
+                        //130
+                        if(auto.encoderDriveState(robot, 0.2f, (int)(200 * multiplier), offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -382,17 +383,17 @@ public class CF_Red_Straight extends OpMode
                             counts = (int)(1200 * multiplier);
                             rot = (int)(525 * multiplier);
                             forwards = (int)(240 * multiplier);
-                            nudge = (int)(150 * multiplier);
+                            nudge = (int)(230 * multiplier);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
                             counts = (int)(850 * multiplier);
                             rot = (int)(545 * multiplier);
                             forwards = (int)(260 * multiplier);
-                            nudge = (int)(150 * multiplier);
+                            nudge = (int)(230 * multiplier);
                         } else {
                             counts = (int)(1150 * multiplier);
                             rot = (int)(1000 * multiplier);
-                            forwards = (int)(240 * multiplier);
-                            nudge = (int)(200 * multiplier);
+                            forwards = (int)(290 * multiplier);
+                            nudge = (int)(230 * multiplier);
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;

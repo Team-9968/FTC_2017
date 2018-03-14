@@ -68,6 +68,9 @@ public class CF_Manual extends OpMode {
     boolean aDriver = false;
     boolean lastADriver = false;
 
+    boolean bDriver = false;
+    boolean lastBDriver = false;
+
     double start = 0;
     double end = 0;
 
@@ -120,6 +123,29 @@ public class CF_Manual extends OpMode {
         telemetry.addData("Position Upper", positionUpper);
         telemetry.addData("Position Lower", positionLower);
         telemetry.addData("Position Claw", robot.clawMotor.getCurrentPosition());
+
+        telemetry.addData("Position RightFront", robot.rightFront.getCurrentPosition());
+        telemetry.addData("Position LeftFront", robot.leftFront.getCurrentPosition());
+        telemetry.addData("Position RightRear", robot.rightRear.getCurrentPosition());
+        telemetry.addData("Position LeftRear", robot.leftRear.getCurrentPosition());
+
+        bDriver = gamepad1.b;
+
+        if(bDriver && !lastBDriver){
+            robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
+        lastBDriver = bDriver;
+
+
         telemetry.update();
 
     }

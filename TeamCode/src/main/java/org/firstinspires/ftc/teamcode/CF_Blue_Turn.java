@@ -50,7 +50,7 @@ public class CF_Blue_Turn extends OpMode
     double jewelHitterIncrememt = 0;
     double offset;
 
-    double multiplier = 0.355;
+    double multiplier = 0.85;
 
     //A list of all of the steps in this program
     private enum checks
@@ -336,7 +336,7 @@ public class CF_Blue_Turn extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, -0.2f, (int)(multiplier * 1000), offset)) {
+                        if(auto.encoderDriveState(robot, -0.2f, (int)(multiplier * 900), offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -359,6 +359,7 @@ public class CF_Blue_Turn extends OpMode
                         //1250 for near
                         if(pic == RelicRecoveryVuMark.LEFT) {
                             strafe = (int)(multiplier * 0);
+                            // 1700
                             rot = (int)(multiplier * 1700);
                             forwards = (int)(multiplier * 100);
                             nudge = (int)(multiplier * 200);

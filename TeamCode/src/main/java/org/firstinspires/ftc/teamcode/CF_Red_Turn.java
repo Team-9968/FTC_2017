@@ -52,7 +52,7 @@ public class CF_Red_Turn extends OpMode
     double jewelHitterIncrememt = 0;
     double offset;
 
-    double multiplier = 0.355;
+    double multiplier = 0.85;
 
     //A list of all of the steps in this program
     private enum checks
@@ -401,17 +401,17 @@ public class CF_Red_Turn extends OpMode
                             strafe = (int)(760 * multiplier);
                             rot = (int)(165 * multiplier);
                             forwards = (int)(100 * multiplier);
-                            nudge = (int)(50 * multiplier);
+                            nudge = (int)(150 * multiplier);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
                             strafe = (int)(375 * multiplier);
                             rot = (int)(165 * multiplier);
                             forwards = (int)(100 * multiplier);
-                            nudge = (int)(100 * multiplier);
+                            nudge = (int)(150 * multiplier);
                         } else {
                             strafe = (int)(0 * multiplier);
-                            rot = (int)(175 * multiplier);
-                            forwards = (int)(150 * multiplier);
-                            nudge = (int)(150 * multiplier);
+                            rot = (int)(145 * multiplier);
+                            forwards = (int)(200 * multiplier);
+                            nudge = (int)(200 * multiplier);
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;

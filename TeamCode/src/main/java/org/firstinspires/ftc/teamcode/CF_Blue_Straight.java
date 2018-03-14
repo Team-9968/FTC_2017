@@ -42,7 +42,7 @@ public class CF_Blue_Straight extends OpMode
    double jewelHitterIncrement = 0;
    double offset;
 
-   double multiplier = 0.355;
+   double multiplier = 0.85;
 
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
@@ -360,7 +360,7 @@ public class CF_Blue_Straight extends OpMode
                      rot = (int)(515 * multiplier);
                      counts = (int)(1500 * multiplier);
                      forwards = (int)(240 * multiplier);
-                     nudge = (int)(100 * multiplier);
+                     nudge = (int)(200 * multiplier);
                      // counts = 1200;
                   } else if(pic == RelicRecoveryVuMark.RIGHT){
                      counts = (int)(1075 * multiplier);

@@ -69,6 +69,26 @@ public class CF_Autonomous_Motor_Library {
            return TRUE;
        }
    }
+
+   boolean encoderStrafeStateGyro(CF_Hardware robot, float power, int counts, double offset)
+   {
+       double kP = 0.007;
+       double kPF = 0.015;
+       double LFPower = power + (robot.imu.getAngularVelocity().xRotationRate * kP) + (robot.imu.getAcceleration().yAccel * kPF);
+       double RFPower = -power - (robot.imu.getAngularVelocity().xRotationRate *kP) - (robot.imu.getAcceleration().yAccel * kPF);
+       double LRPower = -power + (robot.imu.getAngularVelocity().xRotationRate * kP) - (robot.imu.getAcceleration().yAccel * kPF);
+       double RRPower = power + (robot.imu.getAngularVelocity().xRotationRate * kP) + (robot.imu.getAcceleration().yAccel * kPF);
+       motors.setMechPowers(robot, -1, LFPower, RFPower, LRPower, RRPower, 0);
+       if(counts != 0) {
+           if ((motors.getEncoderCounts(robot, 1) - offset) < counts && (motors.getEncoderCounts(robot, 1) - offset) > (-1 * counts)) {
+               return FALSE;
+           } else {
+               return TRUE;
+           }
+       } else {
+           return TRUE;
+       }
+   }
    double resetEncoders(CF_Hardware robot) {
        motors.setMode(robot, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        motors.setMode(robot, DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -7,7 +7,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
 import org.opencv.core.Mat;
 import java.util.concurrent.TimeUnit;
@@ -116,6 +119,7 @@ public class CF_Blue_Turn extends OpMode
         robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 100);
         vuforia.init(this);
     }
 
@@ -337,7 +341,7 @@ public class CF_Blue_Turn extends OpMode
                             pic = markIn;
                         }
 
-                        if(auto.encoderDriveState(robot, -0.2f, (int)(multiplier * 900), offset)) {
+                        if(auto.encoderDriveState(robot, -0.2f, (int)(multiplier * 910), offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -358,19 +362,19 @@ public class CF_Blue_Turn extends OpMode
                         if(pic == RelicRecoveryVuMark.LEFT) {
                             strafe = (int)(multiplier * 0);
                             // 1700
-                            rot = (int)(multiplier * 1700);
-                            forwards = (int)(multiplier * 100);
+                            rot = (int)(multiplier * 1800);
+                            forwards = (int)(multiplier * 125);
                             nudge = (int)(multiplier * 200);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
-                            strafe = (int)(multiplier * 475);
+                            strafe = (int)(multiplier * 750);
                             rot = (int)(multiplier * 1365);
                             forwards = (int)(multiplier * 100);
-                            nudge = (int)(multiplier * 0);
+                            nudge = (int)(multiplier * 200);
                         } else {
-                            strafe = (int)(multiplier * 860);
+                            strafe = (int)(multiplier * 1120);
                             rot = (int)(multiplier * 1350);
                             forwards = (int)(multiplier * 150);
-                            nudge = (int)(multiplier * 0);
+                            nudge = (int)(multiplier * 200);
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;

@@ -364,7 +364,7 @@ public class CF_Blue_Straight extends OpMode
                      // counts = 1200;
                   } else if(pic == RelicRecoveryVuMark.RIGHT){
                      counts = (int)(1075 * multiplier);
-                     rot = (int)(1005 * multiplier);
+                     rot = (int)(1105 * multiplier);
                      forwards = (int)(250 * multiplier);
                      nudge = (int)(100 * multiplier);
                      //counts = 1800;
@@ -372,7 +372,7 @@ public class CF_Blue_Straight extends OpMode
                      rot = (int)(520 * multiplier);
                      counts = (int)(1150 * multiplier);
                      forwards = (int)(260 * multiplier);
-                     nudge = (int)(150 * multiplier);
+                     nudge = (int)(200 * multiplier);
                      // counts = 850;
                   }
                   vuforia.deactivate();

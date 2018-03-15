@@ -6,7 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
 import org.opencv.core.Mat;
 
@@ -140,6 +143,7 @@ public class CF_Red_Turn extends OpMode
         robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 100);
         vuforia.init(this);
     }
 
@@ -398,15 +402,15 @@ public class CF_Red_Turn extends OpMode
                         //1500 for middle
                         //1250 for near
                         if(pic == RelicRecoveryVuMark.LEFT) {
-                            strafe = (int)(760 * multiplier);
+                            strafe = (int)(570 * multiplier);
                             rot = (int)(165 * multiplier);
                             forwards = (int)(100 * multiplier);
-                            nudge = (int)(150 * multiplier);
+                            nudge = (int)(200 * multiplier);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
-                            strafe = (int)(375 * multiplier);
+                            strafe = (int)(210 * multiplier);
                             rot = (int)(165 * multiplier);
-                            forwards = (int)(100 * multiplier);
-                            nudge = (int)(150 * multiplier);
+                            forwards = (int)(150 * multiplier);
+                            nudge = (int)(200 * multiplier);
                         } else {
                             strafe = (int)(0 * multiplier);
                             rot = (int)(145 * multiplier);

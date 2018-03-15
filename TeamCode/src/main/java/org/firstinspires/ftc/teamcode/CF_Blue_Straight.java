@@ -42,6 +42,8 @@ public class CF_Blue_Straight extends OpMode
    double jewelHitterIncrement = 0;
    double offset;
 
+   double multiplier = 0.85;
+
    //A "checklist" of things this program must do IN ORDER for it to work
    private enum checks
    {
@@ -105,7 +107,7 @@ public class CF_Blue_Straight extends OpMode
                end = endState.DRIVE;
                break;
             case DRIVE:
-               if(auto.encoderDriveState(robot, -0.2f, 50, offset)){
+               if(auto.encoderDriveState(robot, -0.2f, (int)(50 * multiplier), offset)){
                   motors.setMechPowers(robot, 1,0,0,0,0,0);
                   end = endState.END;
                }
@@ -124,10 +126,10 @@ public class CF_Blue_Straight extends OpMode
    {
       msStuckDetectLoop = 15000;
       robot.init(hardwareMap);
-      robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-      robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-      robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-      robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+      robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
       vuforia.init(this);
 
    }
@@ -337,7 +339,7 @@ public class CF_Blue_Straight extends OpMode
                   break;
 
                case DRIVEENCODERS:
-                  if(auto.encoderDriveState(robot, -0.2f, 100, offset)){
+                  if(auto.encoderDriveState(robot, -0.2f, (int)(100 * multiplier), offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      picSense = picSenseState.SENSEPICTURE;
                   }
@@ -355,22 +357,22 @@ public class CF_Blue_Straight extends OpMode
                   //1500 for middle
                   //1250 for near
                   if (pic == RelicRecoveryVuMark.CENTER) {
-                     rot = 515;
-                     counts = 1500;
-                     forwards = 240;
-                     nudge = 0;
+                     rot = (int)(515 * multiplier);
+                     counts = (int)(1500 * multiplier);
+                     forwards = (int)(240 * multiplier);
+                     nudge = (int)(200 * multiplier);
                      // counts = 1200;
                   } else if(pic == RelicRecoveryVuMark.RIGHT){
-                     counts = 1075;
-                     rot = 1070;
-                     forwards = 250;
-                     nudge = 0;
+                     counts = (int)(1075 * multiplier);
+                     rot = (int)(1005 * multiplier);
+                     forwards = (int)(250 * multiplier);
+                     nudge = (int)(100 * multiplier);
                      //counts = 1800;
                   } else {
-                     rot = 540;
-                     counts = 1150;
-                     forwards = 260;
-                     nudge = 0;
+                     rot = (int)(520 * multiplier);
+                     counts = (int)(1150 * multiplier);
+                     forwards = (int)(260 * multiplier);
+                     nudge = (int)(150 * multiplier);
                      // counts = 850;
                   }
                   vuforia.deactivate();
@@ -454,7 +456,7 @@ public class CF_Blue_Straight extends OpMode
                   releaseBlock = releaseBlockState.DRIVE;
                   break;
                case DRIVE:
-                  if(auto.encoderDriveState(robot, 0.2f, nudge, offset)){
+                  if(auto.encoderDriveState(robot, 0.8f, nudge, offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      releaseBlock = releaseBlockState.END;
                   }
@@ -479,7 +481,7 @@ public class CF_Blue_Straight extends OpMode
                   park = parkState.DRIVE1;
                   break;
                case DRIVE1:
-                  if(auto.encoderDriveState(robot, -0.2f, 275, offset)){
+                  if(auto.encoderDriveState(robot, -0.2f, (int)(275 * multiplier), offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      park = parkState.RESETENCODERS2;
                   }
@@ -493,7 +495,7 @@ public class CF_Blue_Straight extends OpMode
                   park = parkState.DRIVE2;
                   break;
                case DRIVE2:
-                  if(auto.encoderDriveState(robot, 0.2f, 200, offset)){
+                  if(auto.encoderDriveState(robot, 0.2f, (int)(200 * multiplier), offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      park = parkState.RESETENCODERS3;
                   }
@@ -507,7 +509,7 @@ public class CF_Blue_Straight extends OpMode
                   park = parkState.DRIVE3;
                   break;
                case DRIVE3:
-                  if(auto.encoderDriveState(robot, -0.2f, 200, offset)){
+                  if(auto.encoderDriveState(robot, -0.2f, (int)(200 * multiplier), offset)){
                      motors.setMechPowers(robot, 1,0,0,0,0,0);
                      park = parkState.END;
                   }

@@ -50,6 +50,8 @@ public class CF_Blue_Turn extends OpMode
     double jewelHitterIncrememt = 0;
     double offset;
 
+    double multiplier = 0.85;
+
     //A list of all of the steps in this program
     private enum checks
     {
@@ -110,10 +112,10 @@ public class CF_Blue_Turn extends OpMode
     {
         msStuckDetectLoop = 15000;
         robot.init(hardwareMap);
-        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         vuforia.init(this);
     }
 
@@ -334,7 +336,8 @@ public class CF_Blue_Turn extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, -0.2f, 1050, offset)) {
+
+                        if(auto.encoderDriveState(robot, -0.2f, (int)(multiplier * 900), offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -348,22 +351,26 @@ public class CF_Blue_Turn extends OpMode
                             pic = vuforia.getMark();
                         }
                         telemetry.addData("pic", pic);
-
-                        if(pic == RelicRecoveryVuMark.RIGHT) {
-                            strafe = 760;
-                            rot = 165;
-                            forwards = 100;
-                            nudge = 0;
+                        telemetry.update();
+                        //1875 for far
+                        //1500 for middle
+                        //1250 for near
+                        if(pic == RelicRecoveryVuMark.LEFT) {
+                            strafe = (int)(multiplier * 0);
+                            // 1700
+                            rot = (int)(multiplier * 1700);
+                            forwards = (int)(multiplier * 100);
+                            nudge = (int)(multiplier * 200);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
-                            strafe = 325;
-                            rot = 150;
-                            forwards = 100;
-                            nudge = 0;
+                            strafe = (int)(multiplier * 475);
+                            rot = (int)(multiplier * 1365);
+                            forwards = (int)(multiplier * 100);
+                            nudge = (int)(multiplier * 0);
                         } else {
-                            strafe = 0;
-                            rot = 125;
-                            forwards = 150;
-                            nudge = 0;
+                            strafe = (int)(multiplier * 860);
+                            rot = (int)(multiplier * 1350);
+                            forwards = (int)(multiplier * 150);
+                            nudge = (int)(multiplier * 0);
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;
@@ -371,6 +378,9 @@ public class CF_Blue_Turn extends OpMode
                     case END:
                         Check = checks.PASTBALANCE;
                         motors.setMechPowers(robot, 1,0,0,0,0,0);
+                        try{
+                            TimeUnit.MILLISECONDS.sleep(100);
+                        } catch (InterruptedException e) {};
                 }
                 break;
 
@@ -379,10 +389,11 @@ public class CF_Blue_Turn extends OpMode
                 switch(pastBalance) {
                     case RESETENCODERS:
                         offset = auto.resetEncoders(robot);
-                        pastBalance = pastBalanceState.ROTATE;
+                        pastBalance = pastBalanceState.STRAFE;
                         break;
                     case ROTATE:
-                        if(auto.encoderRotateState(robot, -0.2f, 1530, offset)) {
+
+                        if(auto.encoderRotateState(robot, -0.5f, (int)(multiplier * 1200), offset)) {
                             pastBalance = pastBalanceState.RESETENCODERS2;
                         }
                         break;
@@ -391,7 +402,7 @@ public class CF_Blue_Turn extends OpMode
                         pastBalance = pastBalanceState.STRAFE;
                         break;
                     case STRAFE:
-                        if(auto.encoderStrafeState(robot, 0.6f, strafe, offset)) {
+                        if(auto.encoderStrafeState(robot, -0.6f, strafe, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             pastBalance = pastBalanceState.RESETENCODERS3;
                         }
@@ -445,7 +456,7 @@ public class CF_Blue_Turn extends OpMode
                         releaseBlock = releaseBlockState.DRIVE;
                         break;
                     case DRIVE:
-                        if(auto.encoderDriveState(robot, 0.2f, nudge, offset)) {
+                        if(auto.encoderDriveState(robot, 0.8f, nudge, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             releaseBlock = releaseBlockState.END;
                         }
@@ -468,7 +479,7 @@ public class CF_Blue_Turn extends OpMode
                         park = parkState.DRIVE1;
                         break;
                     case DRIVE1:
-                        if(auto.encoderDriveState(robot, -0.2f, 275, offset)){
+                        if(auto.encoderDriveState(robot, -0.2f, (int)(multiplier * 275), offset)){
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             park = parkState.RESETENCODERS2;
                         }
@@ -482,7 +493,7 @@ public class CF_Blue_Turn extends OpMode
                         park = parkState.DRIVE2;
                         break;
                     case DRIVE2:
-                        if(auto.encoderDriveState(robot, 0.2f, 200, offset)){
+                        if(auto.encoderDriveState(robot, 0.2f, (int)(multiplier * 200), offset)){
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             park = parkState.RESETENCODERS3;
                         }
@@ -496,7 +507,7 @@ public class CF_Blue_Turn extends OpMode
                         park = parkState.DRIVE3;
                         break;
                     case DRIVE3:
-                        if(auto.encoderDriveState(robot, -0.2f, 200, offset)){
+                        if(auto.encoderDriveState(robot, -0.2f, (int)(multiplier * 200), offset)){
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             park = parkState.END;
                         }

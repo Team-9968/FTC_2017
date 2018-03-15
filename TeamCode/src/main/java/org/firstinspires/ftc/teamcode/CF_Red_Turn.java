@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.teamcode.Enums.CF_TypeEnum;
 import org.opencv.core.Mat;
+
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,6 +36,7 @@ public class CF_Red_Turn extends OpMode
     CF_OpenCV_Library cam = new CF_OpenCV_Library();
     CF_Vuforia_Library vuforia = new CF_Vuforia_Library();
     CF_Master_Motor_Library motors = new CF_Master_Motor_Library();
+    CF_File_Library files = new CF_File_Library();
     //CF_OpenCV_Library.ballColor cam_color = null;
 
     boolean ArmCenter;
@@ -48,6 +51,8 @@ public class CF_Red_Turn extends OpMode
     double jewelHitterPos = 0.333;
     double jewelHitterIncrememt = 0;
     double offset;
+
+    double multiplier = 0.85;
 
     //A list of all of the steps in this program
     private enum checks
@@ -112,7 +117,7 @@ public class CF_Red_Turn extends OpMode
                     end = endState.DRIVE;
                     break;
                 case DRIVE:
-                    if(auto.encoderDriveState(robot, -0.2f, 100, offset)){
+                    if(auto.encoderDriveState(robot, -0.2f, (int)(100 * multiplier), offset)){
                         motors.setMechPowers(robot, 1,0,0,0,0,0);
                         end = endState.END;
                     }
@@ -131,10 +136,10 @@ public class CF_Red_Turn extends OpMode
     {
         msStuckDetectLoop = 15000;
         robot.init(hardwareMap);
-        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         vuforia.init(this);
     }
 
@@ -208,6 +213,11 @@ public class CF_Red_Turn extends OpMode
 
                             ArmCenter = true;
                             checkTime();
+                            try {
+                                files.writeToLog(robot, Integer.toString(2));
+                            } catch (IOException e) {
+                                System.out.println(e);
+                            }
                         }
 
                         else if ((classification == CF_TypeEnum.LEFTISRED))
@@ -223,6 +233,11 @@ public class CF_Red_Turn extends OpMode
 
                             ArmCenter = true;
                             checkTime();
+                            try {
+                                files.writeToLog(robot, Integer.toString(2));
+                            } catch (IOException e) {
+                                System.out.println(e);
+                            }
                         }
 
                         //If the color sensors failed to determine the jewels' colors, this
@@ -259,7 +274,13 @@ public class CF_Red_Turn extends OpMode
                                 checkTime();
                             }
 
-                            checkTime();
+                            try {
+                                files.writeToLog(robot, Integer.toString(2));
+                            } catch (IOException e) {
+                                System.out.println(e);
+                            }
+
+
                         }
 
                         telemetry.update();
@@ -355,7 +376,7 @@ public class CF_Red_Turn extends OpMode
                         if(!(markIn == RelicRecoveryVuMark.UNKNOWN)) {
                             pic = markIn;
                         }
-                        if(auto.encoderDriveState(robot, 0.2f, 1150, offset)) {
+                        if(auto.encoderDriveState(robot, 0.2f, (int)(1000 * multiplier), offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             picSense = picSenseState.SENSEPICTURE;
                         }
@@ -377,20 +398,20 @@ public class CF_Red_Turn extends OpMode
                         //1500 for middle
                         //1250 for near
                         if(pic == RelicRecoveryVuMark.LEFT) {
-                            strafe = 760;
-                            rot = 165;
-                            forwards = 100;
-                            nudge = 0;
+                            strafe = (int)(760 * multiplier);
+                            rot = (int)(165 * multiplier);
+                            forwards = (int)(100 * multiplier);
+                            nudge = (int)(150 * multiplier);
                         } else if (pic == RelicRecoveryVuMark.CENTER) {
-                            strafe = 375;
-                            rot = 165;
-                            forwards = 100;
-                            nudge = 0;
+                            strafe = (int)(375 * multiplier);
+                            rot = (int)(165 * multiplier);
+                            forwards = (int)(100 * multiplier);
+                            nudge = (int)(150 * multiplier);
                         } else {
-                            strafe = 0;
-                            rot = 125;
-                            forwards = 150;
-                            nudge = 0;
+                            strafe = (int)(0 * multiplier);
+                            rot = (int)(145 * multiplier);
+                            forwards = (int)(200 * multiplier);
+                            nudge = (int)(200 * multiplier);
                         }
                         vuforia.deactivate();
                         picSense = picSenseState.END;
@@ -461,9 +482,13 @@ public class CF_Red_Turn extends OpMode
                     case RESETENCODERS:
                         offset = auto.resetEncoders(robot);
                         releaseBlock = releaseBlockState.DRIVE;
+                        try
+                        {
+                            TimeUnit.MILLISECONDS.sleep(1000);
+                        } catch(InterruptedException e) {}
                         break;
                     case DRIVE:
-                        if(auto.encoderDriveState(robot, 0.2f, nudge, offset)) {
+                        if(auto.encoderDriveState(robot, 0.8f, nudge, offset)) {
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             releaseBlock = releaseBlockState.END;
                         }
@@ -486,7 +511,7 @@ public class CF_Red_Turn extends OpMode
                         park = parkState.DRIVE1;
                         break;
                     case DRIVE1:
-                        if(auto.encoderDriveState(robot, -0.2f, 275, offset)){
+                        if(auto.encoderDriveState(robot, -0.2f, (int)(275 * multiplier), offset)){
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             park = parkState.RESETENCODERS2;
                         }
@@ -500,7 +525,7 @@ public class CF_Red_Turn extends OpMode
                         park = parkState.DRIVE2;
                         break;
                     case DRIVE2:
-                        if(auto.encoderDriveState(robot, 0.2f, 200, offset)){
+                        if(auto.encoderDriveState(robot, 0.2f, (int)(200 * multiplier), offset)){
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             park = parkState.RESETENCODERS3;
                         }
@@ -514,7 +539,7 @@ public class CF_Red_Turn extends OpMode
                         park = parkState.DRIVE3;
                         break;
                     case DRIVE3:
-                        if(auto.encoderDriveState(robot, -0.2f, 200, offset)){
+                        if(auto.encoderDriveState(robot, -0.2f, (int)(200 * multiplier), offset)){
                             motors.setMechPowers(robot, 1,0,0,0,0,0);
                             park = parkState.END;
                         }

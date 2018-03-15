@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.opencv.core.Mat;
+
 /**
  * Created by Ryley on 10/15/17.
  */
@@ -51,6 +53,36 @@ public class CF_Manual_Motor_Library {
         strafe = Math.pow(strafe, exp);
         drive = Math.pow(drive, exp);
         rotate = 0.80 * Math.pow(rotate, exp);
+
+        // Sets the individual powers to the individual motors
+        LFPower = -strafe + drive;
+        RFPower = +strafe + drive;
+        LRPower = +strafe + drive;
+        RRPower = -strafe + drive;
+
+        // Sets the mechanum powers
+        motors.setMechPowers(bot, DirectionPower, LFPower, RFPower, LRPower, RRPower, -rotate);
+    }
+
+    void runMechWheels(CF_Hardware bot, double drive, double strafe, double rotate, int exp, int expStrafe) {
+        strafe = Math.pow(strafe, expStrafe);
+        drive = Math.pow(drive, exp);
+        rotate = 0.80 * Math.pow(rotate, exp);
+
+        // Sets the individual powers to the individual motors
+        LFPower = -strafe + drive;
+        RFPower = +strafe + drive;
+        LRPower = +strafe + drive;
+        RRPower = -strafe + drive;
+
+        // Sets the mechanum powers
+        motors.setMechPowers(bot, DirectionPower, LFPower, RFPower, LRPower, RRPower, -rotate);
+    }
+
+    void runMechWheels(CF_Hardware bot, double drive, double strafe, double rotate, int exp, int expStrafe, double throttle) {
+        strafe = Math.pow(strafe, expStrafe);
+        drive = throttle * Math.pow(drive, exp);
+        rotate = 0.60 * Math.pow(rotate, exp);
 
         // Sets the individual powers to the individual motors
         LFPower = -strafe + drive;

@@ -28,8 +28,10 @@ public class CF_Manual extends OpMode {
     double position = 0.33;
     int mode = 0;
 
-    double positionUpper = 0.51;
+    double positionUpper = 0.81;
     double positionLower = 0.6;
+    double topRightClawPos = 0.5;
+    double topLeftClawPos = 0.5;
 
     boolean changeDirectionLast = false;
     boolean changeDirection = false;
@@ -60,6 +62,15 @@ public class CF_Manual extends OpMode {
     boolean up = false;
     boolean lastUp = false;
 
+    boolean left = false;
+    boolean lastLeft = false;
+
+    boolean aDriver = false;
+    boolean lastADriver = false;
+
+    boolean bDriver = false;
+    boolean lastBDriver = false;
+
     double start = 0;
     double end = 0;
 
@@ -69,7 +80,12 @@ public class CF_Manual extends OpMode {
         START, STOP, STANDBY
     }
 
+    enum runClaws{
+        STOP, FORWARDS, BACKWARDS
+    }
+
     mastDown mDown = mastDown.STANDBY;
+    runClaws claws = runClaws.STOP;
 
     public void init() {
         // Inits robot
@@ -96,7 +112,7 @@ public class CF_Manual extends OpMode {
 
     public void loop(){
         // Calls appropriate methods to run the robot.  These 3 methods do everything that the robot does, excepting telemetry
-        //updateMode();
+        updateMode();
         drive();
         lift();
         clamp();
@@ -107,41 +123,62 @@ public class CF_Manual extends OpMode {
         telemetry.addData("Position Upper", positionUpper);
         telemetry.addData("Position Lower", positionLower);
         telemetry.addData("Position Claw", robot.clawMotor.getCurrentPosition());
+
+        telemetry.addData("Position RightFront", robot.rightFront.getCurrentPosition());
+        telemetry.addData("Position LeftFront", robot.leftFront.getCurrentPosition());
+        telemetry.addData("Position RightRear", robot.rightRear.getCurrentPosition());
+        telemetry.addData("Position LeftRear", robot.leftRear.getCurrentPosition());
+
+        bDriver = gamepad1.b;
+
+        if(bDriver && !lastBDriver){
+            robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
+        lastBDriver = bDriver;
+
+
         telemetry.update();
 
     }
 
     // Updates drive mode.  0 = normal mech, 1 = tank, 2 = slow mech, 3 = backwards mech
     public void updateMode() {
-        if(gamepad1.a) {
-            if(mode == 3) {
+        aDriver = gamepad1.a;
+        if(aDriver && !lastADriver) {
+            if(mode == 1) {
                 mode = 0;
             }
-            else if(mode < 3) {
-                mode++;
+            else if(mode == 0) {
+                mode = 1;
             }
-
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (Exception e) {}
         }
+        lastADriver = aDriver;
     }
     // Implements the drive modes
     public void drive() {
         // Implements Owen's switchy thingamajigger
         changeDirection = gamepad1.y;
         if(!changeDirectionLast && changeDirection) {
-            //Invert is the multiplyer to switch the gizmo
+            //Invert is the multiplier to switch the gizmo
             invert = -1 * invert;
         }
         // Mode to drive mechanum wheels forward at 100 percent power
         if (mode == 0) {
             driveMan.changeDirectonAndPower(1);
-            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3, 7);
         }
-        // Mode for tank mode
+        // Mode for slow mode
         if (mode == 1) {
-            driveMan.tankMode(robot, invert * gamepad1.left_stick_y, invert * gamepad1.right_stick_y);
+            driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3, 7, 0.6);
         }
         // Mode for half power forward mechanum
         if (mode == 2) {
@@ -153,6 +190,7 @@ public class CF_Manual extends OpMode {
             driveMan.changeDirectonAndPower(-1);
             driveMan.runMechWheels(robot, invert * gamepad1.left_stick_y, invert * gamepad1.left_stick_x, gamepad1.right_stick_x, 3);
         }
+        telemetry.addData("mode", mode);
         changeDirectionLast = changeDirection;
     }
 
@@ -182,7 +220,7 @@ public class CF_Manual extends OpMode {
 //                accessory.setPowerToPower(robot.clawMotor, 0, 3);
 //                accessory.setPowerToPower(robot.mastMotor, 0, 3);
 //                positionLower = 0.6;
-//                positionUpper = 0.51;
+//                positionUpper = 0.41;
 //                mDown = mastDown.STANDBY;
 //                break;
 //        }
@@ -197,6 +235,32 @@ public class CF_Manual extends OpMode {
         B = gamepad2.b;
         X = gamepad2.x;
         up = gamepad2.dpad_up;
+        left = gamepad2.dpad_left;
+
+        if(left && !lastLeft) {
+            if(claws == runClaws.STOP) {
+                claws = runClaws.FORWARDS;
+            } else if(claws == runClaws.FORWARDS){
+                claws = runClaws.BACKWARDS;
+            } else if(claws == runClaws.BACKWARDS) {
+                claws = runClaws.STOP;
+            }
+        }
+
+        switch(claws) {
+            case STOP:
+                topRightClawPos = 0.5;
+                topLeftClawPos = 0.5;
+                break;
+            case FORWARDS:
+                topRightClawPos = 0.9;
+                topLeftClawPos = 0.1;
+                break;
+            case BACKWARDS:
+                topRightClawPos = 0.1;
+                topLeftClawPos = 0.9;
+                break;
+        }
 
         if(X) {
             position += 0.001;
@@ -206,10 +270,10 @@ public class CF_Manual extends OpMode {
         }
 
         if(!lastA && A) {
-            //0.3
+            //0.2
             if(positionLower == 0.6) {
-                positionLower = 0.3;
-            } else if(positionLower == 0.3) {
+                positionLower = 0.2;
+            } else if(positionLower == 0.2) {
                 positionLower = 0.6;
             } else if(positionLower == 0.46) {
                 positionLower = 0.6;
@@ -219,23 +283,23 @@ public class CF_Manual extends OpMode {
         // 0.81 0.41
         // Debouncing for the buttons
         if(!lastY && Y) {
-            if(positionUpper == 0.51) {
+            if(positionUpper == 0.41) {
                 positionUpper = 0.81;
             } else if(positionUpper == 0.81) {
-                positionUpper = 0.51;
+                positionUpper = 0.41;
             } else if(positionUpper == 0.64) {
-                positionUpper = 0.51;
+                positionUpper = 0.41;
             }
         }
 
         if(!lastRB && RB) {
-            positionUpper = 0.51;
+            positionUpper = 0.81;
             positionLower = 0.6;
         }
 
         if(!lastLB && LB) {
-            positionUpper = 0.81;
-            positionLower = 0.3;
+            positionUpper = 0.41;
+            positionLower = 0.2;
         }
 
         if(!lastUp && up) {
@@ -245,9 +309,11 @@ public class CF_Manual extends OpMode {
 
         robot.clamp.setPosition(positionUpper);
         robot.lowerClamp.setPosition(positionLower);
+        robot.topRightClaw.setPosition(topRightClawPos);
+        robot.topLeftClaw.setPosition(topLeftClawPos);
 
         //lower = 0.386
-        //upper = 0.71  0.51
+        //upper = 0.71  0.41
         lastX = X;
         lastB = B;
         lastY = Y;
@@ -255,5 +321,6 @@ public class CF_Manual extends OpMode {
         lastRB = RB;
         lastLB = LB;
         lastUp = up;
+        lastLeft = left;
     }
 }

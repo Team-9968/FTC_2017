@@ -391,7 +391,7 @@ public class CF_Red_Straight extends OpMode
                             nudge = (int)(230 * multiplier);
                         } else {
                             counts = (int)(1150 * multiplier);
-                            rot = (int)(1000 * multiplier);
+                            rot = (int)(1100 * multiplier);
                             forwards = (int)(290 * multiplier);
                             nudge = (int)(230 * multiplier);
                         }

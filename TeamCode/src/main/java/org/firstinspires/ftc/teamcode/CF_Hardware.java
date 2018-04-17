@@ -43,8 +43,10 @@ public class CF_Hardware
    public Servo lowerClamp = null;
    public Servo jewelHitter;
    public Servo colorArm;
-   public Servo topRightClaw = null;
-   public Servo topLeftClaw = null;
+   public Servo upperRightClaw = null;
+   public Servo upperLeftClaw = null;
+   public Servo lowerRightClaw = null;
+   public Servo lowerLeftClaw = null;
 
    public DigitalChannel limit = null;
    HardwareMap hwMap = null;
@@ -92,8 +94,10 @@ public class CF_Hardware
 
       colorArm = hwMap.get(Servo.class, "arm");
 
-      topRightClaw = hwMap.get(Servo.class, "topRightClaw");
-      topLeftClaw = hwMap.get(Servo.class, "topLeftClaw");
+      upperRightClaw = hwMap.get(Servo.class, "upperRightClaw");
+      upperLeftClaw = hwMap.get(Servo.class, "upperLeftClaw");
+      lowerRightClaw = hwMap.get(Servo.class, "lowerRightClaw");
+      lowerLeftClaw = hwMap.get(Servo.class, "lowerLeftClaw");
 
       limit = hwMap.get(DigitalChannel.class, "limit");
 

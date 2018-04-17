@@ -24,14 +24,30 @@ public class CF_Manual extends OpMode {
     CF_Hardware robot = new CF_Hardware();
     CF_Manual_Motor_Library driveMan = new CF_Manual_Motor_Library();
     CF_Accessory_Motor_Library accessory = new CF_Accessory_Motor_Library();
+
     // Instantiates variables
-    double position = 0.33;
     int mode = 0;
 
-    double positionUpper = 0.81;
+    double positionUpperRightClosed = 0.25;
+    double positionUpperRightOpen = 0.75;
+
+    double positionUpperLeftClosed = 0.7;
+    double positionUpperLeftOpen = 0.3;
+
+    double positionLowerRightOpen = 0.95;
+    double positionLowerRightClosed = 0.25;
+
+    double positionLowerLeftOpen = 0.15;
+    double positionLowerLeftClosed = 0.75;
+
+    double positionUpperRight = positionUpperRightOpen;
+    double positionUpperLeft = positionUpperLeftOpen;
+    double positionLowerRight = positionLowerRightOpen;
+    double positionLowerLeft = positionLowerLeftOpen;
+
     double positionLower = 0.6;
-    double topRightClawPos = 0.5;
-    double topLeftClawPos = 0.5;
+    double botRightClawPos = 0.5;
+    double botLeftClawPos = 0.5;
 
     boolean changeDirectionLast = false;
     boolean changeDirection = false;
@@ -120,7 +136,6 @@ public class CF_Manual extends OpMode {
         telemetry.clearAll();
         telemetry.addData("Mode", mode);
         telemetry.addData("Position Side", robot.colorArm.getPosition());
-        telemetry.addData("Position Upper", positionUpper);
         telemetry.addData("Position Lower", positionLower);
         telemetry.addData("Position Claw", robot.clawMotor.getCurrentPosition());
 
@@ -128,6 +143,9 @@ public class CF_Manual extends OpMode {
         telemetry.addData("Position LeftFront", robot.leftFront.getCurrentPosition());
         telemetry.addData("Position RightRear", robot.rightRear.getCurrentPosition());
         telemetry.addData("Position LeftRear", robot.leftRear.getCurrentPosition());
+
+        telemetry.addData("Position TopRight", botRightClawPos);
+        telemetry.addData("Position TopLeft", botLeftClawPos);
 
         bDriver = gamepad1.b;
 
@@ -247,70 +265,68 @@ public class CF_Manual extends OpMode {
             }
         }
 
-        switch(claws) {
-            case STOP:
-                topRightClawPos = 0.5;
-                topLeftClawPos = 0.5;
-                break;
-            case FORWARDS:
-                topRightClawPos = 0.9;
-                topLeftClawPos = 0.1;
-                break;
-            case BACKWARDS:
-                topRightClawPos = 0.1;
-                topLeftClawPos = 0.9;
-                break;
-        }
+//        switch(claws) {
+//            case STOP:
+//                botRightClawPos = 0.5;
+//                botLeftClawPos = 0.5;
+//                break;
+//            case FORWARDS:
+//                botRightClawPos = 0.9;
+//                botLeftClawPos = 0.1;
+//                break;
+//            case BACKWARDS:
+//                botRightClawPos = 0.1;
+//                botLeftClawPos = 0.9;
+//                break;
+//        }
 
-        if(X) {
-            position += 0.001;
+        if(!lastLB && LB) {
+            positionLowerLeft = positionLowerLeftOpen;
+            positionLowerRight = positionLowerRightOpen;
+
+            positionUpperLeft = positionUpperLeftOpen;
+            positionUpperRight = positionUpperRightOpen;
         }
-        if(B) {
-            position -= 0.001;
+        if(!lastRB && RB) {
+            positionLowerLeft = positionLowerLeftClosed;
+            positionLowerRight = positionLowerRightClosed;
+
+            positionUpperLeft = positionUpperLeftClosed;
+            positionUpperRight = positionUpperRightClosed;
         }
 
         if(!lastA && A) {
             //0.2
-            if(positionLower == 0.6) {
-                positionLower = 0.2;
-            } else if(positionLower == 0.2) {
-                positionLower = 0.6;
-            } else if(positionLower == 0.46) {
-                positionLower = 0.6;
+            if(positionLowerLeft == positionLowerLeftClosed) {
+                positionLowerLeft = positionLowerLeftOpen;
+            } else if(positionLowerLeft == positionLowerLeftOpen) {
+                positionLowerLeft = positionLowerLeftClosed;
+            }
+
+            if(positionLowerRight == positionLowerRightClosed) {
+                positionLowerRight = positionLowerRightOpen;
+            } else if(positionLowerRight == positionLowerRightOpen) {
+                positionLowerRight = positionLowerRightClosed;
             }
         }
 
-        // 0.81 0.41
-        // Debouncing for the buttons
         if(!lastY && Y) {
-            if(positionUpper == 0.41) {
-                positionUpper = 0.81;
-            } else if(positionUpper == 0.81) {
-                positionUpper = 0.41;
-            } else if(positionUpper == 0.64) {
-                positionUpper = 0.41;
+            if(positionUpperLeft == positionUpperLeftClosed) {
+                positionUpperLeft = positionUpperLeftOpen;
+            } else if(positionUpperLeft == positionUpperLeftOpen) {
+                positionUpperLeft = positionUpperLeftClosed;
+            }
+
+            if(positionUpperRight == positionUpperRightClosed) {
+                positionUpperRight = positionUpperRightOpen;
+            } else if(positionUpperRight == positionUpperRightOpen) {
+                positionUpperRight = positionUpperRightClosed;
             }
         }
-
-        if(!lastRB && RB) {
-            positionUpper = 0.81;
-            positionLower = 0.6;
-        }
-
-        if(!lastLB && LB) {
-            positionUpper = 0.41;
-            positionLower = 0.2;
-        }
-
-        if(!lastUp && up) {
-            positionUpper = 0.64;
-            positionLower = 0.46;
-        }
-
-        robot.clamp.setPosition(positionUpper);
-        robot.lowerClamp.setPosition(positionLower);
-        robot.topRightClaw.setPosition(topRightClawPos);
-        robot.topLeftClaw.setPosition(topLeftClawPos);
+        robot.upperRightClaw.setPosition(positionUpperRight);
+        robot.upperLeftClaw.setPosition(positionUpperLeft);
+        robot.lowerRightClaw.setPosition(positionLowerRight);
+        robot.lowerLeftClaw.setPosition(positionLowerLeft);
 
         //lower = 0.386
         //upper = 0.71  0.41

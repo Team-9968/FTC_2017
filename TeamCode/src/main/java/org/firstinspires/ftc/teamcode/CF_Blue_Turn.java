@@ -134,8 +134,10 @@ public class CF_Blue_Turn extends OpMode
                 resetStartTime();
                 vuforia.activate();
                 runTime.reset();
-                robot.clamp.setPosition(0.81);
-                robot.lowerClamp.setPosition(0.3);
+                robot.upperRightClaw.setPosition(0.25);
+                robot.upperLeftClaw.setPosition(0.7);
+                robot.lowerRightClaw.setPosition(0.95);
+                robot.lowerLeftClaw.setPosition(0.15);
                 checkTime();
                 Check = checks.JEWELHITTER;
                 Mat x = vuforia.getFrame();
@@ -451,8 +453,10 @@ public class CF_Blue_Turn extends OpMode
                             TimeUnit.MILLISECONDS.sleep(500);
                         } catch(InterruptedException e) {}
 
-                        robot.clamp.setPosition(0.4);
-                        robot.lowerClamp.setPosition(0.6);
+                        robot.upperRightClaw.setPosition(0.75);
+                        robot.upperLeftClaw.setPosition(0.3);
+                        robot.lowerRightClaw.setPosition(0.95);
+                        robot.lowerLeftClaw.setPosition(0.15);
                         releaseBlock = releaseBlockState.RESETENCODERS;
                         break;
                     case RESETENCODERS:

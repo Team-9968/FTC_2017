@@ -30,15 +30,20 @@ public class CF_Manual extends OpMode {
 
     double positionUpperRightClosed = 0.25;
     double positionUpperRightOpen = 0.75;
+    double positionUpperRightMiddle = 0.38;
 
     double positionUpperLeftClosed = 0.7;
     double positionUpperLeftOpen = 0.3;
+    double positionUpperLeftMiddle = 0.57;
 
     double positionLowerRightOpen = 0.95;
     double positionLowerRightClosed = 0.25;
+    double positionLowerRightMiddle = 0.38;
 
     double positionLowerLeftOpen = 0.15;
     double positionLowerLeftClosed = 0.75;
+    double positionLowerLeftMiddle = 0.62;
+
 
     double positionUpperRight = positionUpperRightOpen;
     double positionUpperLeft = positionUpperLeftOpen;
@@ -279,6 +284,14 @@ public class CF_Manual extends OpMode {
 //                botLeftClawPos = 0.9;
 //                break;
 //        }
+
+        if(!lastUp && up) {
+            positionUpperLeft = positionUpperLeftMiddle;
+            positionUpperRight = positionUpperRightMiddle;
+
+            positionLowerLeft = positionLowerLeftMiddle;
+            positionLowerRight = positionLowerRightMiddle;
+        }
 
         if(!lastLB && LB) {
             positionLowerLeft = positionLowerLeftOpen;

@@ -111,9 +111,9 @@ public class CF_OpenCV_Library {
         redMean = red / redSize;
         blueMean = blue / blueSize;
 
-        if (redMean > blueMean + 100) {
+        if (redMean > blueMean + 100 && blueMean != 0 && redMean != 0) {
             color = ballColor.RIGHTISRED;
-        } else if (blueMean > redMean + 100) {
+        } else if (blueMean > redMean + 100 && blueMean != 0 && redMean != 0) {
             color = ballColor.RIGHTISBLUE;
         } else {
             color = ballColor.UNKNOWN;

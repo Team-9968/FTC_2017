@@ -30,19 +30,19 @@ public class CF_Manual extends OpMode {
 
     double positionUpperRightClosed = 0.25;
     double positionUpperRightOpen = 0.75;
-    double positionUpperRightMiddle = 0.38;
+    double positionUpperRightMiddle = 0.43;
 
     double positionUpperLeftClosed = 0.7;
     double positionUpperLeftOpen = 0.3;
-    double positionUpperLeftMiddle = 0.57;
+    double positionUpperLeftMiddle = 0.52;
 
     double positionLowerRightOpen = 0.95;
     double positionLowerRightClosed = 0.25;
-    double positionLowerRightMiddle = 0.38;
+    double positionLowerRightMiddle = 0.43;
 
     double positionLowerLeftOpen = 0.15;
     double positionLowerLeftClosed = 0.75;
-    double positionLowerLeftMiddle = 0.62;
+    double positionLowerLeftMiddle = 0.57;
 
 
     double positionUpperRight = positionUpperRightOpen;
@@ -316,10 +316,18 @@ public class CF_Manual extends OpMode {
                 positionLowerLeft = positionLowerLeftClosed;
             }
 
+            if(positionLowerLeft == positionLowerLeftMiddle) {
+                positionLowerLeft = positionLowerLeftOpen;
+            }
+
             if(positionLowerRight == positionLowerRightClosed) {
                 positionLowerRight = positionLowerRightOpen;
             } else if(positionLowerRight == positionLowerRightOpen) {
                 positionLowerRight = positionLowerRightClosed;
+            }
+
+            if(positionLowerRight == positionLowerRightMiddle) {
+                positionLowerRight = positionLowerRightOpen;
             }
         }
 
@@ -330,10 +338,18 @@ public class CF_Manual extends OpMode {
                 positionUpperLeft = positionUpperLeftClosed;
             }
 
+            if(positionUpperLeft == positionUpperLeftMiddle) {
+                positionUpperLeft = positionUpperLeftOpen;
+            }
+
             if(positionUpperRight == positionUpperRightClosed) {
                 positionUpperRight = positionUpperRightOpen;
             } else if(positionUpperRight == positionUpperRightOpen) {
                 positionUpperRight = positionUpperRightClosed;
+            }
+
+            if(positionUpperRight == positionUpperRightMiddle) {
+                positionUpperRight = positionUpperRightOpen;
             }
         }
         robot.upperRightClaw.setPosition(positionUpperRight);

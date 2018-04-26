@@ -161,7 +161,7 @@ public class CF_Blue_Turn extends OpMode
                     case ARMDOWN:
                         servoIncrement -= 0.0025;
                         robot.colorArm.setPosition(servoIncrement);
-                        if(robot.isArmDown(0.11f)) {
+                        if(robot.isArmDown(0.08f)) {
                             jewelHitter = jewelHitterState.CHECKCOL;
                         }
                         break;
@@ -357,7 +357,7 @@ public class CF_Blue_Turn extends OpMode
                             pic = vuforia.getMark();
                         }
                         telemetry.addData("pic", pic);
-                        telemetry.update();
+                        //telemetry.update();
                         //1875 for far
                         //1500 for middle
                         //1250 for near
@@ -532,6 +532,6 @@ public class CF_Blue_Turn extends OpMode
                 break;
         }
         checkTime();
-        telemetry.update();
+        //telemetry.update();
     }
 }

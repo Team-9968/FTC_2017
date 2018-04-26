@@ -170,7 +170,7 @@ public class CF_Blue_Straight extends OpMode
                case ARMDOWN:
                   servoIncrement -= 0.0025;
                   robot.colorArm.setPosition(servoIncrement);
-                  if(robot.isArmDown(0.11f)) {
+                  if(robot.isArmDown(0.08f)) {
                      jewelHitter = jewelHitterState.CHECKCOL;
                   }
                   break;
